@@ -1,13 +1,52 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/myPage/myPage",
+    "pages/publishPage/publishPage"
   ],
   "window": {
-    "backgroundColor": "#fff",
+    "navigationBarTitleText": "农产品产销平台",
     "backgroundTextStyle": "light",
-    "navigationStyle":"custom"
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#B0B0B0",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home-bar.png",
+        "selectedIconPath": "images/home-bar-selected.png"
+      },
+      {
+        "pagePath": "pages/publishPage/publishPage",
+        "text": "发布",
+        "iconPath": "images/publish-bar.png",
+        "selectedIconPath": "images/publish-bar-selected.png"
+      },
+      {
+        "pagePath": "pages/myPage/myPage",
+        "text": "我的",
+        "iconPath": "images/my-bar.png",
+        "selectedIconPath": "images/my-bar-selected.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+      "van-cell-group": "./dist/cell-group/index",
+        "van-divider": "./dist/divider/index",
+        "van-field": "./dist/field/index",
+        "van-notice-bar": "./dist/notice-bar/index",
+        "van-tab": "./dist/tab/index",
+        "van-tabs": "./dist/tabs/index",
+        "van-dropdown-menu": "./dist/dropdown-menu/index",
+        "van-dropdown-item": "./dist/dropdown-item/index"
+  }
 }

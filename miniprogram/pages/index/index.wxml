@@ -1,43 +1,115 @@
-<!--index.wxml-->
-<view>
-  <view style="margin-top: {{menuPosition.top}}px; height: {{menuPosition.height}}px;line-height: {{menuPosition.height}}px;" class="page-title">小程序打开微信小店</view>
-  <view class="banner-container">
-    <image src="../../images/banner.png" mode="aspectFill" class="banner" />
+<!--pages/index/index.wxml-->
+<!-- 功能选项a -->
+<!-- <view class="select-box">
+	<view data-url="../../Companypackage/newHouse/newHouse" bindtap="Navigate">
+		<image src="../image/newHouse.png"></image>
+	</view>
+	<view data-url="../../Companypackage/secondHandHouse/secondHandHouse" bindtap="Navigate">
+		<image src="../image/secondHand.png"></image>
+	</view>
+	<view data-url="../../Companypackage/rentingHouse/rentingHouse" bindtap="Navigate">
+		<image src="../image/rentinghouse.png"></image>
+	</view>
+</view> -->
+
+<!-- 功能选项b -->
+<!-- <view class="header-box">
+	<view class="header-row">
+		<view class="header-cell" wx:for="{{headerList}}" wx:key='key' data-url="{{item.url}}" bindtap="Navigate">
+			<view>
+				<image src="{{item.icon}}"></image>
+			</view>
+			<view class="font-size-12 text-color">{{item.text}}</view>
+		</view>
+	</view>
+</view> -->
+
+<!-- bannner -->
+<view class="produce-card">
+  <view class="today-date">2024年12月3日</view>
+  <view class="marketing-data-container">
+    <view class="marketing-data-item">
+      <text class="marketing-label">生产数据</text>
+      <text class="marketing-value">{{produceData}}公斤</text>
+    </view>
+    <view class="card-divider"></view>
+    <view class="marketing-data-item">
+      <text class="marketing-label">销售数据</text>
+      <text class="marketing-value">{{sellData}}公斤</text>
+    </view>
   </view>
-  <view class="tabs">
-    <view class="tabs-header">
-      <view wx:for="{{menuItems}}" wx:key="key" class="{{selectedItemIndex===item.key?'tabs-header-item-selected':'tabs-header-item-normal'}}" data-key="{{item.key}}" bind:tap="onChangeTab">
-        {{item.title}}
+</view>
+
+<!-- 公告 -->
+<view class="noticeBar-box">
+	<van-notice-bar class="noticeBar" left-icon="volume-o" color="#181818;" backgroundColor="#ffffff" text="{{notice}}" />
+</view>
+
+<van-tabs active="{{seller}}" class="seller-and-buyertab" color="#40A2FF" title-active-color="#40A2FF">
+	<van-tab class="seller-tab" title='卖家数据' name="seller" >
+    <view class="marketing-table">
+      <view class="row header">
+        <text class="cell">合作社信息</text>
+        <text class="cell">产品</text>
+        <text class="cell">单价</text>
+        <text class="cell">产量</text>
+      </view>
+      <view class="row" wx:for="{{sellerData}}" wx:key="index">
+        <text class="cell">{{item.seller}}</text>
+        <text class="cell">{{item.product}}</text>
+        <text class="cell">{{item.price}}</text>
+        <text class="cell">{{item.amount}}</text>
       </view>
     </view>
-    <view class="tabs-body">
-      <block wx:if="{{selectedItemIndex===1}}">
-        <block wx:if="{{isPreview}}">
-          <image bind:tap="onOpenTipsModal" src="../../images/shop_home.png" mode="widthFix" style="width: 100%;"></image>
-        </block>
-        <block wx:else>
-          <view wx:if="{{storeList.length===0}}" class="empty-tip">
-            暂无小店信息，可前往<text bind:tap="onOpenTipsModal" style="text-decoration: underline;color: #0052D9;">云后台内容管理</text>进行配置
-          </view>
-          <block wx:for="{{storeList}}" wx:key="appid">
-            <store-home appid="{{item.appid}}"></store-home>
-          </block>
-        </block>
-      </block>
-      <block wx:if="{{selectedItemIndex===2}}">
-        <block wx:if="{{isPreview}}">
-          <image bind:tap="onOpenTipsModal" src="../../images/shop_product.png" mode="widthFix" style="width: 100%;">商品展示（预览数据）</image>
-        </block>
-        <block wx:else>
-          <view wx:if="{{productList.length===0}}" class="empty-tip">
-              暂无商品信息，可前往<text bind:tap="onOpenTipsModal" style="text-decoration: underline; color: #0052D9;">云后台内容管理</text>进行配置
-          </view>
-          <block wx:for="{{productList}}" wx:key="product_id">
-            <store-product appid="{{item.appid}}" product-id="{{item.product_id}}" product-promotion-link="{{item.product_promotion_link}}"></store-product>
-          </block>
-        </block>
-      </block>
+  </van-tab>
+  <van-tab class="buyer-bar" title="买家数据" name="buyer">
+    <view class="marketing-table">
+      <view class="row header">
+        <text class="cell">公司名称</text>
+        <text class="cell">产品</text>
+        <text class="cell">单价</text>
+        <text class="cell">产量</text>
+      </view>
+      <view class="row" wx:for="{{buyerData}}" wx:key="index">
+        <text class="cell">{{item.seller}}</text>
+        <text class="cell">{{item.product}}</text>
+        <text class="cell">{{item.price}}</text>
+        <text class="cell">{{item.amount}}</text>
+      </view>
     </view>
-  </view>
-  <tips-modal tipShow="{{tipShow}}" title="{{title}}" desc="{{desc}}" url="{{url}}"></tips-modal>
-</view>
+
+  </van-tab>
+</van-tabs>
+
+<!-- 推荐列表 -->
+<!-- <view class="recommendation-list-box" wx:for="{{HouseList}}" wx:key='key' data-url="{{item.url}}" data-id="{{item._id}}" bindtap="NavigateToDetail">
+      <view class="card">
+        <view class="card-left">
+          <image mode="scaleToFill" src="{{item.photoInfo[0]}}"></image>
+          <view class="card-tag-box card-tag card-tag-mark card-tag-bg">推荐</view>
+        </view>
+        <view class="card-right">
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-content-box">
+
+            <view class="card-content-box-row-top">
+              <view class="content-row">
+                <view class="float-left font-weight">{{item.FormData.roomStyle}} {{item.FormData.area}}㎡</view>
+                <view class="float-right price-text">{{item.FormData.totalPrice}}{{item.EntrustType=='sale'?'万':'元/月'}}</view>
+              </view>
+              <view class="content-row">
+                <view class="float-left text-grey">{{item.FormData.location}}</view>
+                <view class="float-right text-grey">{{item.EntrustType=='sale'?item.FormData.averagePrice:''}}{{item.EntrustType=='sale'?'元/㎡':''}}</view>
+              </view>
+            </view>
+
+            <view class="card-content-box-row-bottom">
+              <view class="content-tag bg-tag bg-cyan light" wx:for="{{item.FormData.Tags}}" wx:for-item="tag" wx:key='key'>{{tag}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+</view> -->
+
+<!-- 占位 -->
+<view style="height:20px;"></view>

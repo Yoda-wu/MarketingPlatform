@@ -1,39 +1,289 @@
-.page-title{
-  font-size: 19px;
-  font-weight: 500;
-  padding-left: 32rpx;
-}
-.banner-container{
-  display: flex;
-   justify-content: center; 
-   padding-top: 16px;
-    padding-bottom: 16px;
-}
-.banner{
-  width: 686rpx;
-  height: 240rpx;
-}
-.tabs{
-  padding-left: 32rpx;
-  padding-right: 32rpx;
-}
-.tabs-header{
-  display: flex;
-  justify-content: space-around;
-}
-.tabs-header-item-normal{
-  line-height: 43px; 
-}
-.tabs-header-item-selected{
-  line-height: 43px; 
-  border-bottom: 2px #0052D9 solid; 
-  color: #0052D9;
-}
-.tabs-body{
-  padding-top: 16px;
-}
-.empty-tip{
+/* pages/index/index.wxss */
+.select-box{
+  width: 100%;
+  display: inline-flex;
   text-align: center;
+  padding: 5px 0px;
+  background-color: #fff;
+}
+
+.select-box view{
+  width: 212rpx;
+  height: 197rpx;
+  margin-left: 28.5rpx;
+}
+
+.select-box image{
+  width: 212rpx;
+  height: 197rpx;
+}
+
+
+.header-box {
+  height: 70px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  background-color: #fff;
+}
+
+.header-row {
+  height: 50%;
+  margin-top: 8px;
+  /* background-color: honeydew; */
+}
+
+.header-cell {
+  width: 25%;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+  /* background-color: #b90fb1; */
+}
+
+.header-cell image {
+  width: 50px;
+  height: 50px;
+  /* background-color: #0f7bb9; */
+}
+
+.text-color {
+  color: #181818;
+}
+.produce-card {
+background-color: #59a8f1; /* 背景色 */
+border-radius: 10px; /* 圆角 */
+padding: 20rpx; /* 内边距 */
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.today-date {
+font-size: 28rpx; /* 字体大小 */
+color: #333; /* 字体颜色 */
+margin-bottom: 20rpx; /* 下边距 */
+}
+
+.marketing-data-container {
+display: flex;
+justify-content: space-evenly;
+width: 100%; /* 宽度 */
+}
+
+.marketing-data-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.marketing-label {
+font-size: 24rpx; /* 字体大小 */
+color: #FFF; /* 字体颜色 */
+}
+
+.marketing-value {
+font-size: 32rpx; /* 字体大小 */
+color: #000; /* 字体颜色 */
+margin-top: 10rpx; /* 上边距 */
+}
+
+.card-divider {
+width: 1px; /* 分隔线宽度 */
+height: 100rpx; /* 分隔线高度 */
+background-color: #FFF; /* 分隔线颜色 */
+margin: 0 20rpx; /* 分隔线与数据项的间隔 */
+}
+
+.marketing-table {
+display: flex;
+flex-direction: column;
+border: 1px solid #000; /* 表格边框 */
+background-color: #FFF;
+}
+
+.row {
+display: flex;
+border-bottom: 1px solid #000; /* 行分隔线 */
+}
+
+.row:active{
+background-color: #e0e0e0;
+}
+
+.header {
+font-weight: bold; /* 表头加粗 */
+}
+
+.cell {
+flex: 1; /* 单元格平分宽度 */
+padding: 10rpx; /* 单元格内边距 */
+text-align: center; /* 文本居中 */
+border-right: 1px solid #000; /* 单元格分隔线 */
+}
+
+/* 移除最后一个单元格的右边界 */
+.cell:last-child {
+border-right: none;
+}
+
+
+.banner-box {
+  height: 90px;
+  /* margin-top: 8px; */
+  text-align: center;
+  background-color: #40A2FF;
+  border-radius: 10px ;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top:5px;
+
+}
+
+.banner-box image {
+
+  width: 98%;
+  height: 70px;
+  margin-top: 10px;
+}
+
+.noticeBar-box {
+  height: 35px;
+  /* margin-top: 2px; */
+  background-color: greenyellow;
+}
+
+.recommendation-box {
+  height: 40px;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+.recommendation-text {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 8px;
+}
+
+.recommendation-list-box{
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #323233;
+  margin-top:5px;
+  background-color: #ffffff;
+}
+
+.card {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.card-left {
+  position: relative;
+  -webkit-box-flex: none;
+  flex: none;
+  width: 90px;
+  height: 90px;
+  margin-top: 10px;
+  margin-right: 8px;
+}
+
+.card-left image {
+  width: 100%;
+  height: 100%;
+}
+
+.card-right {
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 900;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 描述 */
+
+.card-content-box {
+  width: 100%;
+  height: 70px;
+  margin-top: 12px;
+  /* background-color: #ee0a24; */
+}
+
+.card-content-box-row-top {
+  width: 100%;
+  height: 40px;
+  /* background-color: #9e2260; */
+}
+
+.card-content-box-row-bottom {
+  width: 100%;
+  /* height: 30px; */
+  margin-top: 5px;
+  /* background-color: #c722bf; */
+}
+
+.content-row {
+  width: 100%;
+  height: 20px;
+  /* background-color: #19b9a4; */
+}
+
+/* 标签 */
+
+.bg-tag{
+  background-color:#F6F7FB;
+  color:#677EA8;
+}
+
+.price-text{
+  font-size: 14px;
+  color:#EB4340;
+}
+
+/* 左上角的标签 */
+
+.card-tag {
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  line-height: normal;
+  padding: 0.2em 0.5em;
+  color: #fff;
+  font-size: 10px;
+  border-radius: 0.2em;
+}
+
+.card-tag-box {
+  position: absolute;
+  top: 2px;
+  left: 0;
+}
+
+.card-tag:after {
+  border-color: currentColor;
+  border-radius: 0.2em * 2;
+}
+
+.card-tag-mark, .card-tag-mark:after {
+  border-radius: 0 999px 999px 0;
+}
+
+.card-tag-mark {
+  padding-right: 0.7em;
+}
+
+.card-tag-bg {
+  background-color: #ee0a24;
 }
