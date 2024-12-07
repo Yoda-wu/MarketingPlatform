@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-nav-bar": "../../dist/nav-bar/index"
+  },
+  "navigationStyle": "custom"
 }

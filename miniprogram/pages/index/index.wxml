@@ -47,34 +47,26 @@
 
 <van-tabs active="{{seller}}" class="seller-and-buyertab" color="#40A2FF" title-active-color="#40A2FF">
 	<van-tab class="seller-tab" title='卖家数据' name="seller" >
-    <view class="marketing-table">
-      <view class="row header">
-        <text class="cell">合作社信息</text>
-        <text class="cell">产品</text>
-        <text class="cell">单价</text>
-        <text class="cell">产量</text>
-      </view>
-      <view class="row" wx:for="{{sellerData}}" wx:key="index">
-        <text class="cell">{{item.seller}}</text>
-        <text class="cell">{{item.product}}</text>
-        <text class="cell">{{item.price}}</text>
-        <text class="cell">{{item.amount}}</text>
+    <view class="product-info" wx:for="{{sellerData}}" wx:key="index">
+    <image class="product-image" src="../../images/mushroom.jpg"></image>
+      <view class="product-details" >
+        <text class="product-company">{{item.seller}}</text>
+        <text class="product-name">{{item.product}}</text>
+        <text class="product-quantity">数量:{{item.amount}}</text>
+        <text class="product-price">预期价格：{{item.price}}</text>
+        <text class="product-price">发布时间：2024.12.1</text>
       </view>
     </view>
   </van-tab>
   <van-tab class="buyer-bar" title="买家数据" name="buyer">
-    <view class="marketing-table">
-      <view class="row header">
-        <text class="cell">公司名称</text>
-        <text class="cell">产品</text>
-        <text class="cell">单价</text>
-        <text class="cell">产量</text>
-      </view>
-      <view class="row" wx:for="{{buyerData}}" wx:key="index">
-        <text class="cell">{{item.seller}}</text>
-        <text class="cell">{{item.product}}</text>
-        <text class="cell">{{item.price}}</text>
-        <text class="cell">{{item.amount}}</text>
+    <view class="product-info" wx:for="{{buyerData}}" wx:key="index">
+    <image class="product-image" src="../../images/mushroom.jpg"></image>
+      <view class="product-details" >
+        <text class="product-company">{{item.seller}}</text>
+        <text class="product-name">{{item.product}}</text>
+        <text class="product-quantity">数量:{{item.amount}}</text>
+        <text class="product-price">预期价格：{{item.price}}</text>
+        <text class="product-price">发布时间：2024.12.1</text>
       </view>
     </view>
 

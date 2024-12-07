@@ -185,7 +185,7 @@ page {
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
-    text-align: right;
+    text-align: left;
 }
 
 .cu-form-group picker::after {

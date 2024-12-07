@@ -2,7 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/myPage/myPage",
-    "pages/publishPage/publishPage"
+    "pages/publishPage/publishPage",
+    "pages/login/login",
+    "pages/publishDetailPage/publishDetailPage",
+    "pages/publishProductPage/publishProductPage",
+    "pages/publishRequirePage/publishRequirePage"
   ],
   "window": {
     "navigationBarTitleText": "农产品产销平台",
@@ -40,13 +44,13 @@
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
   "usingComponents": {
-      "van-cell-group": "./dist/cell-group/index",
-        "van-divider": "./dist/divider/index",
-        "van-field": "./dist/field/index",
-        "van-notice-bar": "./dist/notice-bar/index",
-        "van-tab": "./dist/tab/index",
-        "van-tabs": "./dist/tabs/index",
-        "van-dropdown-menu": "./dist/dropdown-menu/index",
-        "van-dropdown-item": "./dist/dropdown-item/index"
+    "van-cell-group": "./dist/cell-group/index",
+    "van-divider": "./dist/divider/index",
+    "van-field": "./dist/field/index",
+    "van-notice-bar": "./dist/notice-bar/index",
+    "van-tab": "./dist/tab/index",
+    "van-tabs": "./dist/tabs/index",
+    "van-dropdown-menu": "./dist/dropdown-menu/index",
+    "van-dropdown-item": "./dist/dropdown-item/index"
   }
 }
