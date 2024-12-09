@@ -1,17 +1,11 @@
-// pages/myPage/myPage.js
-var app = getApp()
+// pages/myInfoPage/myInfoPage.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    UserLogin: false
-  },
-  NavigateToLogin(e) {
-    wx.navigateTo({
-      url: '../login/login',
-    })
+
   },
 
   /**
@@ -32,18 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    app.IsLogon()
 
-    console.log(app.globalData)
-    // 全局变量
-    let globalData = app.globalData
-    let userInfo = globalData.userInfo
-    userInfo['phone'] = userInfo['phone'].replace(userInfo['phone'].substring(3, 7), "****")
-    console.log('UserLogin', globalData.UserLogin)
-    this.setData({
-      UserLogin: globalData.UserLogin,
-      userInfo: userInfo
-    })
   },
 
   /**

@@ -4,9 +4,10 @@
     "pages/myPage/myPage",
     "pages/publishPage/publishPage",
     "pages/login/login",
-    "pages/publishDetailPage/publishDetailPage",
     "pages/publishProductPage/publishProductPage",
-    "pages/publishRequirePage/publishRequirePage"
+    "pages/publishRequirePage/publishRequirePage",
+    "pages/myInfoPage/myInfoPage",
+    "pages/productManagePage/productManagePage"
   ],
   "window": {
     "navigationBarTitleText": "农产品产销平台",

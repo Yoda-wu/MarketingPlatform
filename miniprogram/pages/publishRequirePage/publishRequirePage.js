@@ -30,8 +30,8 @@ Page({
     },
     {
         'id': 'area',
-        'title': '期望价格(单位:元):',
-        'placeholder': '请填您期望的价格数目',
+        'title': '产品价格（单位:元）:',
+        'placeholder': '请填写产品价格',
         'type': 'digit',
         'maxlength': 20
     },

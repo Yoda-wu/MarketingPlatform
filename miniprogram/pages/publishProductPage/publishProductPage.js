@@ -29,8 +29,8 @@ Page({
   },
   {
       'id': 'area',
-      'title': '产品价格（元）:',
-      'placeholder': '请填写产品的售价',
+      'title': '预期价格（单位:元）:',
+      'placeholder': '请填写产品的预期价格',
       'type': 'digit',
       'maxlength': 20
   },

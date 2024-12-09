@@ -17,15 +17,30 @@ Page({
     isRegister: false
   },
   // 导航到注册界面
-  NavigateToRegister(e){
-    console.log('before',this.isRegister)
+  NavigateToRegister(e) {
+    console.log('before', this.isRegister)
     this.setData({
-      isRegister:true
+      isRegister: true
     })
-    console.log('after',this.isRegister)
+    console.log('after', this.isRegister)
   },
+
+  InputData(e) {
+    console.log(e, e.currentTarget.id, e.detail.value)
+    let userInfo = this.data.userInfo
+    let id = e.currentTarget.id
+    let value = e.detail.value
+    userInfo[id] = value
+    this.setData({
+      userInfo
+    })
+  },
+
+
+
+
   // 提交注册账户信息
-  SubmitRegister(e){
+  SubmitFarmerRegister(e) {
     // 保存
     wx.showLoading({
       mask: true,
@@ -33,43 +48,166 @@ Page({
     })
     // 执行存储逻辑
     // 合作社注册逻辑——入库
-    // 销售商注册逻辑——入库，状态设置为待审核
-    setTimeout(function(){
-      wx.hideLoading()
-      wx.showToast({
-        title: '恭喜,注册成功！',
-        icon: 'none',
-        duration: 1000
-      })
-    }, 300 )
-    wx.switchTab({
-      url: '../index/index',
-    }) 
+    let userInfo = this.data.userInfo
+    let account = userInfo['account']
+    let password = userInfo['password']
+    let name = userInfo['name']
+    let company_name = userInfo['company_name']
+    let legal_name = userInfo['legal_name']
+    let phone = userInfo['phone']
+    let license = userInfo['license']
+    let avatarUrl = userInfo['avatarUrl']
+    let type = 'farmer'
+    const dbName = 'UserList'
+    wx.cloud.callFunction({
+      name: 'queryUser',
+      data: {
+        account: account,
+        password: '',
+        type: 'NORMAL'
+      },
+      success: (res) => {
+        console.log('res', res)
+        let result = res.result.data
+
+        if (result.length) {
+          wx.showToast({
+            title: '账号已存在，请去登录或者更换账户',
+            icon: 'none',
+            duration: 3000
+          })
+        } else {
+          let db = wx.cloud.database()
+          db.collection(dbName).add({
+            data: {
+              account: account,
+              password: password,
+              name: name,
+              company_name: company_name,
+              legal_name: legal_name,
+              phone: phone,
+              license: license,
+              type: type,
+              avatarUrl: avatarUrl
+            },
+            success: (res) => {
+              if (res.errMsg == 'collection.add:ok') {
+                wx.hideLoading()
+                wx.showToast({
+                  title: '恭喜,注册成功！',
+                  icon: 'none',
+                  duration: 1000
+                })
+                wx.setStorageSync('userInfo', userInfo)
+                wx.switchTab({
+                  url: '../index/index',
+                })
+              } else {
+                wx.showToast({
+                  title: '网络错误，注册失败，请检查网络后重试！',
+                  icon: 'none',
+                  duration: 1000
+                })
+              }
+            },
+            fail: (res) => {
+              wx.hideLoading()
+              console.log('register farmer err', err)
+            }
+          })
+        }
+      }
+    })
+
+
   },
-  SubmitLogin(e){
+  SubmitLogin(e) {
     wx.showLoading({
       mask: true,
       title: '正在登录...',
     })
+    let userInfo = this.data.userInfo
     // 执行读取逻辑
-    // 验证账号密码是否正确
-    setTimeout(function(){
-      wx.hideLoading()
-      wx.showToast({
-        title: '恭喜,登录成功！',
-        icon: 'none',
-        duration: 800
-      })
-    }, 300 )
-    wx.switchTab({
-      url: '../index/index',
-    }) 
+    let that = this
+    wx.cloud.callFunction({
+      name: 'queryUser',
+      data: {
+        account: userInfo.account,
+        password: userInfo.password,
+        type: 'LOGIN'
+      },
+      success: res => {
+        wx.hideLoading()
+        console.log('res', res)
+        let result = res.result.data
+
+        if (result.length) {
+          userInfo['openId'] = result[0]._openid
+          userInfo['name'] = result[0].name
+          userInfo['phone'] = result[0].phone
+          userInfo['company_name'] = result[0].company_name
+          userInfo['legal_name'] = result[0].legal_name
+          userInfo['type'] = result[0].type
+          userInfo['avatarUrl'] = result[0].type
+          userInfo['password'] = ""
+          that.setData({
+            userInfo
+          })
+          wx.hideLoading()
+          wx.showToast({
+            title: '恭喜,登录成功！',
+            icon: 'none',
+            duration: 800
+          })
+          wx.setStorageSync('userInfo', userInfo)
+          wx.switchTab({
+            url: '../index/index',
+          })
+        } else {
+          wx.showToast({
+            title: '账户密码错误！',
+            icon: 'none',
+            duration: 2500,
+            mask: true,
+          })
+        }
+      }
+
+    })
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let that = this
+    wx.getUserInfo({
+      success: (res) => {
+        console.log(res)
+        let userInfo = res.userInfo
+        var nickName = userInfo.nickName
+        var avatarUrl = userInfo.avatarUrl
+        var gender = userInfo.gender //性别 0：未知、1：男、2：女
+        var province = userInfo.province
+        var city = userInfo.city
+        var country = userInfo.country
+        var userData = {
+          'userInfo': userInfo,
+          'nickName': nickName,
+          'avatarUrl': avatarUrl,
+          'gender': gender,
+          'province': province,
+          'city': city,
+          'country': country,
+          // 'phone':'',
+          // 'name':'',
+        }
+        that.setData({
+          userInfo: userData
+        })
+      }
+    }
+    )
   },
 
   /**

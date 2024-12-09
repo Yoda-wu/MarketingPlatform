@@ -1,40 +1,47 @@
 <!--pages/login/login.wxml-->
 <!-- wx:if="{{showform&!showAuth}}" -->
-<view >
-	<van-nav-bar title="注册账号" left-text="返回首页" bind:click-left="onClickLeft" />
+<view>
+  <van-nav-bar title="注册账号" left-text="返回首页" bind:click-left="onClickLeft" />
 </view>
 
 <!-- wx:if="{{showform&!showAuth}}" -->
 <van-tabs active="{{buyer}}" class="seller-and-buyertab" color="#40A2FF" title-active-color="#40A2FF" wx:if="{{isRegister}}">
-	<van-tab class="seller-tab" title='注册合作社' name="seller" >
+  <van-tab class="seller-tab" title='注册合作社' name="seller">
     <view class="form-box">
       <!-- 输入框 -->
       <view class="cu-form-group border-top-left-radius">
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>账号：</text>
         </view>
-        <input placeholder="输入你的真实姓名" class='radius' id="name" type="text" maxlength='5' style='color:#0080ff;' bindinput="InputData"></input>
+        <input placeholder="输入你的账户" class='radius' id="account" type="text" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
       </view>
       <!-- 输入框 -->
       <view class="cu-form-group">
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>密码：</text>
         </view>
-        <input placeholder="输入你的密码" class='radius' id="phone" type="safe-password" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
+        <input placeholder="输入你的密码" class='radius' id="password" type="password" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
+      </view>
+      <!-- 输入框 -->
+      <view class="cu-form-group">
+        <view class='title'>
+          <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>姓名：</text>
+        </view>
+        <input placeholder="输入你的真实姓名" class='radius' id="name" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
       </view>
       <!-- 输入框 -->
       <view class="cu-form-group">
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>公司名称：</text>
         </view>
-        <input placeholder="输入你的公司名称" class='radius' id="phone" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
+        <input placeholder="输入你的公司名称" class='radius' id="company_name" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
       </view>
       <!-- 输入框 -->
       <view class="cu-form-group">
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>法人姓名：</text>
         </view>
-        <input placeholder="请输入公司法人姓名" class='radius' id="phone" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
+        <input placeholder="请输入公司法人姓名" class='radius' id="legal_name" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
       </view>
       <!-- 输入框 -->
       <view class="cu-form-group">
@@ -48,23 +55,23 @@
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>大棚数量：</text>
         </view>
-        <input placeholder="请输入合作社大棚数量" class='radius' id="phone" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
+        <input placeholder="请输入合作社大棚数量" class='radius' id="greenhouses" type="number" maxlength='11' style='color:#0080ff;' bindinput="InputData"></input>
       </view>
       <view class="cu-form-group">
-      <view class='title'>
-        <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>营业执照：</text>
-      </view>
-      <view class="grid col-4 grid-square flex-sub">
-        <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
-          <image src='{{imgList[index]}}' mode='aspectFill'></image>
-          <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
-            <text class="cuIcon-close"></text>
+        <view class='title'>
+          <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>营业执照：</text>
+        </view>
+        <view class="grid col-4 grid-square flex-sub">
+          <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
+            <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+              <text class="cuIcon-close"></text>
+            </view>
+          </view>
+          <view class="solids" bindtap="ChooseImage">
+            <text class="cuIcon-cameraadd"></text>
           </view>
         </view>
-        <view class="solids" bindtap="ChooseImage">
-          <text class="cuIcon-cameraadd"></text>
-        </view>
-      </view>
       </view>
       <!-- <view class="cu-form-group">
       <view class='title'>
@@ -90,7 +97,7 @@
       </view>
       <!-- 按钮 -->
       <view class="cu-form-group" style="margin-top:10px;">
-        <button class="cu-btn" style="background-color:#1989fa;color:#ffffff;" bindtap="SubmitRegister">注 册</button>
+        <button class="cu-btn" style="background-color:#1989fa;color:#ffffff;" bindtap="SubmitFarmerRegister">注 册</button>
       </view>
     </view>
   </van-tab>
@@ -149,32 +156,32 @@
           </view>
         </picker>
       </view> -->
-      <view class="cu-form-group margin-top padding-right-30rpx"   wx:key='input'>
+      <view class="cu-form-group margin-top padding-right-30rpx" wx:key='input'>
         <view class='title'>
           <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>销售区域：</text>
         </view>
         <picker mode='region' level="province" bindchange="changeRegion" value="{{region}}" data-pickerlist="{{regions}}" range="{{regions}}">
-          <view class="picker select-color" >
+          <view class="picker select-color">
             {{region==''? '请选择':region}}
           </view>
         </picker>
       </view>
       <!-- 上传营业执照 -->
       <view class="cu-form-group">
-      <view class='title'>
-        <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>营业执照：</text>
-      </view>
-      <view class="grid col-4 grid-square flex-sub">
-        <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
-          <image src='{{imgList[index]}}' mode='aspectFill'></image>
-          <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
-            <text class="cuIcon-close"></text>
+        <view class='title'>
+          <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>营业执照：</text>
+        </view>
+        <view class="grid col-4 grid-square flex-sub">
+          <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
+            <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+              <text class="cuIcon-close"></text>
+            </view>
+          </view>
+          <view class="solids" bindtap="ChooseImage">
+            <text class="cuIcon-cameraadd"></text>
           </view>
         </view>
-        <view class="solids" bindtap="ChooseImage">
-          <text class="cuIcon-cameraadd"></text>
-        </view>
-      </view>
       </view>
       <!-- 上传照片 -->
       <!-- <view class="cu-form-group" style="padding-left:5px;">
@@ -196,10 +203,10 @@
       </view>
       <!-- 按钮 -->
       <view class="cu-form-group" style="margin-top:10px;">
-        <button class="cu-btn" style="background-color:#1989fa;color:#ffffff;" bindtap="SubmitRegister">注 册</button>
+        <button class="cu-btn" style="background-color:#1989fa;color:#ffffff;" bindtap="SubmitSellerRegister">注 册</button>
       </view>
     </view>
- 
+
 
   </van-tab>
 </van-tabs>
@@ -213,28 +220,27 @@
 <!-- <view class="auth-box" wx:if="{{showAuth}}">
 	<view class="card-box">
 		<view class="card-content"> -->
-      <!-- <button  lang="zh_CN"  bind:tap="onGotUserInfo">确 定</button> -->
-       <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">确 定</button>  -->
-		<!-- </view>
+<!-- <button  lang="zh_CN"  bind:tap="onGotUserInfo">确 定</button> -->
+<!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">确 定</button>  -->
+<!-- </view>
 		<image src='../image/modal.png'></image>
 	</view>
 </view>  -->
 
 <view class="login-container" wx:if="{{!isRegister}}">
-    <view class="input-item">
-      <image class="icon" src="../../images/account.png"></image>  
-      <input class="input" type="text" placeholder="请输入账号" />
+  <view class="input-item">
+    <image class="icon" src="../../images/account.png"></image>
+    <input class="input" id="account" type="text" placeholder="请输入账号" bindinput="InputData" />
+  </view>
+  <view class="input-item">
+    <image class="icon" src="../../images/password.png">密码</image>
+    <input class="input" id='password' type="password" placeholder="密码" bindinput="InputData" />
+  </view>
+  <button class="login-button" bind:tap="SubmitLogin">登 录</button>
+  <view class="options">
+    <view class="register">
+      <view>还没有账号？</view>
+      <view class="register-link" bind:tap="NavigateToRegister">注册</view>
     </view>
-    <view class="input-item">
-      <image class="icon" src="../../images/password.png">密码</image>  
-      <input class="input" type="password" placeholder="密码" />
-    </view>
-    <button class="login-button" bind:tap="SubmitLogin">登 录</button>
-    <view class="options">
-      <view class="register">
-        <view>还没有账号？</view>
-        <view class="register-link" bind:tap="NavigateToRegister">注册</view>
-      </view>
-    </view>
+  </view>
 </view>
-

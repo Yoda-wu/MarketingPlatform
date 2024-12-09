@@ -60,7 +60,7 @@ align-items: center;
 
 .today-date {
 font-size: 28rpx; /* 字体大小 */
-color: #333; /* 字体颜色 */
+color: #FFF; /* 字体颜色 */
 margin-bottom: 20rpx; /* 下边距 */
 }
 
@@ -83,7 +83,7 @@ color: #FFF; /* 字体颜色 */
 
 .marketing-value {
 font-size: 32rpx; /* 字体大小 */
-color: #000; /* 字体颜色 */
+color: #FFF; /* 字体颜色 */
 margin-top: 10rpx; /* 上边距 */
 }
 

@@ -25,7 +25,7 @@
 	</view>
 	<view class="userlogin">
 		<view style="font-weight:bold;">欢迎,{{userInfo.name}}</view>
-		<view class="font-size-12" style="color:grey;">{{userInfo.nickName}} {{userInfo.phone}}</view>
+		<view class="font-size-12" style="color:grey;">{{userInfo.phone}}</view>
 	</view>
 </view>
 
