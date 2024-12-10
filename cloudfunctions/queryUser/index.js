@@ -47,6 +47,9 @@ exports.main = async (event, context) => {
       type: true,
       avatarUrl: true,
       account: true,
+      greenHouses: true,
+      company_address: true,
+      rating: true
     }).get()
   }
 

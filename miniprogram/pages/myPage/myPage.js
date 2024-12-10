@@ -13,7 +13,27 @@ Page({
       url: '../login/login',
     })
   },
+  Navigate(e) {
 
+    console.log(e, e.currentTarget.dataset.url,)
+    let url = e.currentTarget.dataset.url
+    let userLogin = this.data.UserLogin
+    let userInfo = this.data.userInfo
+    console.log(userInfo)
+    if (userLogin) {
+      wx.navigateTo({
+        url: url,
+      })
+    } else {
+      // 提示登录
+      wx.showToast({
+        title: '你还未登录，请先登录！',
+        icon: 'none',
+        duration: 2500,
+        mask: true,
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -4,11 +4,21 @@
 /* pages/mypage/mypage.wxss */
 
 ::v-deep .van-nav-bar__title {
-  font-size: 18px; /* 设置字体大小 */
-  font-weight: bold; /* 设置字体加粗 */
-  color: #333; /* 设置字体颜色 */
+  font-size: 18px;
+  /* 设置字体大小 */
+  font-weight: bold;
+  /* 设置字体加粗 */
+  color: #333;
+  /* 设置字体颜色 */
 }
 
+.rating {
+  background-color: rgb(95, 198, 245);
+  border-radius: 30px;
+  color: #fff;
+  padding: 6rpx;
+  font-size: small;
+}
 
 .bg-box {
   width: 100%;
@@ -16,7 +26,7 @@
   z-index: 1;
 }
 
-.bg-box image{
+.bg-box image {
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -39,7 +49,8 @@
   margin-left: 10px;
   float: left;
   border-radius: 50%;
-  overflow: hidden; /*确保图像不会超出页面*/
+  overflow: hidden;
+  /*确保图像不会超出页面*/
   box-sizing: border-box;
 }
 

@@ -57,6 +57,8 @@ Page({
     let phone = userInfo['phone']
     let license = userInfo['license']
     let avatarUrl = userInfo['avatarUrl']
+    let greenHouses = userInfo['greenHouses']
+    let company_address = userInfo['company_address']
     let type = 'farmer'
     const dbName = 'UserList'
     wx.cloud.callFunction({
@@ -88,7 +90,10 @@ Page({
               phone: phone,
               license: license,
               type: type,
-              avatarUrl: avatarUrl
+              avatarUrl: avatarUrl,
+              greenHouses: greenHouses,
+              company_address: company_address,
+              rating: 5.0
             },
             success: (res) => {
               if (res.errMsg == 'collection.add:ok') {
@@ -121,6 +126,8 @@ Page({
 
 
   },
+
+
   SubmitLogin(e) {
     wx.showLoading({
       mask: true,
@@ -148,7 +155,10 @@ Page({
           userInfo['company_name'] = result[0].company_name
           userInfo['legal_name'] = result[0].legal_name
           userInfo['type'] = result[0].type
-          userInfo['avatarUrl'] = result[0].type
+          userInfo['avatarUrl'] = result[0].avatarUrl
+          userInfo['company_address'] = result[0].company_address
+          userInfo['greenHouses'] = result[0].greenHouses
+          userInfo['rating'] = result[0].rating
           userInfo['password'] = ""
           that.setData({
             userInfo

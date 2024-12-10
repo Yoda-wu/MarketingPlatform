@@ -5,14 +5,55 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    FarmerUserInfoList: [
+      {
+        'key': '公司名称',
+        'id': 'company_name',
+        'value': 'xxx'
+      },
+      {
+        'key': '公司地址',
+        'id': 'company_address',
+        'value': 'xxx'
+      },
+      {
+        'key': '法人代表',
+        'id': 'legal_name',
+        'value': 'xxx'
+      },
+      {
+        'key': '联系方式',
+        'id': 'phone',
+        'value': 'xxx'
+      },
+      {
+        'key': '大棚数量',
+        'id': 'greenhouses',
+        'value': 'xxx'
+      }
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const FARMER = 'farmer'
+    let userInfo = wx.getStorageSync('userInfo')
+    console.log(userInfo)
+    if (userInfo.type == FARMER) {
+      let title = '合作社信息'
 
+      let FarmerUserInfoList = this.data.FarmerUserInfoList
+      FarmerUserInfoList.forEach((item) => {
+        item['value'] = userInfo[item['id']]
+      })
+      this.setData({
+        title: title,
+        userInfo: userInfo,
+        FarmerUserInfoList: FarmerUserInfoList
+      })
+    }
   },
 
   /**
