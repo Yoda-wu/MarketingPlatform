@@ -31,6 +31,11 @@ exports.main = async (event, context) => {
       type: true,
       avatarUrl: true,
       account: true,
+      greenHouses: true,
+      company_address: true,
+      sale_scope: true,
+      bussiness_scope: true,
+      rating: true
     }).get()
   }
   // 普通查询
@@ -49,6 +54,8 @@ exports.main = async (event, context) => {
       account: true,
       greenHouses: true,
       company_address: true,
+      sale_scope: true,
+      bussiness_scope: true,
       rating: true
     }).get()
   }

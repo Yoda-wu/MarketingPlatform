@@ -24,7 +24,17 @@ Page({
     })
     console.log('after', this.isRegister)
   },
-
+  changeRegion(e) {
+    console.log(e)
+    let sale_scope = e.detail.value[0]
+    let id = 'sale_scope'
+    let userInfo = this.data.userInfo
+    userInfo[id] = sale_scope
+    this.setData({
+      userInfo: userInfo,
+      region: sale_scope
+    })
+  },
   InputData(e) {
     console.log(e, e.currentTarget.id, e.detail.value)
     let userInfo = this.data.userInfo
@@ -35,9 +45,6 @@ Page({
       userInfo
     })
   },
-
-
-
 
   // 提交注册账户信息
   SubmitFarmerRegister(e) {
@@ -60,6 +67,7 @@ Page({
     let greenHouses = userInfo['greenHouses']
     let company_address = userInfo['company_address']
     let type = 'farmer'
+    userInfo['type'] = type
     const dbName = 'UserList'
     wx.cloud.callFunction({
       name: 'queryUser',
@@ -126,6 +134,93 @@ Page({
 
 
   },
+  SubmitSellerRegister(e) {
+    // 保存
+    wx.showLoading({
+      mask: true,
+      title: '正在保存...',
+    })
+    // 执行存储逻辑
+    // 合作社注册逻辑——入库
+    let userInfo = this.data.userInfo
+    let account = userInfo['account']
+    let password = userInfo['password']
+    let name = userInfo['name']
+    let company_name = userInfo['company_name']
+    let legal_name = userInfo['legal_name']
+    let phone = userInfo['phone']
+    let license = userInfo['license']
+    let avatarUrl = userInfo['avatarUrl']
+    let sale_scope = userInfo['sale_scope']
+    let bussiness_scope = userInfo['bussiness_scope']
+    let company_address = userInfo['company_address']
+    let type = 'seller'
+    userInfo['type'] = type
+    const dbName = 'UserList'
+    wx.cloud.callFunction({
+      name: 'queryUser',
+      data: {
+        account: account,
+        password: '',
+        type: 'NORMAL'
+      },
+      success: (res) => {
+        console.log('res', res)
+        let result = res.result.data
+
+        if (result.length) {
+          wx.showToast({
+            title: '账号已存在，请去登录或者更换账户',
+            icon: 'none',
+            duration: 3000
+          })
+        } else {
+          let db = wx.cloud.database()
+          db.collection(dbName).add({
+            data: {
+              account: account,
+              password: password,
+              name: name,
+              company_name: company_name,
+              legal_name: legal_name,
+              phone: phone,
+              license: license,
+              type: type,
+              avatarUrl: avatarUrl,
+              sale_scope: sale_scope,
+              company_address: company_address,
+              bussiness_scope: bussiness_scope,
+              rating: 5.0
+            },
+            success: (res) => {
+              if (res.errMsg == 'collection.add:ok') {
+                wx.hideLoading()
+                wx.showToast({
+                  title: '恭喜,注册成功！',
+                  icon: 'none',
+                  duration: 1000
+                })
+                wx.setStorageSync('userInfo', userInfo)
+                wx.switchTab({
+                  url: '../index/index',
+                })
+              } else {
+                wx.showToast({
+                  title: '网络错误，注册失败，请检查网络后重试！',
+                  icon: 'none',
+                  duration: 1000
+                })
+              }
+            },
+            fail: (res) => {
+              wx.hideLoading()
+              console.log('register farmer err', err)
+            }
+          })
+        }
+      }
+    })
+  },
 
 
   SubmitLogin(e) {
@@ -159,6 +254,8 @@ Page({
           userInfo['company_address'] = result[0].company_address
           userInfo['greenHouses'] = result[0].greenHouses
           userInfo['rating'] = result[0].rating
+          userInfo['bussiness_scope'] = result[0].bussiness_scope
+          userInfo['sale_scope'] = result[0].sale_scope
           userInfo['password'] = ""
           that.setData({
             userInfo
@@ -209,8 +306,6 @@ Page({
           'province': province,
           'city': city,
           'country': country,
-          // 'phone':'',
-          // 'name':'',
         }
         that.setData({
           userInfo: userData

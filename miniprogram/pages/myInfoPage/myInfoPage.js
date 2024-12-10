@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title: '',
+    showFarmer: false,
+    showSeller: false,
     FarmerUserInfoList: [
       {
         'key': '公司名称',
@@ -31,6 +34,38 @@ Page({
         'id': 'greenhouses',
         'value': 'xxx'
       }
+    ],
+    SellerUserInfoList: [
+      {
+        'key': '公司名称',
+        'id': 'company_name',
+        'value': 'xxx'
+      },
+      {
+        'key': '公司地址',
+        'id': 'company_address',
+        'value': 'xxx'
+      },
+      {
+        'key': '法人代表',
+        'id': 'legal_name',
+        'value': 'xxx'
+      },
+      {
+        'key': '联系方式',
+        'id': 'phone',
+        'value': 'xxx'
+      },
+      {
+        'key': '主营范围',
+        'id': 'bussiness_scope',
+        'value': 'xxx'
+      },
+      {
+        'key': '主营范围',
+        'id': 'sale_scope',
+        'value': 'xxx'
+      }
     ]
   },
 
@@ -51,7 +86,20 @@ Page({
       this.setData({
         title: title,
         userInfo: userInfo,
-        FarmerUserInfoList: FarmerUserInfoList
+        FarmerUserInfoList: FarmerUserInfoList,
+        showFarmer: true
+      })
+    } else {
+      let title = '销售商信息'
+      let SellerUserInfoList = this.data.SellerUserInfoList
+      SellerUserInfoList.forEach((item) => {
+        item['value'] = userInfo[item['id']]
+      })
+      this.setData({
+        title: title,
+        userInfo: userInfo,
+        SellerUserInfoList: SellerUserInfoList,
+        showSeller: true
       })
     }
   },

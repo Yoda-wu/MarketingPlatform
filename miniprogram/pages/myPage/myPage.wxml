@@ -29,7 +29,7 @@
     <view class="font-size-12" style="color:grey;">{{userInfo.phone}}</view>
 
     <view class="rating">
-      <van-icon name="award-o" />信誉分数: 5.0
+      <van-icon name="award-o" />信誉分数: {{userInfo.rating}}
     </view>
   </view>
 </view>
