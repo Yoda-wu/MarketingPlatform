@@ -4,16 +4,8 @@ const models = client.models
 Page({
   data: {
     menuPosition: wx.getMenuButtonBoundingClientRect(),
-    menuItems: [
-      {
-        key: 1,
-        title: "小店管理"
-      },
-      {
-        key: 2,
-        title: "商品管理"
-      }
-    ],
+    notice:'欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
+
     selectedItemIndex: 1,
     tipShow:false,
     title:"",
@@ -23,7 +15,31 @@ Page({
     storeList:[],
     storeTotal:0,
     productList:[],
-    productTotal:0
+    productTotal:0,
+    sellData: 200,
+    produceData: 300,
+    farmerData: [
+      { name: '合作社A', product: '蘑菇', price: '8.00元/斤', amount: '100斤' },
+      { name: '合作社B', product: '蘑菇', price: '8.10元/斤', amount: '60斤' },
+      { name: '合作社C', product: '蘑菇', price: '8.20元/斤', amount: '50斤' },
+      { name: '合作社D', product: '蘑菇', price: '7.90元/斤', amount: '110斤' },
+      { name: '合作社E', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+      { name: '合作社F', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+      { name: '合作社G', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+      { name: '合作社H', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+      { name: '合作社I', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+    ],
+    sellerData: [
+      { name: '公司A', product: '蘑菇', price: '8.00元/斤', amount: '10斤' },
+      { name: '公司B', product: '蘑菇', price: '8.10元/斤', amount: '6斤' },
+      { name: '公司C', product: '蘑菇', price: '8.20元/斤', amount: '5斤' },
+      { name: '公司D', product: '蘑菇', price: '7.90元/斤', amount: '10斤' },
+      { name: '公司E', product: '蘑菇', price: '7.80元/斤', amount: '20斤' },
+      { name: '公司F', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
+      { name: '公司G', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
+      { name: '公司H', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
+      { name: '公司I', product: '蘑菇', price: '7.80元/斤', amount: '20斤' },
+    ]
   },
   async onLoad(){
     try{

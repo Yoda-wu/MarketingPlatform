@@ -1,13 +1,39 @@
 // pages/myPage/myPage.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    UserLogin: false
   },
+  NavigateToLogin(e) {
+    wx.navigateTo({
+      url: '../login/login',
+    })
+  },
+  Navigate(e) {
 
+    console.log(e, e.currentTarget.dataset.url,)
+    let url = e.currentTarget.dataset.url
+    let userLogin = this.data.UserLogin
+    let userInfo = this.data.userInfo
+    console.log(userInfo)
+    if (userLogin) {
+      wx.navigateTo({
+        url: url,
+      })
+    } else {
+      // 提示登录
+      wx.showToast({
+        title: '你还未登录，请先登录！',
+        icon: 'none',
+        duration: 2500,
+        mask: true,
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,7 +52,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    app.IsLogon()
 
+    console.log(app.globalData)
+    // 全局变量
+    let globalData = app.globalData
+    let userInfo = globalData.userInfo
+    userInfo['phone'] = userInfo['phone'].replace(userInfo['phone'].substring(3, 7), "****")
+    console.log('UserLogin', globalData.UserLogin)
+    this.setData({
+      UserLogin: globalData.UserLogin,
+      userInfo: userInfo
+    })
   },
 
   /**

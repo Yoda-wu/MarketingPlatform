@@ -1,4 +1,4 @@
-// pages/publishpage/publishPage.js
+// pages/productManagePage/productManagePage.js
 Page({
 
   /**
@@ -6,24 +6,6 @@ Page({
    */
   data: {
 
-  },
-
-  NavigateToPages(e){
-    let url = e.currentTarget.dataset.url
-    let id = e.currentTarget.dataset.id
-    let title = e.currentTarget.dataset.title
-    let backgroundcolor = e.currentTarget.dataset.backgroundcolor
-
-    console.log(e, url, id, title)
-    wx.navigateTo({
-      url: `${url}?id=${id}&title=${title}&backgroundcolor=${backgroundcolor}`,
-      success: function (res) {
-          console.log('res', res)
-      },
-      fail: function (err) {
-          console.log('err', err)
-      }
-    })
   },
 
   /**

@@ -1,0 +1,70 @@
+.container {
+  background-color: #FFFFFF;
+  /* 白色背景 */
+  padding: 20rpx;
+  /* 内边距 */
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  /* 外边距，与屏幕边缘的间隔 */
+  border-radius: 10rpx 0;
+  /* 圆角 */
+  /* align-items: flex-start; */
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.info-header-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-title {
+  font-style: 32rpx;
+  /* font-weight: bold; */
+  color: rgb(100, 201, 248);
+
+  margin-bottom: 20rpx;
+  flex: auto;
+}
+
+.info-content-box {
+  background-color: #FFFFFF;
+  align-items: flex-start;
+  /* 白色背景 */
+  padding: 20rpx;
+  /* 内边距 */
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 40rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333;
+  margin-right: 30rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.license-image {
+  width: 200rpx;
+  /* 根据需要调整 */
+  height: 200rpx;
+  /* 根据需要调整 */
+  margin-left: 20rpx;
+  /* 图片与文本的间隔 */
+}
