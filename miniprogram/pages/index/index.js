@@ -51,21 +51,39 @@ Page({
     const _ = db.command
     db.collection(requireDBName).where({
       status: _.lt(2)
-    }).skip((page - 1) * pageSize).limit(pageSize).get({
+    }).skip((page) * pageSize).limit(pageSize).get({
       success: res => {
-        this.setData({
-          sellerData: [...that.data.sellerData, ...res.data] // 合并新旧数据
-        });
+        if (page == 0) {
+          this.setData({
+            sellerData: res.data
+          })
+        } else {
+          this.setData({
+            sellerData: [...that.data.sellerData, ...res.data] // 合并新旧数据
+          });
+        }
       }
     });
   },
-  onReachBottom(e) {
+  onReachProductBottom(e) {
     console.log(e, 'hello')
-    let page = this.data.page
+    let product_page = this.data.page + 1
     let pageSize = this.data.pageSize
-    console.log(page + 1, pageSize)
-    this.getProductList(page + 1, 10)
-    console.log(page, pageSize)
+    console.log(product_page, pageSize)
+    this.getProductList(product_page, 10)
+    this.setData({
+      product_page: product_page
+    })
+  },
+  onReachRequireBottom(e) {
+    console.log(e, 'hello')
+    let require_page = this.data.page + 1
+    let pageSize = this.data.pageSize
+    console.log(require_page, pageSize)
+    this.getProductList(require_page, 10)
+    this.setData({
+      require_page: require_page
+    })
   },
   getTotalCount(dbName) {
     const db = wx.cloud.database()
@@ -93,7 +111,8 @@ Page({
     try {
       console.log('on load')
       that.setData({
-        page: 0,
+        product_page: 0,
+        require_page: 0,
         pageSize: 10,
         page_show_time: page_show_time
       })
@@ -105,9 +124,10 @@ Page({
   onShow() {
     wx.showToast({
       title: '',
+      duration: 500,
     })
     this.getProductList(0, 10)
-    wx.hideLoading()
+    this.getRequireList(0, 10)
 
   }
 });

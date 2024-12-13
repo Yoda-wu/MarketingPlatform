@@ -46,7 +46,12 @@ Page({
       userInfo
     })
   },
-
+  ViewImage(e) {
+    //TODO 
+  },
+  ChooseImage(e) {
+    //TODO 
+  },
   // 提交注册账户信息
   SubmitFarmerRegister(e) {
     // 保存
@@ -256,6 +261,7 @@ Page({
         let result = res.result.data
 
         if (result.length) {
+          userInfo['id'] = result[0].id
           userInfo['openId'] = result[0]._openid
           userInfo['name'] = result[0].name
           userInfo['phone'] = result[0].phone

@@ -23,6 +23,7 @@ exports.main = async (event, context) => {
       'account': account,
       'password': password
     }).field({
+      id: true,
       _id: true,
       _openid: true,
       name: true,
