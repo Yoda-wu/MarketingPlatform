@@ -14,7 +14,6 @@ Page({
     })
   },
   Navigate(e) {
-
     console.log(e, e.currentTarget.dataset.url,)
     let url = e.currentTarget.dataset.url
     let userLogin = this.data.UserLogin
@@ -33,6 +32,29 @@ Page({
         mask: true,
       })
     }
+  },
+  SwitchAccount() {
+    this.setData({
+      UserLogin: false,
+      userInfo: {}
+    })
+    app.globalData.UserLogin = false
+    wx.clearStorage()
+    wx.navigateTo({
+      url: '../login/login',
+    })
+  },
+  Logout() {
+    this.setData({
+      UserLogin: false,
+      userInfo: {}
+    })
+    app.globalData.UserLogin = false
+    wx.clearStorage()
+    wx.showToast({
+      title: '您已退出账号',
+      duration: 1500,
+    })
   },
   /**
    * 生命周期函数--监听页面加载

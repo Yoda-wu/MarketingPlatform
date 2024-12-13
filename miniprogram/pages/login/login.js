@@ -1,4 +1,5 @@
 // pages/login/login.js
+var app = getApp()
 Page({
 
   /**
@@ -268,6 +269,7 @@ Page({
           userInfo['bussiness_scope'] = result[0].bussiness_scope
           userInfo['sale_scope'] = result[0].sale_scope
           userInfo['password'] = ""
+          app.globalData.UserLogin = true
           that.setData({
             userInfo
           })

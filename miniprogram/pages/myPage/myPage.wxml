@@ -79,13 +79,13 @@
 		</view>
 		<view class="content-text font-size-14">清除记录</view>
 	</view> -->
-  <view class="content-row" wx:if="{{UserLogin}}">
+  <view class="content-row" wx:if="{{UserLogin}}" bind:tap="SwitchAccount">
     <view class="content-icon float-left">
       <image src="../../images/switch_user.png"></image>
     </view>
     <view class="content-text font-size-14">切换账号</view>
   </view>
-  <view class="content-row" wx:if="{{UserLogin}}">
+  <view class="content-row" wx:if="{{UserLogin}}" bindtap="Logout">
     <view class="content-icon float-left">
       <image src="../../images/longout.png"></image>
     </view>
