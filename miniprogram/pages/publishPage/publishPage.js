@@ -8,7 +8,16 @@ Page({
 
   },
 
-  NavigateToPages(e){
+  NavigateToPages(e) {
+    let isForbit = false
+    if (isForbit) {
+      wx.showToast({
+        title: '你现在被管理员禁言了，请向管理员申请解禁',
+        mask: true,
+        duration: 20000
+      })
+      return
+    }
     let url = e.currentTarget.dataset.url
     let id = e.currentTarget.dataset.id
     let title = e.currentTarget.dataset.title
@@ -18,10 +27,10 @@ Page({
     wx.navigateTo({
       url: `${url}?id=${id}&title=${title}&backgroundcolor=${backgroundcolor}`,
       success: function (res) {
-          console.log('res', res)
+        console.log('res', res)
       },
       fail: function (err) {
-          console.log('err', err)
+        console.log('err', err)
       }
     })
   },
@@ -30,7 +39,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let userInfo = wx.getStorageSync('userInfo')
+    let isForbit = false
+    if (userInfo['status'] == 2) {
+      isForbit = true
+    }
+    this.setData({
+      userInfo: userInfo,
+      isForbit: isForbit
+    })
   },
 
   /**

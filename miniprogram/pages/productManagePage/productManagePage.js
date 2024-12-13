@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    products: [
+      { name: '苹果', icon: '../../images/mushroom.jpg', stock: 100, totalSales: 20, todayProduction: 10, todaySales: 5 },
+      { name: '梨', icon: '../../images/mushroom.jpg', stock: 100, totalSales: 20, todayProduction: 10, todaySales: 5 }
+    ]
   },
 
   /**

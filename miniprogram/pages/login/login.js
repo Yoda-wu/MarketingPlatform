@@ -57,6 +57,8 @@ Page({
     // 合作社注册逻辑——入库
     let userInfo = this.data.userInfo
     let account = userInfo['account']
+    let id = `${account}_${Date.now()}`
+    userInfo['id'] = id
     let password = userInfo['password']
     let name = userInfo['name']
     let company_name = userInfo['company_name']
@@ -67,7 +69,9 @@ Page({
     let greenHouses = userInfo['greenHouses']
     let company_address = userInfo['company_address']
     let type = 'farmer'
+    let status = 0 // 0： 正常 1：被举报 2：禁言
     userInfo['type'] = type
+    userInfo['status'] = status
     const dbName = 'UserList'
     wx.cloud.callFunction({
       name: 'queryUser',
@@ -90,6 +94,7 @@ Page({
           let db = wx.cloud.database()
           db.collection(dbName).add({
             data: {
+              id: id,
               account: account,
               password: password,
               name: name,
@@ -101,6 +106,7 @@ Page({
               avatarUrl: avatarUrl,
               greenHouses: greenHouses,
               company_address: company_address,
+              status: status,
               rating: 5.0
             },
             success: (res) => {
@@ -144,6 +150,8 @@ Page({
     // 合作社注册逻辑——入库
     let userInfo = this.data.userInfo
     let account = userInfo['account']
+    let id = `${account}_${Date.now()}`
+    userInfo['id'] = id
     let password = userInfo['password']
     let name = userInfo['name']
     let company_name = userInfo['company_name']
@@ -155,6 +163,7 @@ Page({
     let bussiness_scope = userInfo['bussiness_scope']
     let company_address = userInfo['company_address']
     let type = 'seller'
+    let status = 0
     userInfo['type'] = type
     const dbName = 'UserList'
     wx.cloud.callFunction({
@@ -178,6 +187,7 @@ Page({
           let db = wx.cloud.database()
           db.collection(dbName).add({
             data: {
+              id: id,
               account: account,
               password: password,
               name: name,
@@ -190,6 +200,7 @@ Page({
               sale_scope: sale_scope,
               company_address: company_address,
               bussiness_scope: bussiness_scope,
+              status: status,
               rating: 5.0
             },
             success: (res) => {

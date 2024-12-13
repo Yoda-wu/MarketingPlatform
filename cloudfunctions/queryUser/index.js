@@ -23,6 +23,7 @@ exports.main = async (event, context) => {
       'account': account,
       'password': password
     }).field({
+      _id: true,
       _openid: true,
       name: true,
       phone: true,
@@ -35,6 +36,7 @@ exports.main = async (event, context) => {
       company_address: true,
       sale_scope: true,
       bussiness_scope: true,
+      status: true,
       rating: true
     }).get()
   }

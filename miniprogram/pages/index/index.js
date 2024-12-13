@@ -4,96 +4,110 @@ const models = client.models
 Page({
   data: {
     menuPosition: wx.getMenuButtonBoundingClientRect(),
-    notice:'欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
+    notice: '欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
 
     selectedItemIndex: 1,
-    tipShow:false,
-    title:"",
-    desc:"",
-    url:"",
-    isPreview:false,
-    storeList:[],
-    storeTotal:0,
-    productList:[],
-    productTotal:0,
-    sellData: 200,
-    produceData: 300,
     farmerData: [
-      { name: '合作社A', product: '蘑菇', price: '8.00元/斤', amount: '100斤' },
-      { name: '合作社B', product: '蘑菇', price: '8.10元/斤', amount: '60斤' },
-      { name: '合作社C', product: '蘑菇', price: '8.20元/斤', amount: '50斤' },
-      { name: '合作社D', product: '蘑菇', price: '7.90元/斤', amount: '110斤' },
-      { name: '合作社E', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
-      { name: '合作社F', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
-      { name: '合作社G', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
-      { name: '合作社H', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
-      { name: '合作社I', product: '蘑菇', price: '7.80元/斤', amount: '120斤' },
+
     ],
     sellerData: [
-      { name: '公司A', product: '蘑菇', price: '8.00元/斤', amount: '10斤' },
-      { name: '公司B', product: '蘑菇', price: '8.10元/斤', amount: '6斤' },
-      { name: '公司C', product: '蘑菇', price: '8.20元/斤', amount: '5斤' },
-      { name: '公司D', product: '蘑菇', price: '7.90元/斤', amount: '10斤' },
-      { name: '公司E', product: '蘑菇', price: '7.80元/斤', amount: '20斤' },
-      { name: '公司F', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
-      { name: '公司G', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
-      { name: '公司H', product: '蘑菇', price: '7.80元/斤', amount: '10斤' },
-      { name: '公司I', product: '蘑菇', price: '7.80元/斤', amount: '20斤' },
+
     ]
   },
-  async onLoad(){
-    try{
-      wx.showLoading({
-        title: '',
+  getProductDetail(e) {
+    console.log(e)
+  },
+
+  getProductList(page, pageSize) {
+    let prodcutDBName = 'Product'
+    this.getTotalCount(prodcutDBName)
+    console.log('getProductList', page, pageSize)
+    let that = this
+    const db = wx.cloud.database();
+    const _ = db.command
+    db.collection(prodcutDBName).where({
+      status: _.lt(2)
+    }).skip((page) * pageSize).limit(pageSize).get({
+      success: res => {
+        console.log(res)
+        if (page == 0) {
+          this.setData({
+            farmerData: res.data
+          })
+        } else {
+          this.setData({
+            farmerData: [...that.data.farmerData, ...res.data] // 合并新旧数据
+          });
+        }
+
+      }
+    });
+  },
+  getRequireList(page, pageSize) {
+    let requireDBName = 'Require'
+    this.getTotalCount(requireDBName)
+    let that = this
+    const db = wx.cloud.database();
+    const _ = db.command
+    db.collection(requireDBName).where({
+      status: _.lt(2)
+    }).skip((page - 1) * pageSize).limit(pageSize).get({
+      success: res => {
+        this.setData({
+          sellerData: [...that.data.sellerData, ...res.data] // 合并新旧数据
+        });
+      }
+    });
+  },
+  onReachBottom(e) {
+    console.log(e, 'hello')
+    let page = this.data.page
+    let pageSize = this.data.pageSize
+    console.log(page + 1, pageSize)
+    this.getProductList(page + 1, 10)
+    console.log(page, pageSize)
+  },
+  getTotalCount(dbName) {
+    const db = wx.cloud.database()
+    let that = this
+    const _ = db.command
+    db.collection(dbName).where({
+      status: _.lt(2)
+    }).count({
+      success: res => {
+        if (dbName == 'Product') {
+          that.setData({
+            productTotal: res.total
+          })
+        }
+        if (dbName == 'Require') {
+          that.setData({
+            requireTotal: res.total
+          })
+        }
+      }
+    })
+  },
+  onLoad() {
+    let that = this
+    try {
+      console.log('on load')
+      that.setData({
+        page: 0,
+        pageSize: 10,
+        page_show_time: page_show_time
       })
-      // 查询店铺首页了列表
-      const {data:{records:storeList,total:storeTotal}}  = await models.store_home_3bzb1t4.list({
-        filter: {
-          where: {}
-        },
-        pageSize: 10, // 分页大小，建议指定，如需设置为其它值，需要和 pageNumber 配合使用，两者同时指定才会生效
-        pageNumber: 1, // 第几页
-        getCount: true, // 开启用来获取总数
-      });
-      // 查询商品列表
-      const {data:{records:productList,total:productTotal}}  = await models.store_product_zh57lp5.list({
-        filter: {
-          where: {}
-        },
-        pageSize: 10, // 分页大小，建议指定，如需设置为其它值，需要和 pageNumber 配合使用，两者同时指定才会生效
-        pageNumber: 1, // 第几页
-        getCount: true, // 开启用来获取总数
-      });
+    } catch (e) {
       wx.hideLoading()
-      this.setData({
-        storeList,
-        storeTotal,
-        productList,
-        productTotal,
-        isPreview:false,
-        title:"使用云模板管理微信小店",
-        desc:"您已成功配置后台数据，可以打开下方地址对微信小店及商品进行增删改查等数据管理，配置后的数据将同步到该模板",
-        url:"https://tcb.cloud.tencent.com/cloud-admin?_jump_source=wxide_mp2store#/management/content-mgr/index"
-      })
-    }catch(e){
-      wx.hideLoading()
-      this.setData({
-        isPreview:true,
-        title:"使用云模板快速接入微信小店",
-        desc:"当前为体验数据，切换为真实数据请复制下方链接并在浏览器中打开，帮您快速接入微信小店，管理小店及商品数据",
-        url:"https://tcb.cloud.tencent.com/cloud-template/detail?appName=wx_shop&from=wxide_mp2store"
-      })
     }
   },
-  onChangeTab(e) {
-    const {key}=e.target.dataset
-    this.setData({
-      selectedItemIndex:key
+
+  onShow() {
+    wx.showToast({
+      title: '',
     })
-  },
-  onOpenTipsModal(){
-    this.setData({
-      tipShow:true
-    })
+    this.getProductList(0, 10)
+    wx.hideLoading()
+
   }
 });
