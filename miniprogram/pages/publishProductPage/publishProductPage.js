@@ -25,7 +25,7 @@ Page({
       'id': 'capacity',
       'title': '供应能力（箱）:',
       'placeholder': '请填写供应产品多少',
-      'type': 'text',
+      'type': 'digit',
       'maxlength': 50
     },
     {
@@ -77,7 +77,7 @@ Page({
     })
     let productInfo = this.data.productInfo
     console.log(productInfo)
-    const dbName = 'Product'
+    const dbName = 'PublishList'
     let user_id = productInfo['user_id']
     let product_id = `product_${user_id}_${Date.now()}`
     let company_name = productInfo['company_name']
@@ -88,6 +88,7 @@ Page({
     let date = new Date(Date.now())
     let publish_time = date.toLocaleString()
     let status = 0 // 0： 正常 1：联系中 2：已成交
+    let type = 0 // 0: 产品 1：需求
     let db = wx.cloud.database()
     db.collection(dbName).add({
       data: {
@@ -99,7 +100,8 @@ Page({
         status: status,
         prices: prices,
         picture: picture,
-        publish_time: publish_time
+        publish_time: publish_time,
+        type: type
       },
       success: (res) => {
         wx.hideLoading()

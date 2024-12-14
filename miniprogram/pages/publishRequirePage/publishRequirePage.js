@@ -25,7 +25,7 @@ Page({
       'id': 'capacity',
       'title': '需求大小（箱）:',
       'placeholder': '请填写您需要购买的数量',
-      'type': 'text',
+      'type': 'digit',
       'maxlength': 50
     },
     {
@@ -74,7 +74,7 @@ Page({
     })
     let requireInfo = this.data.requireInfo
     console.log(requireInfo)
-    const dbName = 'Require'
+    const dbName = 'PublishList'
     let user_id = requireInfo['user_id']
     let require_id = `product_${user_id}_${Date.now()}`
     let company_name = requireInfo['company_name']
@@ -85,6 +85,7 @@ Page({
     let date = new Date(Date.now())
     let publish_time = date.toLocaleString()
     let status = 0 // 0： 正常 1：联系中 2：已成交
+    let type = 1 // 0: 产品 1：需求
     let db = wx.cloud.database()
     db.collection(dbName).add({
       data: {
@@ -96,7 +97,8 @@ Page({
         status: status,
         prices: prices,
         picture: picture,
-        publish_time: publish_time
+        publish_time: publish_time,
+        type: type
       },
       success: (res) => {
         wx.hideLoading()
@@ -106,6 +108,13 @@ Page({
         })
         wx.switchTab({
           url: '../index/index',
+        })
+      },
+      fail: (res) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络不好',
+          duration: 1000,
         })
       }
 

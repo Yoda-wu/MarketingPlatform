@@ -19,14 +19,14 @@ Page({
   },
 
   getProductList(page, pageSize) {
-    let prodcutDBName = 'Product'
+    let prodcutDBName = 'PublishList'
     this.getTotalCount(prodcutDBName)
     console.log('getProductList', page, pageSize)
     let that = this
     const db = wx.cloud.database();
     const _ = db.command
     db.collection(prodcutDBName).where({
-      status: _.lt(2)
+      type: 0
     }).skip((page) * pageSize).limit(pageSize).get({
       success: res => {
         console.log(res)
@@ -44,13 +44,13 @@ Page({
     });
   },
   getRequireList(page, pageSize) {
-    let requireDBName = 'Require'
+    let requireDBName = 'PublishList'
     this.getTotalCount(requireDBName)
     let that = this
     const db = wx.cloud.database();
     const _ = db.command
     db.collection(requireDBName).where({
-      status: _.lt(2)
+      type: 1
     }).skip((page) * pageSize).limit(pageSize).get({
       success: res => {
         if (page == 0) {

@@ -74,7 +74,7 @@ Page({
     let avatarUrl = userInfo['avatarUrl']
     let greenHouses = userInfo['greenHouses']
     let company_address = userInfo['company_address']
-    let type = 'farmer'
+    let type = 0 // 0：种植户 1：小说是 2：管理员
     let status = 0 // 0： 正常 1：被举报 2：禁言
     userInfo['type'] = type
     userInfo['status'] = status
@@ -168,8 +168,8 @@ Page({
     let sale_scope = userInfo['sale_scope']
     let bussiness_scope = userInfo['bussiness_scope']
     let company_address = userInfo['company_address']
-    let type = 'seller'
-    let status = 0
+    let type = 1
+    let status = 0 // 0： 正常 1：账户审核中 2：禁言
     userInfo['type'] = type
     const dbName = 'UserList'
     wx.cloud.callFunction({
