@@ -1,10 +1,11 @@
 <!--pages/entrust/entrustHome.wxml-->
 <view class='margin-top'></view>
-<view class="padding-xs" bindtap='NavigateToPages' data-id="sale" data-backgroundcolor="#48c0f2" data-title="发布产品" data-url="../publishProductPage/publishProductPage">
+<view class="padding-xs" bindtap='NavigateToPages' data-id="product" data-backgroundcolor="#48c0f2" data-title="发布产品" data-url="../publishProductPage/publishProductPage">
     <image class="img" id='img{{index}}' src="../../images/publish_product.png" mode="widthFix" />
 </view>
 
 <view class='margin-top'></view>
-<view class="padding-xs" bindtap='NavigateToPages' data-id="rentout" data-backgroundcolor="#48c0f2" data-title="发布x需求委托" data-url="../publishRequirePage/publishRequirePage">
+<view class="padding-xs" bindtap='NavigateToPages' data-id="require" data-backgroundcolor="#48c0f2" data-title="发布x需求委托" data-url="../publishRequirePage/publishRequirePage">
     <image class="img" id='img{{index}}' src="../../images/publish_demand.png" mode="widthFix" />
 </view>
+

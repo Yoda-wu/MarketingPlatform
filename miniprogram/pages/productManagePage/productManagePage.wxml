@@ -1,5 +1,5 @@
-<van-tabs active="{{total}}" class="product-manage" color="#40A2FF" title-active-color="#40A2FF">
-  <van-tab class="total-tab" title='汇总' name="total">
+<van-tabs active="{{require}}" class="product-manage" color="#40A2FF" title-active-color="#40A2FF">
+  <van-tab class="total-tab" title='汇总' name="total" wx:if="{{userInfo.type==0}}">
     <view class="product-info" wx:for="{{products}}" wx:key="index">
       <view class='product-header'>
         <text class="product-name">{{item.name}}</text>
@@ -21,12 +21,40 @@
           </view>
         </view>
       </view>
-      <button class='edit-btn' bindtap='EditProduct'>编 辑</button>
+      <!-- <button class='edit-btn' bindtap='EditProduct'>编 辑</button> -->
     </view>
 
   </van-tab>
-  <van-tab class="total-tab" title='供应量' name="supply">
+  <van-tab class="total-tab" title='供应记录' name="supply" wx:if="{{userInfo.type==0}}">
+    <scroll-view scroll-y="true" bindscrolltolower='onReachRequireBottom'>
+      <view class="supply-info" wx:for="{{supplyData}}" wx:key="index" bindTap="NavigateToProductDetail">
+        <image class="supply-image" src="{{item.picture}}"></image>
+        <view class="supply-details">
+          <text class="supply-company">{{item.company_name}}</text>
+          <text class="supply-name">产品：{{item.product_name}}</text>
+          <text class="supply-quantity">数量：{{item.capacity}}箱</text>
+          <text class="supply-price">预期价格：{{item.prices}}元/箱</text>
+          <text class="supply-price">发布时间：{{item.publish_time}}</text>
+        </view>
+      </view>
+    </scroll-view>
   </van-tab>
-  <van-tab class="total-tab" title='供应量' name="make-deal">
+  <van-tab class="total-tab" title='需求记录' name="require" wx:if="{{userInfo.type==1}}">
+    <scroll-view scroll-y="true" bindscrolltolower='onReachRequireBottom'>
+      <view class="supply-info" wx:for="{{requireData}}" wx:key="index" bindTap="NavigateToProductDetail">
+        <image class="supply-image" src="{{item.picture}}"></image>
+        <view class="supply-details">
+          <text class="supply-company">{{item.company_name}}</text>
+          <text class="supply-name">产品：{{item.product_name}}</text>
+          <text class="supply-quantity">数量：{{item.capacity}}箱</text>
+          <text class="supply-price">预期价格：{{item.prices}}元/箱</text>
+          <text class="supply-price">发布时间：{{item.publish_time}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </van-tab>
+  <van-tab class="total-tab" title='成交记录' name="make-deal" wx:if="{{userInfo.type==1}}">
+  </van-tab>
+  <van-tab class="total-tab" title='成交记录' name="make-deal" wx:if="{{userInfo.type==0}}">
   </van-tab>
 </van-tabs>

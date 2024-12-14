@@ -79,8 +79,8 @@ Page({
     let require_id = `product_${user_id}_${Date.now()}`
     let company_name = requireInfo['company_name']
     let product_name = requireInfo['product_name']
-    let capacity = requireInfo['capacity']
-    let prices = requireInfo['prices']
+    let capacity = parseInt(requireInfo['capacity'])
+    let prices = parseFloat(requireInfo['prices'])
     let picture = '../../images/mushroom.jpg'
     let date = new Date(Date.now())
     let publish_time = date.toLocaleString()

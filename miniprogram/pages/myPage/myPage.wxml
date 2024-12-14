@@ -52,12 +52,19 @@
     <view class="content-text font-size-14">个人信息</view>
   </view>
 
-  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate">
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==0}}">
     <view class="content-icon float-left">
       <image src="../../images/product_manage.png"></image>
     </view>
     <!-- <view class="content-text font-size-14">我的收藏</view> -->
     <view class="content-text font-size-14">产品管理</view>
+  </view>
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==1}}">
+    <view class="content-icon float-left">
+      <image src="../../images/product_manage.png"></image>
+    </view>
+    <!-- <view class="content-text font-size-14">我的收藏</view> -->
+    <view class="content-text font-size-14">需求管理</view>
   </view>
 </view>
 

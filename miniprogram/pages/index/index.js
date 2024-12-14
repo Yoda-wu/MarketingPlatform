@@ -5,7 +5,8 @@ Page({
   data: {
     menuPosition: wx.getMenuButtonBoundingClientRect(),
     notice: '欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
-
+    produceData: 400,
+    sellData: 200,
     selectedItemIndex: 1,
     farmerData: [
 
@@ -27,7 +28,7 @@ Page({
     const _ = db.command
     db.collection(prodcutDBName).where({
       type: 0
-    }).skip((page) * pageSize).limit(pageSize).get({
+    }).skip((page) * pageSize).limit(pageSize).orderBy('timestamp', 'desc').get({
       success: res => {
         console.log(res)
         if (page == 0) {
@@ -122,10 +123,6 @@ Page({
   },
 
   onShow() {
-    wx.showToast({
-      title: '',
-      duration: 500,
-    })
     this.getProductList(0, 10)
     this.getRequireList(0, 10)
 

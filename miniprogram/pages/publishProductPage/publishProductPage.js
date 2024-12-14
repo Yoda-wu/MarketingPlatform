@@ -25,14 +25,14 @@ Page({
       'id': 'capacity',
       'title': '供应能力（箱）:',
       'placeholder': '请填写供应产品多少',
-      'type': 'digit',
+      'type': 'number',
       'maxlength': 50
     },
     {
       'id': 'prices',
       'title': '预期价格（单位:元/箱）:',
       'placeholder': '请填写产品的预期价格',
-      'type': 'digit',
+      'type': 'number',
       'maxlength': 20
     },
     {
@@ -79,13 +79,14 @@ Page({
     console.log(productInfo)
     const dbName = 'PublishList'
     let user_id = productInfo['user_id']
-    let product_id = `product_${user_id}_${Date.now()}`
+    let timestamp = Date.now()
+    let product_id = `product_${user_id}_${timestamp}`
     let company_name = productInfo['company_name']
     let product_name = productInfo['product_name']
-    let capacity = productInfo['capacity']
-    let prices = productInfo['prices']
+    let capacity = parseInt(productInfo['capacity'])
+    let prices = parseFloat(roductInfo['prices'])
     let picture = '../../images/mushroom.jpg'
-    let date = new Date(Date.now())
+    let date = new Date(timestamp)
     let publish_time = date.toLocaleString()
     let status = 0 // 0： 正常 1：联系中 2：已成交
     let type = 0 // 0: 产品 1：需求
@@ -101,6 +102,7 @@ Page({
         prices: prices,
         picture: picture,
         publish_time: publish_time,
+        timestamp: timestamp,
         type: type
       },
       success: (res) => {

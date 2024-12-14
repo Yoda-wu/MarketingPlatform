@@ -30,12 +30,12 @@
   <view class="marketing-data-container">
     <view class="marketing-data-item">
       <text class="marketing-label">生产数据</text>
-      <text class="marketing-value">{{produceData}}公斤</text>
+      <text class="marketing-value">{{produceData}}箱</text>
     </view>
     <view class="card-divider"></view>
     <view class="marketing-data-item">
       <text class="marketing-label">销售数据</text>
-      <text class="marketing-value">{{sellData}}公斤</text>
+      <text class="marketing-value">{{sellData}}箱</text>
     </view>
   </view>
 </view>
@@ -53,8 +53,8 @@
         <view class="product-details">
           <text class="product-company">{{item.company_name}}</text>
           <text class="product-name">产品：{{item.product_name}}</text>
-          <text class="product-quantity">数量：{{item.capacity}}</text>
-          <text class="product-price">预期价格：{{item.prices}}</text>
+          <text class="product-quantity">数量：{{item.capacity}}箱</text>
+          <text class="product-price">预期价格：{{item.prices}}元/箱</text>
           <text class="product-price">发布时间：{{item.publish_time}}</text>
         </view>
       </view>
@@ -67,8 +67,8 @@
         <view class="product-details">
           <text class="product-company">{{item.company_name}}</text>
           <text class="product-name">产品：{{item.product_name}}</text>
-          <text class="product-quantity">数量：{{item.capacity}}</text>
-          <text class="product-price">预期价格：{{item.prices}}</text>
+          <text class="product-quantity">数量：{{item.capacity}}箱</text>
+          <text class="product-price">预期价格：{{item.prices}}元/箱</text>
           <text class="product-price">发布时间：{{item.publish_time}}</text>
         </view>
       </view>
