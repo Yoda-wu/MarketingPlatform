@@ -12,8 +12,8 @@
     <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>上传产品封面：</text>
   </view>
   <view class="grid col-4 grid-square flex-sub">
-    <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
-      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+    <view class="bg-img" wx:for="{{pictures}}" wx:key="index" bindtap="ViewImage" data-url="{{pictures[index]}}">
+      <image src='{{pictures[index]}}' mode='aspectFill'></image>
       <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
         <text class="cuIcon-close"></text>
       </view>

@@ -50,7 +50,8 @@ Page({
       'maxlength': 11
     }
     ],
-    productInfo: {}
+    productInfo: {},
+    pictures: []
 
   },
   InputData(e) {
@@ -64,10 +65,87 @@ Page({
     })
   },
   ViewImage(e) {
-    //TODO 
+    console.log(e.currentTarget.dataset.url)
+    console.log(this.data.pictures)
+    console.log
+    wx.previewImage({
+      urls: this.data.pictures,
+      current: e.currentTarget.dataset.url
+    });
+  },
+  DelImg(e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除这张照片吗？',
+      cancelText: '取消',
+      confirmText: '确定',
+      success: res => {
+        if (res.confirm) {
+          let pictures = []
+          this.setData({
+            pictures: pictures
+          })
+        }
+      }
+    })
+  },
+  getFileExtension(filename) {
+    // 查找最后一个点的位置
+    const lastIndex = filename.lastIndexOf('.');
+    // 如果没有找到点或者点是文件名的最后一个字符，则没有后缀名
+    if (lastIndex === -1 || lastIndex === filename.length - 1) {
+      return '';
+    }
+    // 截取并返回后缀名
+    return filename.substring(lastIndex + 1);
+  },
+  async uploadImage(image_path) {
+    let that = this
+    let pictures = this.data.pictures
+    let file_extension = this.getFileExtension(image_path)
+    wx.cloud.uploadFile({
+      cloudPath: `product/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
+      filePath: image_path, // 微信本地文件，通过选择图片，聊天文件等接口获取
+      config: {
+        env: 'schoolmap-7gbh91vx48c69c86' // 需要替换成自己的微信云托管环境ID
+      },
+      success: res => {
+        console.log(res.fileID)
+        pictures = [res.fileID]
+        console.log(pictures)
+        that.setData({
+          pictures: pictures
+        })
+        wx.showToast({
+          title: '上传成功',
+          duration: 500,
+        })
+      },
+      fail: err => {
+        console.error(err)
+      }
+    })
   },
   ChooseImage(e) {
     //TODO 
+    let that = this
+    console.log(e)
+    return wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      maxDuration: 30,
+      camera: 'back',
+      success(res) {
+        console.log(res)
+        that.setData({
+          pictures: [res.tempFiles[0].tempFilePath]
+        })
+        // that.uploadImage(res.tempFiles[0].tempFilePath)
+      }
+    })
+
+
   },
   Submit(e) {
 
@@ -75,48 +153,53 @@ Page({
       mask: true,
       title: '正在提交...',
     })
-    let productInfo = this.data.productInfo
-    console.log(productInfo)
-    const dbName = 'PublishList'
-    let user_id = productInfo['user_id']
-    let timestamp = Date.now()
-    let product_id = `product_${user_id}_${timestamp}`
-    let company_name = productInfo['company_name']
-    let product_name = productInfo['product_name']
-    let capacity = parseInt(productInfo['capacity'])
-    let prices = parseFloat(roductInfo['prices'])
-    let picture = '../../images/mushroom.jpg'
-    let date = new Date(timestamp)
-    let publish_time = date.toLocaleString()
-    let status = 0 // 0： 正常 1：联系中 2：已成交
-    let type = 0 // 0: 产品 1：需求
-    let db = wx.cloud.database()
-    db.collection(dbName).add({
-      data: {
-        product_id: product_id,
-        user_id: user_id,
-        company_name: company_name,
-        product_name: product_name,
-        capacity: capacity,
-        status: status,
-        prices: prices,
-        picture: picture,
-        publish_time: publish_time,
-        timestamp: timestamp,
-        type: type
-      },
-      success: (res) => {
-        wx.hideLoading()
-        wx.showToast({
-          title: '发布成功',
-          duration: 1000
-        })
-        wx.switchTab({
-          url: '../index/index',
-        })
-      }
-
+    let that = this
+    let pictures = that.data.pictures
+    this.uploadImage(pictures[0]).then(() => {
+      console.log(productInfo)
+      pictures = that.data.pictures
+      let productInfo = that.data.productInfo
+      const dbName = 'PublishList'
+      let user_id = productInfo['user_id']
+      let timestamp = Date.now()
+      let product_id = `product_${user_id}_${timestamp}`
+      let company_name = productInfo['company_name']
+      let product_name = productInfo['product_name']
+      let capacity = parseInt(productInfo['capacity'])
+      let prices = parseFloat(productInfo['prices'])
+      let picture = pictures[0]
+      let date = new Date(timestamp)
+      let publish_time = date.toLocaleString()
+      let status = 0 // 0： 正常 1：联系中 2：已成交
+      let type = 0 // 0: 产品 1：需求
+      let db = wx.cloud.database()
+      db.collection(dbName).add({
+        data: {
+          product_id: product_id,
+          user_id: user_id,
+          company_name: company_name,
+          product_name: product_name,
+          capacity: capacity,
+          status: status,
+          prices: prices,
+          picture: picture,
+          publish_time: publish_time,
+          timestamp: timestamp,
+          type: type
+        },
+        success: (res) => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '发布成功',
+            duration: 1000
+          })
+          wx.switchTab({
+            url: '../index/index',
+          })
+        }
+      })
     })
+
   },
   /**
    * 生命周期函数--监听页面加载

@@ -21,7 +21,7 @@ Page({
 
   getProductList(page, pageSize) {
     let prodcutDBName = 'PublishList'
-    this.getTotalCount(prodcutDBName)
+    // this.getTotalCount(prodcutDBName)
     console.log('getProductList', page, pageSize)
     let that = this
     const db = wx.cloud.database();
@@ -46,7 +46,7 @@ Page({
   },
   getRequireList(page, pageSize) {
     let requireDBName = 'PublishList'
-    this.getTotalCount(requireDBName)
+    // this.getTotalCount(requireDBName)
     let that = this
     const db = wx.cloud.database();
     const _ = db.command
@@ -107,10 +107,42 @@ Page({
       }
     })
   },
+  getProduceData() {
+    // 获取当前时间
+    const now = new Date();
+    // 获取过去一天的时间
+    const yesterday = new Date(now - 24 * 60 * 60 * 1000);
+    // 转换为小程序数据库需要的时间格式（毫秒）
+    const yesterdayTimestamp = yesterday.getTime();
+    let produceData = 0
+    let dbName = 'PublishList'
+    const db = wx.cloud.database()
+    let that = this
+    const _ = db.command
+    db.collection(dbName).where({
+      status: _.lt(2),
+      timestamp: _.gte(yesterdayTimestamp)
+    }).get({
+      success: res => {
+        console.log(res, yesterdayTimestamp)
+        let data = res.data
+        for (let i = 0; i < data.length; i++) {
+          produceData = produceData + data[i].capacity
+        }
+        that.setData({
+          produceData: produceData
+        })
+      }
+    })
+  },
+  getSellData() {
+
+  },
   onLoad() {
     let that = this
     try {
       console.log('on load')
+      this.getProduceData()
       that.setData({
         product_page: 0,
         require_page: 0,

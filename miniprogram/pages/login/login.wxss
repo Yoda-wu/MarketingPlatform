@@ -167,7 +167,7 @@ page {
   /* 根据需要调整宽度 */
   padding: 20rpx 0;
   /* 增加上下内边距以增加按钮高度 */
-  background-color: #4a90e2;
+  /* background-color: #04751c; */
   color: white;
   border: none;
   border-radius: 16rpx;
@@ -196,6 +196,7 @@ page {
   /* 使子元素靠右对齐 */
   width: 100%;
   margin-top: 10rpx;
+  margin-left: 20rpx;
 }
 
 .options text {

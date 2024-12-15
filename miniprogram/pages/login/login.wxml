@@ -64,13 +64,13 @@
             <text decode="true">&nbsp;&nbsp;<text decode="true" style="color:#EE0A24;">*</text>营业执照：</text>
           </view>
           <view class="grid col-4 grid-square flex-sub">
-            <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
-              <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="bg-img" wx:for="{{license}}" wx:key="index" bindtap="ViewImage" data-url="{{license[index]}}">
+              <image src='{{license[index]}}' mode='aspectFill'></image>
               <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
                 <text class="cuIcon-close"></text>
               </view>
             </view>
-            <view class="solids" bindtap="ChooseImage">
+            <view class="solids" bindtap="ChooseImage" wx:if="{{license.length < 1 }}">
               <text class="cuIcon-cameraadd"></text>
             </view>
           </view>
@@ -241,7 +241,7 @@
       <image class="icon" src="../../images/password.png">密码</image>
       <input class="input" id='password' type="password" placeholder="密码" bindinput="InputData" />
     </view>
-    <button class="login-button" bind:tap="SubmitLogin">登 录</button>
+    <button class="login-button" type='primary' bind:tap="SubmitLogin">登 录</button>
     <view class="options">
       <view class="register">
         <view>还没有账号？</view>
