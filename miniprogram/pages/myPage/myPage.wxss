@@ -12,6 +12,28 @@
   /* 设置字体颜色 */
 }
 
+.userAvatar-button {
+  width: 80px !important;
+  height: 80px;
+  margin-top: 30px;
+  margin-left: 10px !important;
+  float: left;
+  border-radius: 50%;
+  overflow: hidden;
+  /*确保图像不会超出页面*/
+  /* box-sizing: border-box; */
+  padding: 0%;
+  /* border: none; */
+  background: transparent;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .rating {
   background-color: rgb(95, 198, 245);
   border-radius: 30px;

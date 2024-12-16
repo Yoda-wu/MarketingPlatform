@@ -30,45 +30,49 @@
   <view class="marketing-data-container">
     <view class="marketing-data-item">
       <text class="marketing-label">生产数据</text>
-      <text class="marketing-value">{{produceData}}公斤</text>
+      <text class="marketing-value">{{produceData}}箱</text>
     </view>
     <view class="card-divider"></view>
     <view class="marketing-data-item">
       <text class="marketing-label">销售数据</text>
-      <text class="marketing-value">{{sellData}}公斤</text>
+      <text class="marketing-value">{{sellData}}箱</text>
     </view>
   </view>
 </view>
 
 <!-- 公告 -->
 <view class="noticeBar-box">
-	<van-notice-bar class="noticeBar" left-icon="volume-o" color="#181818;" backgroundColor="#ffffff" text="{{notice}}" />
+  <van-notice-bar class="noticeBar" left-icon="volume-o" color="#181818;" backgroundColor="#ffffff" text="{{notice}}" />
 </view>
 
 <van-tabs active="{{seller}}" class="seller-and-buyertab" color="#40A2FF" title-active-color="#40A2FF">
-	<van-tab class="seller-tab" title='种植户需求' name="seller" >
-    <view class="product-info" wx:for="{{farmerData}}" wx:key="index">
-    <image class="product-image" src="../../images/mushroom.jpg"></image>
-      <view class="product-details" >
-        <text class="product-company">{{item.name}}</text>
-        <text class="product-name">{{item.product}}</text>
-        <text class="product-quantity">数量:{{item.amount}}</text>
-        <text class="product-price">预期价格：{{item.price}}</text>
-        <text class="product-price">发布时间：2024.12.1</text>
+  <van-tab class="seller-tab" title='种植户需求' name="seller">
+    <scroll-view scroll-y="true" bindscrolltolower='onReachProductBottom'>
+      <view class="product-info" wx:for="{{farmerData}}" wx:key="index" data-id="{{item}}" bindtap="getProductDetail">
+        <image class="product-image" src="{{item.picture}}"></image>
+        <view class="product-details">
+          <text class="product-company">{{item.company_name}}</text>
+          <text class="product-name">产品：{{item.product_name}}</text>
+          <text class="product-quantity">数量：{{item.capacity}}箱</text>
+          <text class="product-price">预期价格：{{item.prices}}元/箱</text>
+          <text class="product-price">发布时间：{{item.publish_time}}</text>
+        </view>
       </view>
-    </view>
+    </scroll-view>
   </van-tab>
   <van-tab class="buyer-bar" title="销售商需求" name="buyer">
-    <view class="product-info" wx:for="{{sellerData}}" wx:key="index">
-    <image class="product-image" src="../../images/mushroom.jpg"></image>
-      <view class="product-details" >
-        <text class="product-company">{{item.name}}</text>
-        <text class="product-name">{{item.product}}</text>
-        <text class="product-quantity">数量:{{item.amount}}</text>
-        <text class="product-price">预期价格：{{item.price}}</text>
-        <text class="product-price">发布时间：2024.12.1</text>
+    <scroll-view scroll-y="true" bindscrolltolower='onReachRequireBottom'>
+      <view class="product-info" wx:for="{{sellerData}}" wx:key="index">
+        <image class="product-image" src="{{item.picture}}"></image>
+        <view class="product-details">
+          <text class="product-company">{{item.company_name}}</text>
+          <text class="product-name">产品：{{item.product_name}}</text>
+          <text class="product-quantity">数量：{{item.capacity}}箱</text>
+          <text class="product-price">预期价格：{{item.prices}}元/箱</text>
+          <text class="product-price">发布时间：{{item.publish_time}}</text>
+        </view>
       </view>
-    </view>
+    </scroll-view>
 
   </van-tab>
 </van-tabs>

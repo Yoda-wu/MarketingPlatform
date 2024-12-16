@@ -19,10 +19,10 @@
 </view>
 
 <!-- 已登录 -->
-<view wx:else class="head-box" bindtap="ScanPage">
-  <view class="userAvatar-box">
-    <open-data type="userAvatarUrl"></open-data>
-  </view>
+<view wx:else class="head-box">
+  <button open-type="chooseAvatar" class="userAvatar-button" bindchooseavatar="ChooseAvatar">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+  </button>
   <view class="userlogin">
     <view style="font-weight:bold;">欢迎,{{userInfo.name}}</view>
     <view class="font-size-12" style="color:grey;">{{userInfo.company_name}}</view>
@@ -52,12 +52,19 @@
     <view class="content-text font-size-14">个人信息</view>
   </view>
 
-  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate">
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==0}}">
     <view class="content-icon float-left">
       <image src="../../images/product_manage.png"></image>
     </view>
     <!-- <view class="content-text font-size-14">我的收藏</view> -->
     <view class="content-text font-size-14">产品管理</view>
+  </view>
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==1}}">
+    <view class="content-icon float-left">
+      <image src="../../images/product_manage.png"></image>
+    </view>
+    <!-- <view class="content-text font-size-14">我的收藏</view> -->
+    <view class="content-text font-size-14">需求管理</view>
   </view>
 </view>
 
@@ -79,13 +86,13 @@
 		</view>
 		<view class="content-text font-size-14">清除记录</view>
 	</view> -->
-  <view class="content-row" wx:if="{{UserLogin}}">
+  <view class="content-row" wx:if="{{UserLogin}}" bind:tap="SwitchAccount">
     <view class="content-icon float-left">
       <image src="../../images/switch_user.png"></image>
     </view>
     <view class="content-text font-size-14">切换账号</view>
   </view>
-  <view class="content-row" wx:if="{{UserLogin}}">
+  <view class="content-row" wx:if="{{UserLogin}}" bindtap="Logout">
     <view class="content-icon float-left">
       <image src="../../images/longout.png"></image>
     </view>
