@@ -1,0 +1,26 @@
+<!--pages/manageIndex/manageIndex.wxml-->
+<view class="container">
+  <!-- TODO 插入数据面板组件 -->
+  <view class="databoard">数据面板</view>
+  <!-- 账号管理入口 -->
+  <view class="admin-enter-box" bind:tap="openAdminPage">
+    <view class="text-box">
+      <view class="header">账号管理</view>
+      <view class="description">管理用户账号</view>
+    </view>
+    <view class="icon-box">
+      <van-image
+        round
+        width="280rpx"
+        height="280rpx"
+        src="/images/admin-icon.png"
+        custom-style='float: right'
+      />    
+    </view>
+
+
+  </view>
+
+
+
+</view>

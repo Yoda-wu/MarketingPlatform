@@ -2,7 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/myPage/myPage",
-    "pages/publishPage/publishPage"
+    "pages/publishPage/publishPage",
+    "pages/farmerOrder/farmerOrder",
+    "pages/sellerOrder/sellerOrder",
+    "pages/manageIndex/manageIndex",
+    "pages/managePage/managePage"
   ],
   "window": {
     "navigationBarTitleText": "农产品产销平台",
@@ -47,6 +51,14 @@
         "van-tab": "./dist/tab/index",
         "van-tabs": "./dist/tabs/index",
         "van-dropdown-menu": "./dist/dropdown-menu/index",
-        "van-dropdown-item": "./dist/dropdown-item/index"
+        "van-dropdown-item": "./dist/dropdown-item/index",
+        "van-card": "@vant/weapp/card/index",
+        "van-button": "@vant/weapp/button/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-image": "@vant/weapp/image/index",
+        "van-search": "@vant/weapp/search/index",
+        "van-tabbar": "@vant/weapp/tabbar/index",
+        "van-tabbar-item": "@vant/weapp/tabbar-item/index"
   }
 }

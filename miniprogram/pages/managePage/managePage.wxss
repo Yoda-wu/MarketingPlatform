@@ -1,0 +1,72 @@
+.container {
+  padding-top: 15rpx;
+  color:black;
+  height: 100%;
+  background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);
+}
+
+.tabs-box {
+  width: 95%;
+}
+
+.search-box {
+  width: 95%;
+}
+
+.user-box {
+  width: 95%;
+  height: 100%;
+  background-color: #fff;
+}
+
+
+.user-item-box {
+  display: flex;
+  height: 200rpx;
+  color: black;
+  margin: 5rpx 20rpx 5rpx 20rpx;
+  background-color: #c5ecf8;
+  border-radius: 10px;
+}
+
+.image-box {
+  display: flex;
+  align-items: center; 
+  margin: 10rpx;
+}
+
+.info-box {
+  width: 250rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-text {
+  width: 200rpx;
+  margin: 8rpx;
+}
+
+.role-class {
+  color: rgb(85, 85, 85);
+  font-size: 15px;
+  margin-top: 10rpx;
+}
+
+.user-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80rpx;
+}
+
+.vantbutton-custom {
+  background-color: #f0caab !important;
+  color: black !important;
+  width: 200rpx !important;
+  font-size: 12px !important;
+}
+.vantbutton-custom-admin {
+  background-color: rgb(132, 198, 241) !important;
+  margin-bottom: 25rpx !important;
+}

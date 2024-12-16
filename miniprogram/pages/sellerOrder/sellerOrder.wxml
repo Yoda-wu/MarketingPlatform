@@ -1,0 +1,101 @@
+
+<view class="container">
+  <view class="info-box">
+    <!-- 销售商名称 -->
+    <view class="name-box">{{sellerName}}</view>
+
+    <!-- 销售商详情 -->
+    <view class="details-box">
+      <view class="details-text">需求产品：{{wantedProductStr}}</view>
+      <view class="details-text">联系人：{{contactPerson}}</view>
+      <view class="details-text">联系方式：{{maskedPhone}}</view>
+      <view class="details-text">销往地：{{places2sellStr}}</view>
+      <view class="details-text">信誉评价：
+                                <view class="credis-box" style="background-color: {{crediscolor}}">{{credits}}</view>
+                                </view>
+    </view>
+  </view>
+
+   <!-- 需求详情 -->
+   <view class="items-box">
+      <!-- 表头 -->
+      <view class="items-header">需求详情</view>
+      <!-- 需求条目详情 -->
+      <view style="margin-top: 1rpx;" wx:for="{{productDetails}}" wx:key="id">
+          <van-card
+          desc="{{item.description}}"
+          centered
+          >
+            <view slot='title' style="font-weight: bold; font-size: 35rpx;">{{item.name}}</view>
+            <view slot="num" style="float: right;">
+              <text>需求：</text>
+              <text style="font-size: 32rpx;">{{item.amount}} {{unit}}</text>
+            </view>
+            <view slot="price" style="float: left;">
+              <text style="font-size: 25rpx;">收购价格：</text>
+              <text style="font-size: 32rpx; color: rgb(163, 63, 23);">{{item.expectedPrice}} 元/{{ unit }}</text>
+            </view>
+            <view slot="footer">
+            <!-- 两个按钮 -->
+                <van-button size="mini" type="info" 
+                bind:click="callPhone"
+                custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
+                data-orderindex="{{index}}"
+                plain round>咨询</van-button>
+
+                <van-button size="mini" type="primary" 
+                custom-style="width: 20rpx; color: black;"
+                bind:click="takeOrder"
+                data-orderindex="{{index}}"
+                plain round>出售</van-button>
+            </view>
+          </van-card>
+      </view>
+    </view>
+
+    <view class="view-info">浏览量：{{ viewAccount }}</view>
+</view>
+
+<!-- 下单弹窗 -->
+<van-dialog
+  use-slot
+  width="90%"
+  title="出售详情"
+  showCancelButton
+  showConfirmButton
+  overlay
+  show="{{ showDialog }}"
+  bind:confirm="confirmOrder"
+>
+
+  <view style="padding-left: 10rpx;">
+    <view>名称：{{targetOrder.name}}</view>
+    <view>价格：{{targetOrder.expectedPrice}} 元/箱</view>
+    <view>需求：{{targetOrder.amount}} 箱</view>
+  </view>
+
+  <van-cell-group>
+    <!-- 弹窗内部组件，展示下单的商品、填入下单数量 -->
+    <van-field
+      model:value="{{orderamount}}"
+      placeholder="请输入出售数量（箱）："
+      border="true"
+    />
+
+  </van-cell-group>
+</van-dialog>
+
+<!-- 二次确认订单 -->
+<van-dialog
+  use-slot
+  width="650rpx"
+  title="确定订单"
+  show="{{ confirmOrder }}"
+  show-cancel-button
+  bind:confirm="executeOrder"
+>
+  <view style="padding-left: 10rpx;">
+    <view>出售 {{targetOrder.name}} {{orderamount}}箱，预计收益 {{totalcost}} 元</view>
+  </view>
+
+</van-dialog>

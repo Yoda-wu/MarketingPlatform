@@ -1,0 +1,43 @@
+page {
+  height: 100%;
+}
+
+.container {
+  color:black;
+  background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);
+}
+
+.databoard {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 300rpx;
+  background-color: #59a8f1; /* 背景色 */
+  text-align: center;
+}
+
+.admin-enter-box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 120rpx;   /* 数据面板高度相关 */
+  width: 90%;
+  height: 300rpx;
+  background-color: rgb(232, 245, 246);
+  border-radius: 10px;
+}
+
+.text-box {
+  margin-left: 30rpx;
+  width: 50%;
+}
+
+.header {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 15rpx;
+  color: rgb(112, 112, 112);
+}
