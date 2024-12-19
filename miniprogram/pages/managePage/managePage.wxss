@@ -1,5 +1,5 @@
 .container {
-  padding-top: 15rpx;
+  padding-top: 15rpx;  /*控制标签栏与顶部距离*/
   color:black;
   height: 100%;
   background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);

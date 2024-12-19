@@ -3,7 +3,6 @@
   padding-top: 20rpx;
   height: 100%;
   color:black;
-  justify-content: center;
   background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);
 }
 
@@ -54,6 +53,16 @@
   margin-bottom: 20rpx;
   text-align: center;
   color: black;
+}
+
+.item-card {
+  height: 10%;
+  margin: 5rpx 10rpx 5rpx 10rpx;
+}
+
+.item-name {
+  font-weight: bold; 
+  font-size: 35rpx;
 }
 
 .my-price-class{

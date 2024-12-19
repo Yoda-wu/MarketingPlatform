@@ -6,7 +6,8 @@
     "pages/farmerOrder/farmerOrder",
     "pages/sellerOrder/sellerOrder",
     "pages/manageIndex/manageIndex",
-    "pages/managePage/managePage"
+    "pages/managePage/managePage",
+    "pages/ordersPage/ordersPage"
   ],
   "window": {
     "navigationBarTitleText": "农产品产销平台",
@@ -59,6 +60,8 @@
         "van-image": "@vant/weapp/image/index",
         "van-search": "@vant/weapp/search/index",
         "van-tabbar": "@vant/weapp/tabbar/index",
-        "van-tabbar-item": "@vant/weapp/tabbar-item/index"
+        "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+        "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+        "van-rate": "@vant/weapp/rate/index"
   }
 }

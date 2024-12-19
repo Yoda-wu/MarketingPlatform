@@ -24,23 +24,26 @@
       <!-- 表头 -->
       <view class="items-header">产品详情</view>
       <!-- 产品条目详情 -->
-      <view style="margin-top: 1rpx;" wx:for="{{productDetails}}" wx:key="id">
+      <view class='item-card' wx:for="{{productDetails}}" wx:key="_id">
           <van-card
           price="{{item.expectedPrice}} 元/{{ unit }}"
           desc="{{item.description}}"
           thumb="{{ item.image }}"
           centered
           >
-            <view slot='title' style="font-weight: bold; font-size: 30rpx;">{{item.name}}</view>
+            <!-- 产品名 -->
+            <view slot='title' class='item-name'>{{item.name}}</view>
+            <!-- 产品数量 -->
             <view slot="num" style="float: right;">共 {{item.amount}} {{unit}}</view>
-            <view slot="footer">
             <!-- 两个按钮 -->
+            <view slot="footer">
+                <!-- 咨询 -->
                 <van-button size="mini" type="info" 
                 bind:click="callPhone"
                 custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
                 data-orderindex="{{index}}"
                 plain round>咨询</van-button>
-
+                <!-- 下单 -->
                 <van-button size="mini" type="primary" 
                 custom-style="width: 20rpx; color: black;"
                 bind:click="takeOrder"
@@ -57,13 +60,13 @@
 <!-- 下单弹窗 -->
 <van-dialog
   use-slot
-  width="650rpx"
   title="下单详情"
   showCancelButton
   showConfirmButton
   overlay
   show="{{ showDialog }}"
   bind:confirm="confirmOrder"
+  width="95%"
 >
 
   <view style="padding-left: 10rpx;">
@@ -86,7 +89,7 @@
 <!-- 二次确认订单 -->
 <van-dialog
   use-slot
-  width="650rpx"
+  width="95%"
   title="确定下单"
   show="{{ confirmOrder }}"
   show-cancel-button

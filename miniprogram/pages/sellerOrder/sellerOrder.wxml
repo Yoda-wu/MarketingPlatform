@@ -21,23 +21,26 @@
       <!-- 表头 -->
       <view class="items-header">需求详情</view>
       <!-- 需求条目详情 -->
-      <view style="margin-top: 1rpx;" wx:for="{{productDetails}}" wx:key="id">
+      <view class="item-card" wx:for="{{productDetails}}" wx:key="id">
           <van-card
           desc="{{item.description}}"
           centered
           >
-            <view slot='title' style="font-weight: bold; font-size: 35rpx;">{{item.name}}</view>
-            <view slot="num" style="float: right;">
-              <text>需求：</text>
-              <text style="font-size: 32rpx;">{{item.amount}} {{unit}}</text>
-            </view>
+            <!-- 需求名 -->
+            <view slot='title' class='item-name'>{{item.name}}</view>
+            <!-- 收购价格 -->
             <view slot="price" style="float: left;">
               <text style="font-size: 25rpx;">收购价格：</text>
               <text style="font-size: 32rpx; color: rgb(163, 63, 23);">{{item.expectedPrice}} 元/{{ unit }}</text>
             </view>
+            <!-- 需求数量 -->
+            <view slot="num" style="float: right;">
+              <text>需求：</text>
+              <text style="font-size: 32rpx;">{{item.amount}} {{unit}}</text>
+            </view>
             <view slot="footer">
-            <!-- 两个按钮 -->
-                <van-button size="mini" type="info" 
+               <!-- 两个按钮 -->
+               <van-button size="mini" type="info" 
                 bind:click="callPhone"
                 custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
                 data-orderindex="{{index}}"
