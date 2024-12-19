@@ -23,6 +23,7 @@
       <view class="offer-info">
         <view class='offer-detail'>{{item.offerName}}</view>
         <view class='offer-detail'>{{item.offerPhone}}</view>
+        <view class='offer-detail offer-credit' wx:if="{{tabindex == 1}}"><text>评分：</text>{{item.credits}}</view>
       </view>
       <!-- 操作 -->
       <view class="buttons" wx:if="{{tabindex == 0}}">
@@ -51,7 +52,7 @@
   bind:cancel="onCancelRating"
 >
  <van-rate 
-    value="{{ rateValue }}"
+    model:value="{{ rateValue }}"
     size="{{ 25 }}"
     color="#ffd21e"
     void-icon="star"

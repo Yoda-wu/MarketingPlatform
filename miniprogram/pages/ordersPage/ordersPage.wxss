@@ -59,6 +59,14 @@ page {
   margin: 5rpx;
   font-size: 15px;
 }
+.offer-credit {
+  display: inline;
+}
+
+.offer-credit text {
+  color: gray; 
+  font-size: 12px;
+}
 
 .buttons {
   display: flex;

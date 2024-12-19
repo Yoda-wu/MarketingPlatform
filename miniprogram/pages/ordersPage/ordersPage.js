@@ -13,10 +13,10 @@ Page({
               {_id: '4', offerName: '销售商1', offerPhone: '12842945822',productName: 'c菇', amount: 20, price: 11.2},
             ],
     orderCompleted: [
-      {_id: '1', offerName: '销售商3', offerPhone: '12842945822', productName: 'd菇', amount: 10, price: 10.2},
-      {_id: '2', offerName: '销售商4', offerPhone: '12842945823',productName: 'a菇', amount: 8, price: 8.3},
-      {_id: '3', offerName: '销售商3', offerPhone: '12834846754',productName: 'd菇', amount: 7, price: 10.2},
-      {_id: '4', offerName: '销售商5', offerPhone: '12842945824',productName: 'c菇', amount: 20, price: 11.2},
+      {_id: '1', offerName: '销售商3', offerPhone: '12842945822', productName: 'd菇', credits: 4.6, amount: 10, price: 10.2},
+      {_id: '2', offerName: '销售商4', offerPhone: '12842945823',productName: 'a菇', credits: 4.7,  amount: 8, price: 8.3},
+      {_id: '3', offerName: '销售商3', offerPhone: '12834846754',productName: 'd菇', credits: 4.8,  amount: 7, price: 10.2},
+      {_id: '4', offerName: '销售商5', offerPhone: '12842945824',productName: 'c菇', credits: 4.9,  amount: 20, price: 11.2},
             ],
     shownData: null,
     tabindex: 0,
@@ -59,9 +59,24 @@ Page({
     })
   },
   
-  onDeletOrder(event) {},
+  onDeletOrder(event) {
+    wx.showModal({
+      title: '删除订单',
+      content: '是否删除订单？',
+      complete: (res) => {
+        if (res.cancel) {
+          
+        }
+    
+        if (res.confirm) {
+          
+        }
+      }
+    })
+  },
   onConfirmRating(event) {
-    console.log("确认评分！")
+    console.log(this.data.rateValue)
+
   },
   onCancelRating(event) {
     console.log("取消评分！")

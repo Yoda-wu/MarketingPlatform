@@ -68,7 +68,7 @@ Page({
       selector: "#remove-admin",
       title: '确认移除',
       message: `是否移除管理员: ${adminToRemove.name}`,
-      width: '650rpx'
+      width: '95%'
     })
       .then(() => {
         // confirm
@@ -97,7 +97,7 @@ Page({
       selector: "#set-admin",
       title: '确认添加',
       message: `是否添加管理员: ${adminToAdd.name}？`,
-      width: '650rpx'
+      width: '95%'
     })
       .then(() => {
         // confirm
@@ -125,7 +125,7 @@ Page({
       selector: "#set-silent",
       title: '确认禁言',
       message: `是否禁言用户: ${userToSilent.name}？`,
-      width: '650rpx'
+      width: '95%'
     })
       .then(() => {
         // confirm
