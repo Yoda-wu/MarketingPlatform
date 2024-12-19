@@ -1,0 +1,61 @@
+<view class="container">
+  <!-- 标签栏 -->
+  <view class='tabs-box'>
+    <van-tabs 
+      active="{{ tabindex }}" 
+      color="#5759f5"
+      bind:change="onChangeTabs"
+      tab-class="tab-class">
+      <van-tab title="进行中"></van-tab>
+      <van-tab title="已完成"></van-tab>
+    </van-tabs>
+  </view>
+  
+  <view class="orders-box">
+    <view class='order-card' wx:for="{{shownData}}" wx:key="_id">
+      <!-- 产品名称 -->
+      <view class="order-info">
+        <view class="item-name">{{item.productName}}</view>
+        <view class="item-detail item-amount"><view class="desc">数量：</view>{{item.amount}}箱</view>
+        <view class="item-detail item-price"><view class="desc">单价：</view>{{item.price}}元</view>
+      </view>
+      <!-- 订单提供方，销售商或农户 -->
+      <view class="offer-info">
+        <view class='offer-detail'>{{item.offerName}}</view>
+        <view class='offer-detail'>{{item.offerPhone}}</view>
+        <view class='offer-detail offer-credit' wx:if="{{tabindex == 1}}"><text>评分：</text>{{item.credits}}</view>
+      </view>
+      <!-- 操作 -->
+      <view class="buttons" wx:if="{{tabindex == 0}}">
+        <view data-order-index="{{index}}" class="oper-button concat-button" bind:tap="onConcat">联系对方</view>
+        <view data-order-index="{{index}}" class="oper-button complete-button" bind:tap='onComplete'>完成订单</view>
+        <view data-order-index="{{index}}" class="oper-button cancel-button" bind:tap="onCancleOrder">取消订单</view>
+      </view>
+      <view class="buttons" wx:if="{{tabindex == 1}}">
+        <view data-order-index="{{index}}" class="oper-button concat-button" bind:tap="onConcat">联系对方</view>
+        <view data-order-index="{{index}}" class="oper-button delete-button" bind:tap='onDeletOrder'>删除订单</view>
+      </view>
+    </view>
+  </view>
+
+
+</view>
+
+<!-- 弹窗 -->
+<van-dialog
+  use-slot
+  title="订单评分"
+  show="{{ isCommentShow }}"
+  show-cancel-button
+  width="95%"
+  bind:confirm="onConfirmRating"
+  bind:cancel="onCancelRating"
+>
+ <van-rate 
+    model:value="{{ rateValue }}"
+    size="{{ 25 }}"
+    color="#ffd21e"
+    void-icon="star"
+    void-color="#eee"
+  />
+</van-dialog>

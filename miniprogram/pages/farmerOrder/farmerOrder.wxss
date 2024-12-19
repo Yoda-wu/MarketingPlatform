@@ -1,0 +1,75 @@
+/* pages/cdetails/index.wxss */
+.container {
+  padding-top: 20rpx;
+  height: 100%;
+  color:black;
+  background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);
+}
+
+/* 信息卡片 */
+.info-box {
+  width: 90%;
+  background-color: rgb(203, 236, 255);
+  border: 3rpx solid rgb(203, 236, 255);
+	border-radius: 20rpx;
+}
+
+/* 合作社/销售商名称box */
+.name-box {
+  font-size: 40rpx;
+  margin: 10rpx;
+  border: 2rpx black;
+  color: black;
+  text-align: center;
+}
+
+/* 详细信息 */
+.details-box {
+  margin: 12rpx;
+  color: black;
+}
+
+/* 信誉评价分 */
+.credis-box {
+  display: inline;
+  padding: 8rpx;
+  border-radius: 5rpx;
+  border: 3rpx solid rgb(203, 236, 255);
+}
+
+.details-text {
+  font-size: 32rpx;
+  margin-top: 20rpx;
+}
+
+.items-box {
+  height: 100%;
+  width: 90%;
+}
+
+.items-header {
+  font-size: 38rpx;
+  margin-top: 15rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  color: black;
+}
+
+.item-card {
+  height: 10%;
+  margin: 5rpx 10rpx 5rpx 10rpx;
+}
+
+.item-name {
+  font-weight: bold; 
+  font-size: 30rpx;
+}
+
+/* 浏览量 */
+.view-info{
+  display: inline;
+  margin-top: 10rpx;
+  padding-left: 60%;
+  font-size: 25rpx;
+  color: gray;
+}

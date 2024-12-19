@@ -1,0 +1,95 @@
+<view class="container">
+  <!-- 标签栏 -->
+  <view class='tabs-box'>
+    <van-tabs 
+      active="{{ tabindex }}" 
+      color="#5759f5"
+      bind:change="onChangeTabs"
+      tab-class="tab-class">
+      <van-tab title="管理员"></van-tab>
+      <van-tab title="用户"></van-tab>
+    </van-tabs>
+  </view>
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <van-search
+      model:value="{{ searchValue }}"
+      shape="round"
+      placeholder="请输入用户名"
+      use-action-slot>
+      <view 
+        slot="action"
+        style="padding: 10rpx;">
+          <van-button 
+          color="#5db8ec"
+          icon='search' 
+          custom-style="width: 70px; font-size: 10px; height: 50rpx;"
+          bind:tap="onSearch">搜索</van-button>
+      </view>
+    </van-search>
+  </view>
+
+  <!-- 用户/管理员名单区域 -->
+  <view class="admin-box user-box">
+    <view class="user-item-box" wx:for="{{showData}}" wx:key="_id">
+      <view class="image-box">
+        <van-image
+        round
+        width="120rpx"
+        height="120rpx"
+        src="/images/admin-icon.png"
+      />   
+      </view>
+
+      <view class="info-box">
+        <view class='info-text'>{{item.name}}</view>
+        <view class='info-text'>{{item.phone}}</view>
+        <view class="role-class">{{roleMap[item.type]}}</view>
+      </view>
+
+      <!-- 管理员页面操作按钮 -->
+      <view class="user-button" wx:if="{{tabindex === 0}}">
+        <!-- 移除管理员 -->
+        <van-button 
+        size="small" 
+        data-remove-admin-index="{{index}}" 
+        bind:click='removeAdmin' 
+        custom-class="vantbutton-custom">移除</van-button>
+      </view>
+      <!-- 用户页面操作按钮 -->
+      <view class="user-button" wx:else>
+        <!-- 新增为管理员 -->
+        <van-button size="small" 
+          custom-class="vantbutton-custom-admin vantbutton-custom"
+          data-set-admin-index="{{index}}"
+          bind:click='setAdmin' 
+          >设为管理员</van-button>
+        <!-- 禁言 -->
+        <van-button size="small" 
+        custom-class="vantbutton-custom"
+        bind:click='setSilent'
+        data-set-silent-index="{{index}}"
+        >
+        禁言</van-button>
+      </view>
+
+    </view>
+  </view>
+
+</view>
+
+<!-- 移除管理员弹出窗口 -->
+<view wx:if="{{isRemove}}">
+  <van-dialog
+  id='remove-admin'/>
+</view>
+
+<view wx:if="{{isSetAdmin}}">
+  <van-dialog
+    id="set-admin"/>
+</view>
+
+<view wx:if="{{isSilent}}">
+  <van-dialog
+    id="set-silent"/>
+</view>

@@ -1,0 +1,102 @@
+/* pages/ordersPage/ordersPage.wxss */
+page {
+  height: 100%;
+}
+.container {
+  padding: 0;
+  color:black;
+  background: linear-gradient(to bottom,#8fccf0, #abe0f0, white);
+}
+
+.tabs-box {
+  width: 100%;
+}
+
+.orders-box {
+  width: 95%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.order-card {
+  display: flex;
+  height: 250rpx;
+  margin: 8rpx;
+  border-radius: 10px;
+  /* background-color: #F1F9FE; */
+  background-color: #c5ecf8;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin-left: 10rpx;
+}
+
+.item-name {
+  font-weight: bold;
+  margin: 5rpx;
+}
+
+.item-detail {
+  display: flex;
+  margin: 5rpx;
+}
+.desc {
+  color: gray;
+  font-size: 13px;
+}
+
+.offer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.offer-detail {
+  margin: 5rpx;
+  font-size: 15px;
+}
+.offer-credit {
+  display: inline;
+}
+
+.offer-credit text {
+  color: gray; 
+  font-size: 12px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 100rpx;
+}
+
+.oper-button {
+  margin: 10rpx;
+  width: 120rpx;
+  padding: 10rpx;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 8px;
+}
+.concat-button {
+  background-color: #FBF9ED;
+  /* background-color: #FDFCF6; */
+}
+.complete-button {
+  /* background-color: #d5f5e3; */
+  background-color: #FAF5E4;
+}
+
+.cancel-button {
+  /* background-color: #fadbd8 */
+  background-color: #fdebd0;
+}
+.delete-button{
+  background-color: #fdebd0;
+}
+
