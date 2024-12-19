@@ -4,80 +4,159 @@ const models = client.models
 Page({
   data: {
     menuPosition: wx.getMenuButtonBoundingClientRect(),
-    menuItems: [
-      {
-        key: 1,
-        title: "小店管理"
-      },
-      {
-        key: 2,
-        title: "商品管理"
-      }
-    ],
+    notice: '欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
+    produceData: 400,
+    sellData: 200,
     selectedItemIndex: 1,
-    tipShow:false,
-    title:"",
-    desc:"",
-    url:"",
-    isPreview:false,
-    storeList:[],
-    storeTotal:0,
-    productList:[],
-    productTotal:0
+    farmerData: [
+
+    ],
+    sellerData: [
+
+    ]
   },
-  async onLoad(){
-    try{
-      wx.showLoading({
-        title: '',
+  getProductDetail(e) {
+    console.log(e)
+  },
+
+  getProductList(page, pageSize) {
+    let prodcutDBName = 'PublishList'
+    // this.getTotalCount(prodcutDBName)
+    console.log('getProductList', page, pageSize)
+    let that = this
+    const db = wx.cloud.database();
+    const _ = db.command
+    db.collection(prodcutDBName).where({
+      type: 0
+    }).skip((page) * pageSize).limit(pageSize).orderBy('timestamp', 'desc').get({
+      success: res => {
+        console.log(res)
+        if (page == 0) {
+          this.setData({
+            farmerData: res.data
+          })
+        } else {
+          this.setData({
+            farmerData: [...that.data.farmerData, ...res.data] // 合并新旧数据
+          });
+        }
+
+      }
+    });
+  },
+  getRequireList(page, pageSize) {
+    let requireDBName = 'PublishList'
+    // this.getTotalCount(requireDBName)
+    let that = this
+    const db = wx.cloud.database();
+    const _ = db.command
+    db.collection(requireDBName).where({
+      type: 1
+    }).skip((page) * pageSize).limit(pageSize).get({
+      success: res => {
+        if (page == 0) {
+          this.setData({
+            sellerData: res.data
+          })
+        } else {
+          this.setData({
+            sellerData: [...that.data.sellerData, ...res.data] // 合并新旧数据
+          });
+        }
+      }
+    });
+  },
+  onReachProductBottom(e) {
+    console.log(e, 'hello')
+    let product_page = this.data.page + 1
+    let pageSize = this.data.pageSize
+    console.log(product_page, pageSize)
+    this.getProductList(product_page, 10)
+    this.setData({
+      product_page: product_page
+    })
+  },
+  onReachRequireBottom(e) {
+    console.log(e, 'hello')
+    let require_page = this.data.page + 1
+    let pageSize = this.data.pageSize
+    console.log(require_page, pageSize)
+    this.getProductList(require_page, 10)
+    this.setData({
+      require_page: require_page
+    })
+  },
+  getTotalCount(dbName) {
+    const db = wx.cloud.database()
+    let that = this
+    const _ = db.command
+    db.collection(dbName).where({
+      status: _.lt(2)
+    }).count({
+      success: res => {
+        if (dbName == 'Product') {
+          that.setData({
+            productTotal: res.total
+          })
+        }
+        if (dbName == 'Require') {
+          that.setData({
+            requireTotal: res.total
+          })
+        }
+      }
+    })
+  },
+  getProduceData() {
+    // 获取当前时间
+    const now = new Date();
+    // 获取过去一天的时间
+    const yesterday = new Date(now - 24 * 60 * 60 * 1000);
+    // 转换为小程序数据库需要的时间格式（毫秒）
+    const yesterdayTimestamp = yesterday.getTime();
+    let produceData = 0
+    let dbName = 'PublishList'
+    const db = wx.cloud.database()
+    let that = this
+    const _ = db.command
+    db.collection(dbName).where({
+      status: _.lt(2),
+      timestamp: _.gte(yesterdayTimestamp)
+    }).get({
+      success: res => {
+        console.log(res, yesterdayTimestamp)
+        let data = res.data
+        for (let i = 0; i < data.length; i++) {
+          produceData = produceData + data[i].capacity
+        }
+        that.setData({
+          produceData: produceData
+        })
+      }
+    })
+  },
+  getSellData() {
+
+  },
+  onLoad() {
+    let that = this
+    try {
+      console.log('on load')
+      this.getProduceData()
+      that.setData({
+        product_page: 0,
+        require_page: 0,
+        pageSize: 10,
+        page_show_time: page_show_time
       })
-      // 查询店铺首页了列表
-      const {data:{records:storeList,total:storeTotal}}  = await models.store_home_3bzb1t4.list({
-        filter: {
-          where: {}
-        },
-        pageSize: 10, // 分页大小，建议指定，如需设置为其它值，需要和 pageNumber 配合使用，两者同时指定才会生效
-        pageNumber: 1, // 第几页
-        getCount: true, // 开启用来获取总数
-      });
-      // 查询商品列表
-      const {data:{records:productList,total:productTotal}}  = await models.store_product_zh57lp5.list({
-        filter: {
-          where: {}
-        },
-        pageSize: 10, // 分页大小，建议指定，如需设置为其它值，需要和 pageNumber 配合使用，两者同时指定才会生效
-        pageNumber: 1, // 第几页
-        getCount: true, // 开启用来获取总数
-      });
+    } catch (e) {
       wx.hideLoading()
-      this.setData({
-        storeList,
-        storeTotal,
-        productList,
-        productTotal,
-        isPreview:false,
-        title:"使用云模板管理微信小店",
-        desc:"您已成功配置后台数据，可以打开下方地址对微信小店及商品进行增删改查等数据管理，配置后的数据将同步到该模板",
-        url:"https://tcb.cloud.tencent.com/cloud-admin?_jump_source=wxide_mp2store#/management/content-mgr/index"
-      })
-    }catch(e){
-      wx.hideLoading()
-      this.setData({
-        isPreview:true,
-        title:"使用云模板快速接入微信小店",
-        desc:"当前为体验数据，切换为真实数据请复制下方链接并在浏览器中打开，帮您快速接入微信小店，管理小店及商品数据",
-        url:"https://tcb.cloud.tencent.com/cloud-template/detail?appName=wx_shop&from=wxide_mp2store"
-      })
     }
   },
-  onChangeTab(e) {
-    const {key}=e.target.dataset
-    this.setData({
-      selectedItemIndex:key
-    })
-  },
-  onOpenTipsModal(){
-    this.setData({
-      tipShow:true
-    })
+
+  onShow() {
+    this.getProductList(0, 10)
+    this.getRequireList(0, 10)
+
   }
 });

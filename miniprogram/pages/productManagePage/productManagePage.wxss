@@ -1,0 +1,140 @@
+.product-info {
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+
+  /* border-top: 1px solid rgb(184, 182, 182); */
+  border-bottom: 1px solid rgb(184, 182, 182);
+  border-radius: 10px;
+  margin: 10px;
+  flex-direction: column;
+}
+
+.product-header {
+  display: flex;
+  width: 100%;
+  background-color: #40A2FF;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  /* height: 30px; */
+}
+
+.product-name {
+  display: flex;
+  color: #FFF;
+  font-size: medium;
+
+}
+
+.product-image {
+  width: 160rpx;
+  /* 图片宽度 */
+  height: 160rpx;
+  /* 图片高度 */
+  /* margin-right: 20rpx; */
+  padding-bottom: 4%;
+  /* 图片与文本的间隔 */
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.product-details-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 4%;
+  width: 60%;
+}
+
+.product-details-item {
+  width: 100%;
+  display: flex;
+}
+
+.info-title {
+  flex: auto;
+  color: #928f8f;
+}
+
+.info-value {
+  display: inline;
+  color: #101010;
+  font-weight: bold;
+}
+
+.edit-btn {
+  padding: 0%;
+  width: 120rpx !important;
+  height: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1890FF;
+  color: #FFF;
+  font-size: 16%;
+  margin-bottom: 2%;
+  border-radius: 20px;
+}
+
+
+.supply-info {
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  padding: 10rpx;
+  border-bottom: 1px solid rgb(184, 182, 182);
+  border-radius: 4px;
+  margin: 3px;
+}
+
+.supply-image {
+  width: 150rpx;
+  /* 图片宽度 */
+  height: 150rpx;
+  /* 图片高度 */
+  margin-right: 20rpx;
+  /* 图片与文本的间隔 */
+}
+
+.supply-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.supply-company {
+  font-size: 32rpx;
+  /* 字体大小 */
+  font-weight: bold;
+  /* 加粗 */
+}
+
+.supply-quantity,
+.supply-price,
+.supply-name {
+  font-size: 28rpx;
+  /* 字体大小 */
+}
+
+/* 分割线样式 */
+.supply-info::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* 分割线宽度 */
+  height: 1px;
+  /* 分割线高度 */
+  background-color: #eee;
+  /* 分割线颜色 */
+}
+
+.supply-info:active {
+  background-color: rgb(211, 210, 210);
+}

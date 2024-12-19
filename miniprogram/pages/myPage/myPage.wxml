@@ -1,2 +1,101 @@
 <!--pages/myPage/myPage.wxml-->
-<text>pages/myPage/myPage.wxml</text>
+
+<!-- 背景图 -->
+<!-- <view class="bg-box">
+	<image src="../../images/mypagebg.png"></image>
+</view> -->
+<view>
+  <van-nav-bar title="我的" />
+</view>
+<!-- 为登录 -->
+<view wx:if="{{!UserLogin}}" class="head-box" bindtap="NavigateToLogin">
+  <view class="userAvatar-box">
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+  <view class="userlogin">
+    <view>登录/注册 (点击登录)</view>
+    <view class="font-size-12" style="color:grey;">需要先完成注册登录才能使用哦！</view>
+  </view>
+</view>
+
+<!-- 已登录 -->
+<view wx:else class="head-box">
+  <button open-type="chooseAvatar" class="userAvatar-button" bindchooseavatar="ChooseAvatar">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+  </button>
+  <view class="userlogin">
+    <view style="font-weight:bold;">欢迎,{{userInfo.name}}</view>
+    <view class="font-size-12" style="color:grey;">{{userInfo.company_name}}</view>
+    <view class="font-size-12" style="color:grey;">{{userInfo.phone}}</view>
+
+    <view class="rating">
+      <van-icon name="award-o" />信誉分数: {{userInfo.rating}}
+    </view>
+  </view>
+</view>
+
+<view class="content-box">
+  <view class="content-title font-size-16 ">我的服务</view>
+
+  <!-- <view class="content-row" wx:if='{{Adminstator}}' data-id="managerHome" data-url="../../Adminpackage/managerHome/managerHome" bindtap="Navigate">
+        <view class="content-icon float-left">
+            <image src="../image/adminstor.png"></image>
+        </view>
+        <view class="content-text font-size-14">管理员</view>
+    </view> -->
+
+  <view class="content-row" data-id="myInfo" data-url="../myInfoPage/myInfoPage" bindtap="Navigate">
+    <view class="content-icon float-left">
+      <image src="../../images/user_info.png"></image>
+    </view>
+    <!-- <view class="content-text font-size-14">我的委托</view> -->
+    <view class="content-text font-size-14">个人信息</view>
+  </view>
+
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==0}}">
+    <view class="content-icon float-left">
+      <image src="../../images/product_manage.png"></image>
+    </view>
+    <!-- <view class="content-text font-size-14">我的收藏</view> -->
+    <view class="content-text font-size-14">产品管理</view>
+  </view>
+  <view class="content-row" data-id="productManage" data-url="../productManagePage/productManagePage" bindtap="Navigate" wx:if="{{userInfo.type==1}}">
+    <view class="content-icon float-left">
+      <image src="../../images/product_manage.png"></image>
+    </view>
+    <!-- <view class="content-text font-size-14">我的收藏</view> -->
+    <view class="content-text font-size-14">需求管理</view>
+  </view>
+</view>
+
+<view class="content-box">
+  <view class="content-title font-size-16 ">设置</view>
+
+  <view class="content-row">
+    <view class="content-icon float-left">
+      <image src="../../images/address.png"></image>
+    </view>
+    <view class="content-text font-size-14">
+      <button open-type='contact' style="color:black;height:35px;line-height:35px;font-weight: lighter;padding:0;width:100%;border:none;background:#fff;font-size:14px;text-align:left;">关于我们</button>
+    </view>
+  </view>
+
+  <!-- <view class="content-row" bindtap="CleanInfo">
+		<view class="content-icon float-left">
+			<image src="../image/history.png"></image>
+		</view>
+		<view class="content-text font-size-14">清除记录</view>
+	</view> -->
+  <view class="content-row" wx:if="{{UserLogin}}" bind:tap="SwitchAccount">
+    <view class="content-icon float-left">
+      <image src="../../images/switch_user.png"></image>
+    </view>
+    <view class="content-text font-size-14">切换账号</view>
+  </view>
+  <view class="content-row" wx:if="{{UserLogin}}" bindtap="Logout">
+    <view class="content-icon float-left">
+      <image src="../../images/longout.png"></image>
+    </view>
+    <view class="content-text font-size-14">退出登录</view>
+  </view>
+</view>

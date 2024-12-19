@@ -7,7 +7,12 @@
     "pages/sellerOrder/sellerOrder",
     "pages/manageIndex/manageIndex",
     "pages/managePage/managePage",
-    "pages/ordersPage/ordersPage"
+    "pages/ordersPage/ordersPage",
+    "pages/login/login",
+    "pages/publishProductPage/publishProductPage",
+    "pages/publishRequirePage/publishRequirePage",
+    "pages/myInfoPage/myInfoPage",
+    "pages/productManagePage/productManagePage"
   ],
   "window": {
     "navigationBarTitleText": "农产品产销平台",
@@ -45,14 +50,12 @@
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
   "usingComponents": {
-      "van-cell-group": "./dist/cell-group/index",
+        "van-cell-group": "./dist/cell-group/index",
         "van-divider": "./dist/divider/index",
         "van-field": "./dist/field/index",
         "van-notice-bar": "./dist/notice-bar/index",
         "van-tab": "./dist/tab/index",
         "van-tabs": "./dist/tabs/index",
-        "van-dropdown-menu": "./dist/dropdown-menu/index",
-        "van-dropdown-item": "./dist/dropdown-item/index",
         "van-card": "@vant/weapp/card/index",
         "van-button": "@vant/weapp/button/index",
         "van-icon": "@vant/weapp/icon/index",
@@ -62,6 +65,8 @@
         "van-tabbar": "@vant/weapp/tabbar/index",
         "van-tabbar-item": "@vant/weapp/tabbar-item/index",
         "van-swipe-cell": "@vant/weapp/swipe-cell/index",
-        "van-rate": "@vant/weapp/rate/index"
+        "van-rate": "@vant/weapp/rate/index",
+        "van-dropdown-menu": "./dist/dropdown-menu/index",
+        "van-dropdown-item": "./dist/dropdown-item/index"
   }
 }
