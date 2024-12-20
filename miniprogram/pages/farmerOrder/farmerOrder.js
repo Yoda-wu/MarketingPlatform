@@ -15,9 +15,9 @@ Page({
     unit: "箱",
     viewAccount: 1090,
     productDetails: [
-      {id: 1, name: 'a菇', amount: 10, expectedPrice: 32.7, description: '描述信息1', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
-      {id: 2, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息2', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
-      {id: 3, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息3', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
+      { id: 1, name: 'a菇', amount: 10, expectedPrice: 32.7, description: '描述信息1', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
+      { id: 2, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息2', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
+      { id: 3, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息3', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
     ],
     showDialog: false,  // 展示下单弹窗
     orderamount: null,  // 下单数量
@@ -34,7 +34,7 @@ Page({
 
   // 点击下单按钮
   takeOrder(event) {
-    const {orderindex} = event.target.dataset
+    const { orderindex } = event.target.dataset
     const orderItem = this.data.productDetails[orderindex]
     this.setData({
       showDialog: true,
@@ -46,7 +46,7 @@ Page({
   // 确定下单
   confirmOrder(event) {
     const amount = this.data.orderamount
-    if(amount === null) {
+    if (amount === null) {
       wx.showToast({
         title: '请输入有效数字',
         icon: "error"
@@ -86,6 +86,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let productInfo = JSON.parse(options.id)
+    productInfo.description = '描述信息'
+    console.log('id', productInfo)
     // 隐藏号码
     const maskedPhone = this.data.phone.slice(0, 3) + '*'.repeat(5) + this.data.phone.slice(8);
 
@@ -93,14 +96,15 @@ Page({
     const goodColor = 'rgb(213, 255, 203)'
     const badColor = "rgb(248, 220, 143)"
     var crediscolor = ""
-    if(this.data.credits >= 3.0) {
+    if (this.data.credits >= 3.0) {
       crediscolor = goodColor
     } else {
       crediscolor = badColor
     }
 
     this.setData({
-      productStr: this.data.products.join('，'),
+      productStr: productInfo.product_name,
+      productDetails: [productInfo],
       maskedPhone: maskedPhone,
       crediscolor: crediscolor
     })

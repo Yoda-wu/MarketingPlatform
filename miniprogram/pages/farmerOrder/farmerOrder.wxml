@@ -1,5 +1,5 @@
-  <!--pages/cdetails/index.wxml-->
-  <!-- 合作社信息 -->
+<!--pages/cdetails/index.wxml-->
+<!-- 合作社信息 -->
 
 <view class="container">
 
@@ -14,60 +14,38 @@
       <view class="details-text">联系方式：{{maskedPhone}}</view>
       <view class="details-text">大棚数量：{{baseNum}}</view>
       <view class="details-text">信誉评价：
-                                <view class="credis-box" style="background-color: {{crediscolor}}">{{credits}}</view>
-                                </view>
+        <view class="credis-box" style="background-color: {{crediscolor}}">{{credits}}</view>
+      </view>
     </view>
   </view>
 
-   <!-- 产品详情 -->
-   <view class="items-box">
-      <!-- 表头 -->
-      <view class="items-header">产品详情</view>
-      <!-- 产品条目详情 -->
-      <view class='item-card' wx:for="{{productDetails}}" wx:key="_id">
-          <van-card
-          price="{{item.expectedPrice}} 元/{{ unit }}"
-          desc="{{item.description}}"
-          thumb="{{ item.image }}"
-          centered
-          >
-            <!-- 产品名 -->
-            <view slot='title' class='item-name'>{{item.name}}</view>
-            <!-- 产品数量 -->
-            <view slot="num" style="float: right;">共 {{item.amount}} {{unit}}</view>
-            <!-- 两个按钮 -->
-            <view slot="footer">
-                <!-- 咨询 -->
-                <van-button size="mini" type="info" 
-                bind:click="callPhone"
-                custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
-                data-orderindex="{{index}}"
-                plain round>咨询</van-button>
-                <!-- 下单 -->
-                <van-button size="mini" type="primary" 
-                custom-style="width: 20rpx; color: black;"
-                bind:click="takeOrder"
-                data-orderindex="{{index}}"
-                plain round>下单</van-button>
-            </view>
-          </van-card>
-      </view>
+  <!-- 产品详情 -->
+  <view class="items-box">
+    <!-- 表头 -->
+    <view class="items-header">产品详情</view>
+    <!-- 产品条目详情 -->
+    <view class='item-card' wx:for="{{productDetails}}" wx:key="_id">
+      <van-card price="{{item.prices}} 元/{{ unit }}" desc="{{item.description}}" thumb="{{ item.picture }}" centered>
+        <!-- 产品名 -->
+        <view slot='title' class='item-name'>{{item.product_name}}</view>
+        <!-- 产品数量 -->
+        <view slot="num" style="float: right;">共 {{item.capacity}} {{unit}}</view>
+        <!-- 两个按钮 -->
+        <view slot="footer">
+          <!-- 咨询 -->
+          <van-button size="mini" type="info" bind:click="callPhone" custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx" data-orderindex="{{index}}" plain round>咨询</van-button>
+          <!-- 下单 -->
+          <van-button size="mini" type="primary" custom-style="width: 20rpx; color: black;" bind:click="takeOrder" data-orderindex="{{index}}" plain round>下单</van-button>
+        </view>
+      </van-card>
     </view>
+  </view>
 
-    <view class="view-info">浏览量：{{ viewAccount }}</view>
+  <view class="view-info">浏览量：{{ viewAccount }}</view>
 </view>
 
 <!-- 下单弹窗 -->
-<van-dialog
-  use-slot
-  title="下单详情"
-  showCancelButton
-  showConfirmButton
-  overlay
-  show="{{ showDialog }}"
-  bind:confirm="confirmOrder"
-  width="95%"
->
+<van-dialog use-slot title="下单详情" showCancelButton showConfirmButton overlay show="{{ showDialog }}" bind:confirm="confirmOrder" width="95%">
 
   <view style="padding-left: 10rpx;">
     <view>名称：{{targetOrder.name}}</view>
@@ -77,24 +55,13 @@
 
   <van-cell-group>
     <!-- 弹窗内部组件，展示下单的商品、填入下单数量 -->
-    <van-field
-      model:value="{{orderamount}}"
-      placeholder="请输入下单数量（箱）："
-      border="true"
-    />
+    <van-field model:value="{{orderamount}}" placeholder="请输入下单数量（箱）：" border="true" />
 
   </van-cell-group>
 </van-dialog>
 
 <!-- 二次确认订单 -->
-<van-dialog
-  use-slot
-  width="95%"
-  title="确定下单"
-  show="{{ confirmOrder }}"
-  show-cancel-button
-  bind:confirm="executeOrder"
->
+<van-dialog use-slot width="95%" title="确定下单" show="{{ confirmOrder }}" show-cancel-button bind:confirm="executeOrder">
   <view style="padding-left: 10rpx;">
     <view>下单 {{targetOrder.name}} {{orderamount}}箱，预计 {{totalcost}} 元</view>
   </view>

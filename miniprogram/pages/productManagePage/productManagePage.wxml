@@ -8,16 +8,16 @@
         <image class="product-image" src="../../images/mushroom.jpg"></image>
         <view class='product-details-list'>
           <view class='product-details-item'>
-            <text class='info-title'>库存：</text><text class='info-value'>{{item.stock}}斤</text>
+            <text class='info-title'>库存：</text><text class='info-value'>{{item.stock}}箱</text>
           </view>
           <view class="product-details-item">
-            <text class='info-title'>总销售：</text><text class='info-value'>{{item.totalSales}}斤</text>
+            <text class='info-title'>总销售：</text><text class='info-value'>{{item.totalSales}}箱</text>
           </view>
           <view class="product-details-item">
-            <text class='info-title'>今日产出：</text><text class='info-value'>{{item.todayProduction}}斤</text>
+            <text class='info-title'>今日产出：</text><text class='info-value'>{{item.todayProduction}}箱</text>
           </view>
           <view class="product-details-item">
-            <text class='info-title'>今日销售：</text><text class='info-value'>{{item.todaySales}}斤</text>
+            <text class='info-title'>今日销售：</text><text class='info-value'>{{item.todaySales}}箱</text>
           </view>
         </view>
       </view>

@@ -1,4 +1,5 @@
 // pages/publishRequirePage/publishRequirePage.js
+var app = getApp()
 Page({
 
   /**
@@ -97,32 +98,26 @@ Page({
     // 截取并返回后缀名
     return filename.substring(lastIndex + 1);
   },
-  async uploadImage(image_path) {
+  uploadImage(image_path) {
     let that = this
     let pictures = this.data.pictures
     let file_extension = this.getFileExtension(image_path)
-    wx.cloud.uploadFile({
-      cloudPath: `product/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
-      filePath: image_path, // 微信本地文件，通过选择图片，聊天文件等接口获取
-      config: {
-        env: 'schoolmap-7gbh91vx48c69c86' // 需要替换成自己的微信云托管环境ID
-      },
-      success: res => {
-        console.log(res.fileID)
-        pictures = [res.fileID]
-        console.log(pictures)
-        that.setData({
-          pictures: pictures
-        })
-        wx.showToast({
-          title: '上传成功',
-          duration: 500,
-        })
-      },
-      fail: err => {
-        console.error(err)
-      }
+    return new Promise((resolve, reject) => {
+      wx.cloud.uploadFile({
+        cloudPath: `product/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
+        filePath: image_path, // 微信本地文件，通过选择图片，聊天文件等接口获取
+        config: {
+          env: app.globalData.env // 需要替换成自己的微信云托管环境ID
+        },
+        success: res => {
+          resolve(res)
+        },
+        fail: err => {
+          reject(err)
+        }
+      })
     })
+
   },
   ChooseImage(e) {
     //TODO 
@@ -152,18 +147,17 @@ Page({
     })
     let that = this
     let requireInfo = this.data.requireInfo
-    let pictures = this.data.pictures
-    this.uploadImage(pictures[0]).then(() => {
+
+    this.uploadImage(pictures[0]).then((res) => {
       console.log(requireInfo)
       const dbName = 'PublishList'
-      pictures = that.data.pictures
       let user_id = requireInfo['user_id']
       let require_id = `product_${user_id}_${Date.now()}`
       let company_name = requireInfo['company_name']
       let product_name = requireInfo['product_name']
       let capacity = parseInt(requireInfo['capacity'])
       let prices = parseFloat(requireInfo['prices'])
-      let picture = pictures[0]
+      let picture = res.fileID
       let date = new Date(Date.now())
       let publish_time = date.toLocaleString()
       let status = 0 // 0： 正常 1：联系中 2：已成交
