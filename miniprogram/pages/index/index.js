@@ -5,8 +5,8 @@ Page({
   data: {
     menuPosition: wx.getMenuButtonBoundingClientRect(),
     notice: '欢迎使用 农产品产销平台 这里您可以发布您的农产品，也可以发布您的农产品需求~',
-    produceData: 400,
-    sellData: 200,
+    produceData: 0,
+    sellData: 0,
     selectedItemIndex: 1,
     farmerData: [
 
@@ -17,6 +17,11 @@ Page({
   },
   getProductDetail(e) {
     console.log(e)
+    let data = e.currentTarget.dataset.id
+    let productStr = JSON.stringify(data)
+    wx.navigateTo({
+      url: `../farmerOrder/farmerOrder?id=${productStr}`,
+    })
   },
 
   getProductList(page, pageSize) {
@@ -142,7 +147,7 @@ Page({
     let that = this
     try {
       console.log('on load')
-      this.getProduceData()
+
       that.setData({
         product_page: 0,
         require_page: 0,
@@ -157,6 +162,6 @@ Page({
   onShow() {
     this.getProductList(0, 10)
     this.getRequireList(0, 10)
-
+    this.getProduceData()
   }
 });

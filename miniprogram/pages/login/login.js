@@ -84,31 +84,34 @@ Page({
     // 截取并返回后缀名
     return filename.substring(lastIndex + 1);
   },
-  async uploadImage(image_path) {
+  uploadImage(image_path) {
     let that = this
     let userInfo = this.data.userInfo
     let file_extension = this.getFileExtension(image_path)
-    wx.cloud.uploadFile({
-      cloudPath: `license/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
-      filePath: image_path, // 微信本地文件，通过选择图片，聊天文件等接口获取
-      config: {
-        env: 'schoolmap-7gbh91vx48c69c86' // 需要替换成自己的微信云托管环境ID
-      },
-      success: res => {
-        console.log(res.fileID)
-        userInfo['license'] = res.fileID
-        console.log(userInfo)
-        that.setData({
-          userInfo: userInfo
-        })
-        wx.showToast({
-          title: '上传成功',
-          duration: 500,
-        })
-      },
-      fail: err => {
-        console.error(err)
-      }
+    return new Promise((resolve, reject) => {
+      wx.cloud.uploadFile({
+        cloudPath: `license/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
+        filePath: image_path, // 微信本地文件，通过选择图片，聊天文件等接口获取
+        config: {
+          env: app.globalData.env // 需要替换成自己的微信云托管环境ID
+        },
+        success: res => {
+          resolve(res)
+          // console.log(res.fileID)
+          // userInfo['license'] = res.fileID
+          // console.log(userInfo)
+          // that.setData({
+          //   userInfo: userInfo
+          // })
+          // wx.showToast({
+          //   title: '上传成功',
+          //   duration: 500,
+          // })
+        },
+        fail: err => {
+          reject(err)
+        }
+      })
     })
   },
   ChooseImage(e) {
@@ -141,7 +144,8 @@ Page({
     })
     let that = this
     let licenses = that.data.license
-    this.uploadImage(licenses[0]).then(() => {
+    this.uploadImage(licenses[0]).then((res) => {
+      console.log(res)
       let userInfo = that.data.userInfo
       let account = userInfo['account']
       let id = `${account}_${Date.now()}`
@@ -151,9 +155,10 @@ Page({
       let company_name = userInfo['company_name']
       let legal_name = userInfo['legal_name']
       let phone = userInfo['phone']
-      let license = userInfo['license']
+      let license = res.fileID
+      userInfo['license'] = license
       let avatarUrl = userInfo['avatarUrl']
-      let greenHouses = parseInt(userInfo['greenhouses'])
+      let greenHouses = parseInt(userInfo['greenHouses'])
       let company_address = userInfo['company_address']
       let type = 0 // 0：种植户 1：小说是 2：管理员
       let status = 0 // 0： 正常 1：被举报 2：禁言
@@ -180,6 +185,7 @@ Page({
             })
           } else {
             let db = wx.cloud.database()
+            console.log('hello', license)
             db.collection(dbName).add({
               data: {
                 id: id,

@@ -49,7 +49,12 @@
   </view>
   <view class="info-item">
     <text class="label">营业执照</text>
-    <image src="{{userInfo.license}}" class="license-image"></image>
+    <view class="grid col-4 grid-square flex-sub">
+      <view class="bg-img" bindtap="ViewImage">
+        <image src='{{userInfo.license}}' mode='aspectFill'></image>
+      </view>
+    </view>
+    <!-- <image src="{{userInfo.license}}" class="license-image" bindtap="ViewImage"></image> -->
   </view>
 </view>
 <view class="cu-form-group" style="margin-left:10px; margin-right: 10px;">

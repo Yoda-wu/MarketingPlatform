@@ -20,6 +20,7 @@ Page({
     let userInfo = this.data.userInfo
     console.log(userInfo)
     if (userLogin) {
+      console.log(url)
       wx.navigateTo({
         url: url,
       })
@@ -51,7 +52,7 @@ Page({
       cloudPath: `avatar/${Date.now()}.${file_extension}`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
       filePath: path, // 微信本地文件，通过选择图片，聊天文件等接口获取
       config: {
-        env: 'schoolmap-7gbh91vx48c69c86' // 需要替换成自己的微信云托管环境ID
+        env: app.globalData.env// 需要替换成自己的微信云托管环境ID
       },
       success: res => {
         console.log(res.fileID)

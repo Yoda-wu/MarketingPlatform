@@ -36,7 +36,7 @@
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
-  "appid": "wxce991900802f737f",
+  "appid": "wxfb64b9073645a7d2",
   "projectname": "quickstart-wx-cloud",
   "libVersion": "latest",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
