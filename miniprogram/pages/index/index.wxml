@@ -62,7 +62,7 @@
   </van-tab>
   <van-tab class="buyer-bar" title="销售商需求" name="buyer">
     <scroll-view scroll-y="true" bindscrolltolower='onReachRequireBottom'>
-      <view class="product-info" wx:for="{{sellerData}}" wx:key="index">
+      <view class="product-info" wx:for="{{sellerData}}" wx:key="index" id="{{index}}" bind:tap="getRequireDetail">
         <image class="product-image" src="{{item.picture}}"></image>
         <view class="product-details">
           <text class="product-company">{{item.company_name}}</text>

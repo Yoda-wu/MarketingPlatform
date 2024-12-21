@@ -31,7 +31,7 @@ Page({
       },
       {
         'key': '大棚数量',
-        'id': 'greenhouses',
+        'id': 'greenHouses',
         'value': 'xxx'
       }
     ],
@@ -68,12 +68,18 @@ Page({
       }
     ]
   },
-
+  ViewImage(e) {
+    console.log(e, this.data.userInfo.license)
+    wx.previewImage({
+      urls: [this.data.userInfo.license],
+      current: e.currentTarget.dataset.url
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const FARMER = 'farmer'
+    const FARMER = 0
     let userInfo = wx.getStorageSync('userInfo')
     console.log(userInfo)
     if (userInfo.type == FARMER) {

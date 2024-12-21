@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    farmerData: null,  // 农户信息，在onLoad生命周期函数获取；
     unit: '箱',
     showDialog: false,  // 展示下单弹窗
     orderamount: null,  // 下单数量
@@ -32,7 +31,7 @@ Page({
   },
   // 点击产品的下单按钮
   takeOrder(event) {
-    const {orderindex} = event.target.dataset
+    const { orderindex } = event.target.dataset
     const orderItem = this.data.productDetails[orderindex]
     console.log(orderItem)
     this.setData({
@@ -44,6 +43,7 @@ Page({
   confirmOrder(event) {
     const amount = Number.parseInt(this.data.orderamount)
     if(isNaN(amount)) {  // 无效数字
+
       wx.showToast({
         title: '请输入有效数字',
         icon: "error",
@@ -135,6 +135,7 @@ Page({
     const _id = "0e839fa467668e2701a7edd23b103254"
     wx.showLoading({
       title: '数据加载中',
+
     })
     this.loadBaseInfo(_id)
       .then(res => { // 加载基础信息

@@ -13,6 +13,7 @@ exports.main = async (event, context) => {
   // const openId = wxContext.OPENID
   const account = event.account
   const password = event.password
+  const user_id = event.id
   console.log(event)
   // console.log(wxContext)
   // console.log('cloud', openId)
@@ -59,6 +60,30 @@ exports.main = async (event, context) => {
       company_address: true,
       sale_scope: true,
       bussiness_scope: true,
+      rating: true
+    }).get()
+  }
+
+  if (event.type === 'ID') {
+    const dbname = 'UserList'
+    return await db.collection(dbname).where({
+      'id': user_id,
+    }).field({
+      id: true,
+      _id: true,
+      _openid: true,
+      name: true,
+      phone: true,
+      company_name: true,
+      legal_name: true,
+      type: true,
+      avatarUrl: true,
+      account: true,
+      greenHouses: true,
+      company_address: true,
+      sale_scope: true,
+      bussiness_scope: true,
+      status: true,
       rating: true
     }).get()
   }

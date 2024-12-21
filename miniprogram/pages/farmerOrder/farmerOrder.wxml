@@ -1,5 +1,5 @@
-  <!--pages/cdetails/index.wxml-->
-  <!-- 合作社信息 -->
+<!--pages/cdetails/index.wxml-->
+<!-- 合作社信息 -->
 
 <view class="container">
 
@@ -15,6 +15,7 @@
       <view class="details-text">大棚数量：{{baseInfo.base_num}}</view>
       <view class="details-text credis-box">
         信誉评价：<view>{{baseInfo.rating}}</view>
+
       </view>
     </view>
   </view>
@@ -52,22 +53,16 @@
             </view>
           </van-card>
       </view>
-    </view>
 
-    <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
+    </view>
+  </view>
+  
+  <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
+
 </view>
 
 <!-- 下单弹窗 -->
-<van-dialog
-  use-slot
-  title="下单详情"
-  showCancelButton
-  showConfirmButton
-  overlay
-  show="{{ showDialog }}"
-  bind:confirm="confirmOrder"
-  width="95%"
->
+<van-dialog use-slot title="下单详情" showCancelButton showConfirmButton overlay show="{{ showDialog }}" bind:confirm="confirmOrder" width="95%">
 
   <view style="padding-left: 10rpx;">
     <view>名称：{{targetOrder.product_name}}</view>
@@ -77,24 +72,12 @@
 
   <van-cell-group>
     <!-- 弹窗内部组件，展示下单的商品、填入下单数量 -->
-    <van-field
-      model:value="{{orderamount}}"
-      placeholder="请输入下单数量（箱）："
-      border="true"
-    />
-
+    <van-field model:value="{{orderamount}}" placeholder="请输入下单数量（箱）：" border="true" />
   </van-cell-group>
 </van-dialog>
 
 <!-- 二次确认订单 -->
-<van-dialog
-  use-slot
-  width="95%"
-  title="确定下单"
-  show="{{ confirmOrder }}"
-  show-cancel-button
-  bind:confirm="executeOrder"
->
+<van-dialog use-slot width="95%" title="确定下单" show="{{ confirmOrder }}" show-cancel-button bind:confirm="executeOrder">
   <view style="padding-left: 10rpx;">
     <view>下单 {{targetOrder.product_name}} {{orderamount}}箱，预计 {{totalcost}} 元</view>
   </view>
