@@ -5,16 +5,16 @@
 
   <view class="info-box">
     <!-- 合作社名称 -->
-    <view class="name-box">{{farmerName}}</view>
+    <view class="name-box">{{farmerData.company_name}}</view>
 
     <!-- 合作社详情 -->
     <view class="details-box">
       <view class="details-text">供应产品：{{productStr}}</view>
-      <view class="details-text">联系人：{{contactPerson}}</view>
+      <view class="details-text">联系人：{{farmerData.name}}</view>
       <view class="details-text">联系方式：{{maskedPhone}}</view>
-      <view class="details-text">大棚数量：{{baseNum}}</view>
+      <view class="details-text">大棚数量：{{farmerData.baseNum}}</view>
       <view class="details-text">信誉评价：
-                                <view class="credis-box" style="background-color: {{crediscolor}}">{{credits}}</view>
+                                <view class="credis-box" style="background-color: {{crediscolor}}">{{farmerData.rating}}</view>
                                 </view>
     </view>
   </view>
@@ -24,7 +24,7 @@
       <!-- 表头 -->
       <view class="items-header">产品详情</view>
       <!-- 产品条目详情 -->
-      <view class='item-card' wx:for="{{productDetails}}" wx:key="_id">
+      <view class='item-card' wx:for="{{farmerData.productDetails}}" wx:key="_id">
           <van-card
           price="{{item.expectedPrice}} 元/{{ unit }}"
           desc="{{item.description}}"
@@ -40,12 +40,12 @@
                 <!-- 咨询 -->
                 <van-button size="mini" type="info" 
                 bind:click="callPhone"
-                custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
+                custom-class='contact-button'
                 data-orderindex="{{index}}"
                 plain round>咨询</van-button>
                 <!-- 下单 -->
                 <van-button size="mini" type="primary" 
-                custom-style="width: 20rpx; color: black;"
+                custom-class='order-button'
                 bind:click="takeOrder"
                 data-orderindex="{{index}}"
                 plain round>下单</van-button>
@@ -54,7 +54,7 @@
       </view>
     </view>
 
-    <view class="view-info">浏览量：{{ viewAccount }}</view>
+    <view class="view-info">浏览量：{{ farmerData.viewCount }}</view>
 </view>
 
 <!-- 下单弹窗 -->

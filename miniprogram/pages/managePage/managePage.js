@@ -60,10 +60,6 @@ Page({
     const {removeAdminIndex} = event.target.dataset
     const adminToRemove = this.data.adminUsers[removeAdminIndex]
     console.log("remove " + adminToRemove._id + "-" + adminToRemove.name)
-    this.setData({
-      isRemove: true
-    })
-
     Dialog.confirm({
       selector: "#remove-admin",
       title: '确认移除',
@@ -77,11 +73,6 @@ Page({
       .catch(() => {
         // cancel
         console.log('取消移除！')
-      })
-      .finally(() => {
-        this.setData({
-          isRemove: false
-        })
       });
   
   },
@@ -89,10 +80,6 @@ Page({
   setAdmin(event) {
     const {setAdminIndex} = event.target.dataset
     const adminToAdd = this.data.normalUsers[setAdminIndex]
-    this.setData({
-      isSetAdmin: true
-    })
-
     Dialog.confirm({
       selector: "#set-admin",
       title: '确认添加',
@@ -106,20 +93,12 @@ Page({
       .catch(() => {
         // cancel
         console.log('取消添加！')
-      })
-      .finally(() => {
-        this.setData({
-          isSetAdmin: false
-        })
       });
   },
   // 禁言
   setSilent(event) {
     const {setSilentIndex} = event.target.dataset
     const userToSilent = this.data.normalUsers[setSilentIndex]
-    this.setData({
-      isSilent: true
-    })
 
     Dialog.confirm({
       selector: "#set-silent",
@@ -134,11 +113,6 @@ Page({
       .catch(() => {
         // cancel
         console.log('取消禁言！')
-      })
-      .finally(() => {
-        this.setData({
-          isSilent: false
-        })
       });
   },
   /**

@@ -1,23 +1,13 @@
 // pages/ordersPage/ordersPage.js
-import Dialog from '@vant/weapp/dialog/dialog';
-Page({
+import dbBehavior from './db'
+const db = wx.cloud.database()
 
+Page({
+  behaviors: [dbBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    orders: [
-              {_id: '1', offerName: '销售商1', offerPhone: '12842945822', productName: 'a菇', amount: 10, price: 10.2},
-              {_id: '2', offerName: '销售商1', offerPhone: '12842945822',productName: 'b菇', amount: 8, price: 8.3},
-              {_id: '3', offerName: '销售商2', offerPhone: '12834945865',productName: 'a菇', amount: 7, price: 10.2},
-              {_id: '4', offerName: '销售商1', offerPhone: '12842945822',productName: 'c菇', amount: 20, price: 11.2},
-            ],
-    orderCompleted: [
-      {_id: '1', offerName: '销售商3', offerPhone: '12842945822', productName: 'd菇', credits: 4.6, amount: 10, price: 10.2},
-      {_id: '2', offerName: '销售商4', offerPhone: '12842945823',productName: 'a菇', credits: 4.7,  amount: 8, price: 8.3},
-      {_id: '3', offerName: '销售商3', offerPhone: '12834846754',productName: 'd菇', credits: 4.8,  amount: 7, price: 10.2},
-      {_id: '4', offerName: '销售商5', offerPhone: '12842945824',productName: 'c菇', credits: 4.9,  amount: 20, price: 11.2},
-            ],
     shownData: null,
     tabindex: 0,
     rateValue: 0,
@@ -26,17 +16,11 @@ Page({
   },
   onChangeTabs(event) {
     const {index} = event.detail
-    console.log(index)
     var showData = null
-    if(index === 0) {
-      showData = this.data.orders
-    } else {
-      showData = this.data.orderCompleted
-    }
     this.setData({
-      shownData: showData,
       tabindex: index
     })
+    this.setShownData();
   },
   onConcat(event) {
     const {orderIndex} = event.target.dataset
@@ -97,13 +81,17 @@ Page({
       }
     })
   },
+  setShownData(){
+    this.setData({
+      shownData: this.data.tabindex === 0 ? this.data.ordersUnCompleted : this.data.ordersCompleted
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      shownData: this.data.orders
-    })
+    this.getUserOrders()
+    this.setShownData();
   },
 
   /**

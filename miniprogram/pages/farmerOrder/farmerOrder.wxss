@@ -64,7 +64,16 @@
   font-weight: bold; 
   font-size: 30rpx;
 }
-
+.contact-button {
+  width: 20rpx !important;
+  margin-right: 20rpx !important;
+  color: black !important;
+  font-size: 20rpx !important;
+}
+.order-button {
+  width: 20rpx !important;
+  color: black !important;
+}
 /* 浏览量 */
 .view-info{
   display: inline;

@@ -13,6 +13,12 @@
   width: 95%;
 }
 
+.search-button {
+  width: 70px !important;
+  font-size: 10px !important;
+  height: 50rpx !important;
+}
+
 .user-box {
   width: 95%;
   height: 100%;

@@ -1,28 +1,18 @@
 // pages/farmerOrder/farmerOrder.js
-Page({
+import dbBehavior from './db';
 
+Page({
+  behaviors: [dbBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    farmerInfo: {},
-    farmerName: "xx合作社",
-    products: ['梨', '苹果'],
-    contactPerson: '李先生',
-    phone: '18127125486',
-    baseNum: 10,
-    credits: 4.8,
-    unit: "箱",
-    viewAccount: 1090,
-    productDetails: [
-      {id: 1, name: 'a菇', amount: 10, expectedPrice: 32.7, description: '描述信息1', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
-      {id: 2, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息2', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
-      {id: 3, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息3', image: 'https://img.yzcdn.cn/vant/cat.jpeg'},
-    ],
+    farmerData: null,  // 农户信息，在onLoad生命周期函数获取；
+    unit: '箱',
     showDialog: false,  // 展示下单弹窗
     orderamount: null,  // 下单数量
     targetOrder: null,  // 下单的产品
-    totalcost: null,
+    totalcost: null,  // 总花费
     confirmOrder: false, // 是否已经确定下单
   },
   // 联系商家按钮
@@ -35,72 +25,82 @@ Page({
   // 点击下单按钮
   takeOrder(event) {
     const {orderindex} = event.target.dataset
-    const orderItem = this.data.productDetails[orderindex]
+    const orderItem = this.data.farmerData.productDetails[orderindex]
     this.setData({
       showDialog: true,
       targetOrder: orderItem
     })
-    // console.log(orderItem)
   },
-
+  resetOrderData() {
+    this.setData({
+      showDialog: false,
+      orderamount: null,
+      targetOrder: null,
+      totalcost: null,
+      confirmOrder: false
+    })
+  },
   // 确定下单
   confirmOrder(event) {
-    const amount = this.data.orderamount
-    if(amount === null) {
+    const amount = Number.parseInt(this.data.orderamount)
+    if(isNaN(amount)) {  // 无效数字
       wx.showToast({
         title: '请输入有效数字',
-        icon: "error"
+        icon: "error",
       })
-    } else if (amount > this.data.targetOrder.amount) {
+      this.resetOrderData()
+      return
+    } 
+    if (amount > this.data.targetOrder.amount) {
       wx.showToast({
         title: '产品数量不足',
         icon: "error"
       })
-    } else {
-      const totalcost = this.data.orderamount * this.data.targetOrder.expectedPrice
-      this.setData({
-        confirmOrder: true,
-        totalcost: totalcost.toFixed(2)
-      })
+      this.resetOrderData()
+      return
     }
+
+    const totalcost = amount * this.data.targetOrder.expectedPrice
     this.setData({
+      orderamount: amount,
+      confirmOrder: true,
+      totalcost: totalcost.toFixed(2),
       showDialog: false,
     })
+
   },
 
   // 执行订单
   executeOrder() {
-    this.setData({
-      confirmOrder: false
-    })
-
     // TODO 修改订单信息
     console.log("执行订单！")
-
-    this.setData({
-      orderamount: null
-    })
+    
+    this.resetOrderData()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const farmerData = this.getFarmerDataByID("12")
+    this.setData({
+      farmerData: farmerData
+    })
     // 隐藏号码
-    const maskedPhone = this.data.phone.slice(0, 3) + '*'.repeat(5) + this.data.phone.slice(8);
+    const maskedPhone = farmerData.phone.slice(0, 3) + '*'.repeat(5) + farmerData.phone.slice(8);
 
     // 信誉评价的颜色
     const goodColor = 'rgb(213, 255, 203)'
     const badColor = "rgb(248, 220, 143)"
     var crediscolor = ""
-    if(this.data.credits >= 3.0) {
+    if(farmerData.rating >= 3.0) {
       crediscolor = goodColor
     } else {
       crediscolor = badColor
     }
 
     this.setData({
-      productStr: this.data.products.join('，'),
+      productStr: farmerData.products.join('，'),
       maskedPhone: maskedPhone,
       crediscolor: crediscolor
     })

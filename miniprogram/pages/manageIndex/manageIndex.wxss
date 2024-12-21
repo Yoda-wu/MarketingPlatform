@@ -11,8 +11,8 @@ page {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 300rpx;
-  background-color: #59a8f1; /* 背景色 */
+  /* height: 300rpx; */
+  /* background-color: #59a8f1; 背景色 */
   text-align: center;
 }
 
@@ -20,7 +20,7 @@ page {
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-top: 120rpx;   /* 数据面板高度相关 */
+  margin-top: 50rpx;   /* 数据面板高度相关 */
   width: 90%;
   height: 300rpx;
   background-color: rgb(232, 245, 246);
