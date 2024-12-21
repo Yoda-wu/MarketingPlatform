@@ -55,9 +55,8 @@
       </view>
 
     </view>
-  </view>
   
-  <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
+    <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
 
 </view>
 

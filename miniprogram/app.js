@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     
     // wx.setStorageSync('userInfo', {id: 'abc5', type: 0, name: 'user5', phone: '6357145234'})
-    wx.setStorageSync('userInfo', {id: 'abc12', type: 1, name: 'user12', phone: '25475154844'})
+    // wx.setStorageSync('userInfo', {id: 'abc12', type: 1, name: 'user12', phone: '25475154844'})
 
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
@@ -15,12 +15,14 @@ App({
         //   如不填则使用默认环境（第一个创建的环境）
         
         env: 'market-platform-2gcqegvr3a79fd6b',
+        // env: 'house-3gl07xnh583e52a1',
         traceUser: true,
       });
     }
 
     this.globalData = {
       env: 'market-platform-2gcqegvr3a79fd6b'
+      // env: 'house-3gl07xnh583e52a1',
     };
     this.IsLogon()
   },
