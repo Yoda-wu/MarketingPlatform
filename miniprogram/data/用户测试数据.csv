@@ -1,16 +1,16 @@
-userID,avatarUrl,license,account,password,company_name,company_address,name,legal_name,phone,rating,status,type,view_count
-abc1,,,a12345,12345,farmer1,,user1,,54215221211,5 ,0,0 ,1 
-abc2,,,a12346,12345,farmer2,,user2,,11268530994,5 ,,0 ,1 
-abc3,,,a12347,12345,farmer3,,user3,,24328675312,5 ,,0 ,1 
-abc4,,,a12348,12345,farmer4,,user4,,47191195312,5 ,,0 ,1 
-abc5,,,a12349,12345,farmer5,,user5,,6357145234,5 ,,0 ,1 
-abc6,,,a12350,12345,seller1,,user6,,76710329101,5 ,,1 ,1 
-abc7,,,a12351,12345,seller2,,user7,,92564505972,5 ,,1 ,1 
-abc8,,,a12352,12345,seller3,,user8,,65630568358,5 ,,1 ,1 
-abc9,,,a12353,12345,seller4,,user9,,27854088954,5 ,,1 ,1 
-abc10,,,a12354,12345,seller5,,user10,,82584856454,5 ,,1 ,1 
-abc11,,,a12355,12345,seller6,,user11,,82815077417,5 ,,1 ,1 
-abc12,,,a12356,12345,seller7,,user12,,25475154844,5 ,,1 ,1 
-abc13,,,a12357,12345,seller8,,user13,,91299349937,5 ,,1 ,1 
-abc14,,,a12358,12345,seller9,,user14,,49874281216,5 ,,1 ,1 
-abc15,,,a12359,12345,seller10,,user15,,22871050853,5 ,,1 ,1 
+userID,avatarUrl,license,account,password,company_name,company_address,name,legal_name,phone,rating,status,type,view_count,scale_scope
+abc1,,,a12345,12345,farmer1,,user1,,a2552546742,5 ,0,0 ,1 ,place1
+abc2,,,a12346,12345,farmer2,,user2,,a7481498895,5 ,0,0 ,1 ,place2
+abc3,,,a12347,12345,farmer3,,user3,,a8471860773,5 ,0,0 ,1 ,place3
+abc4,,,a12348,12345,farmer4,,user4,,a3042984014,5 ,0,0 ,1 ,place4
+abc5,,,a12349,12345,farmer5,,user5,,a1575442909,5 ,0,0 ,1 ,place5
+abc6,,,a12350,12345,seller1,,user6,,a6115700987,5 ,0,1 ,1 ,place2
+abc7,,,a12351,12345,seller2,,user7,,a2079379110,5 ,0,1 ,1 ,place3
+abc8,,,a12352,12345,seller3,,user8,,a2948781735,5 ,0,1 ,1 ,place4
+abc9,,,a12353,12345,seller4,,user9,,a4515497748,5 ,0,1 ,1 ,place9
+abc10,,,a12354,12345,seller5,,user10,,a4100671137,5 ,0,1 ,1 ,place10
+abc11,,,a12355,12345,seller6,,user11,,a3823881421,5 ,0,1 ,1 ,place2
+abc12,,,a12356,12345,seller7,,user12,,a9368350202,5 ,0,1 ,1 ,place3
+abc13,,,a12357,12345,seller8,,user13,,a7535919016,5 ,0,1 ,1 ,place4
+abc14,,,a12358,12345,seller9,,user14,,a1510058269,5 ,0,1 ,1 ,place9
+abc15,,,a12359,12345,seller10,,user15,,a4895591548,5 ,0,1 ,1 ,place10
