@@ -5,17 +5,17 @@
 
   <view class="info-box">
     <!-- 合作社名称 -->
-    <view class="name-box">{{farmerData.company_name}}</view>
+    <view class="name-box">{{baseInfo.company_name}}</view>
 
     <!-- 合作社详情 -->
     <view class="details-box">
       <view class="details-text">供应产品：{{productStr}}</view>
-      <view class="details-text">联系人：{{farmerData.name}}</view>
+      <view class="details-text">联系人：{{baseInfo.name}}</view>
       <view class="details-text">联系方式：{{maskedPhone}}</view>
-      <view class="details-text">大棚数量：{{farmerData.baseNum}}</view>
-      <view class="details-text">信誉评价：
-                                <view class="credis-box" style="background-color: {{crediscolor}}">{{farmerData.rating}}</view>
-                                </view>
+      <view class="details-text">大棚数量：{{baseInfo.base_num}}</view>
+      <view class="details-text credis-box">
+        信誉评价：<view>{{baseInfo.rating}}</view>
+      </view>
     </view>
   </view>
 
@@ -24,17 +24,17 @@
       <!-- 表头 -->
       <view class="items-header">产品详情</view>
       <!-- 产品条目详情 -->
-      <view class='item-card' wx:for="{{farmerData.productDetails}}" wx:key="_id">
+      <view class='item-card' wx:for="{{productDetails}}" wx:key="_id">
           <van-card
-          price="{{item.expectedPrice}} 元/{{ unit }}"
+          price="{{item.prices}} 元/{{ unit }}"
           desc="{{item.description}}"
-          thumb="{{ item.image }}"
+          thumb="{{ item.picture }}"
           centered
           >
             <!-- 产品名 -->
-            <view slot='title' class='item-name'>{{item.name}}</view>
+            <view slot='title' class='item-name'>{{item.product_name}}</view>
             <!-- 产品数量 -->
-            <view slot="num" style="float: right;">共 {{item.amount}} {{unit}}</view>
+            <view slot="num" style="float: right;">共 {{item.capcacity}} {{unit}}</view>
             <!-- 两个按钮 -->
             <view slot="footer">
                 <!-- 咨询 -->
@@ -54,7 +54,7 @@
       </view>
     </view>
 
-    <view class="view-info">浏览量：{{ farmerData.viewCount }}</view>
+    <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
 </view>
 
 <!-- 下单弹窗 -->
@@ -70,9 +70,9 @@
 >
 
   <view style="padding-left: 10rpx;">
-    <view>名称：{{targetOrder.name}}</view>
-    <view>价格：{{targetOrder.expectedPrice}} 元/箱</view>
-    <view>数量：{{targetOrder.amount}} 箱</view>
+    <view>名称：{{targetOrder.product_name}}</view>
+    <view>价格：{{targetOrder.prices}} 元/箱</view>
+    <view>数量：{{targetOrder.capcacity}} 箱</view>
   </view>
 
   <van-cell-group>
@@ -96,7 +96,7 @@
   bind:confirm="executeOrder"
 >
   <view style="padding-left: 10rpx;">
-    <view>下单 {{targetOrder.name}} {{orderamount}}箱，预计 {{totalcost}} 元</view>
+    <view>下单 {{targetOrder.product_name}} {{orderamount}}箱，预计 {{totalcost}} 元</view>
   </view>
 
 </van-dialog>

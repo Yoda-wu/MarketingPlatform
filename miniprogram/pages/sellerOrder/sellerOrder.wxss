@@ -16,6 +16,7 @@
 
 /* 合作社/销售商名称box */
 .name-box {
+  height: 42rpx;
   font-size: 40rpx;
   margin: 10rpx;
   height: 50rpx;
@@ -91,7 +92,6 @@
   width: 20rpx !important;
   margin-right: 20rpx !important;
   color: black !important;
-  font-size: 20rpx !important;
 }
 .sell-button {
   width: 20rpx !important;

@@ -1,12 +1,10 @@
 // pages/farmerOrder/farmerOrder.js
-import dbBehavior from './db'
+const db = wx.cloud.database()
 Page({
-  behaviors: [dbBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    sellerData: null,
     unit: "箱",
     showDialog: false,  // 展示下单弹窗
     orderamount: null,  // 下单数量
@@ -17,7 +15,7 @@ Page({
   // 联系商家按钮
   callPhone(event) {
     wx.makePhoneCall({
-      phoneNumber: this.data.sellerData.phone,
+      phoneNumber: this.data.baseInfo.phone,
     })
   },
 
@@ -25,7 +23,7 @@ Page({
   takeOrder(event) {
     // 点击的订单条目index
     const {orderIndex} = event.target.dataset
-    const orderItem = this.data.sellerData.productDetails[orderIndex]
+    const orderItem = this.data.productDetails[orderIndex]
     this.setData({
       showDialog: true,
       targetOrder: orderItem
@@ -54,7 +52,7 @@ Page({
       return
     }
 
-    if (amount > this.data.targetOrder.amount) {
+    if (amount > this.data.targetOrder.capcacity) {
       wx.showToast({
         title: '数量大于需求',
         icon: "error"
@@ -64,48 +62,116 @@ Page({
     } 
 
       // 总价格
-    const totalcost = amount * this.data.targetOrder.expectedPrice
+    const totalcost = amount * this.data.targetOrder.prices
     this.setData({
-      confirmOrder: true,
+      confirmOrder: true, // 展示二次确认窗口
       orderamount: amount,
       showDialog: false,
       totalcost: totalcost.toFixed(2)
     })
   },
 
-  // 执行订单
+  // 确如完成，点击确认，二次确认后创建订单
   executeOrder() {
-    // TODO 修改订单信息
     console.log("执行订单！")
-
-    this.resetOrderData();
+    
+    const app = getApp()
+    const userInfo = app.globalData.userInfo;
+    console.log(this.data.targetOrder)
+    wx.cloud.callFunction({
+      name: 'createOrder',
+      data: {
+        targetOrder: this.data.targetOrder,
+        amount: this.data.orderamount,
+        userInfo: userInfo
+      }
+    })
+    .then(res => {
+      console.log(res)
+      wx.showToast({
+        title: '下单成功',
+        icon: 'success'
+      })
+    })
+    .catch(err => { 
+      wx.showToast({
+        title: '下单失败',
+        icon: 'error'
+      })
+    })
+    .finally(
+      this.resetOrderData()
+    )
   },
-
+  // 加载用户基本信息；
+  async loadBaseInfo(_id) {
+    return await db.collection("UserList").where({
+      _id: _id
+    })
+    .limit(1)
+    .get()
+  },
+  // 加载用户发布的信息
+  async loadPublishList(userID) {
+    return await db.collection("PublishList")
+      .where({
+        user_id: userID,
+        type: 1
+      }).get()
+  },
+  // 浏览量+1
+  async addViewCount(_id) {
+    var _ = db.command
+    return await db.collection("UserList")
+      .doc(_id)
+      .update({
+        data: {
+          view_count: _.inc(1)
+        }
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const sellerData = this.getSellerById('123')
-
-    // 隐藏号码
-    const maskedPhone = sellerData.phone.slice(0, 3) + '*'.repeat(5) + sellerData.phone.slice(8);
-    // 信誉评价的颜色
-    const goodColor = 'rgb(213, 255, 203)'
-    const badColor = "rgb(248, 220, 143)"
-    var crediscolor = ""
-    if(sellerData.rating >= 3.0) {
-      crediscolor = goodColor
-    } else {
-      crediscolor = badColor
-    }
-    
-    this.setData({
-      sellerData: sellerData,
-      wantedProductStr: sellerData.wantedProducts.join('，'),
-      places2sellStr: sellerData.bussiness_scope.join('，'),
-      maskedPhone: maskedPhone,
-      crediscolor: crediscolor
+    // const {_id} = options
+    const _id = "0e839fa467668e2701a7edd91c25d8d5"
+    wx.showLoading({
+      title: '数据加载中',
     })
+    this.loadBaseInfo(_id)
+      .then(res => { // 加载基础信息
+        const baseInfo = res.data[0]
+        const phone = baseInfo.phone
+        // 隐藏号码
+        const maskedPhone = phone.slice(0, 3) + '*'.repeat(5) + phone.slice(8)
+        this.setData({
+          baseInfo: baseInfo,
+          maskedPhone: maskedPhone
+        })
+        return this.loadPublishList(baseInfo.userID)
+      })
+      .then(res => {  // 加载产品详情
+        const data = res.data
+        console.log(data)
+        const record = new Set()
+        const productsName = new Array()
+        data.forEach((item) => {
+          if(!record.has(item.product_name)) {
+            record.add(item.product_name)
+            productsName.push(item.product_name)
+          }
+        })
+        this.setData({
+          productDetails: data,
+          productStr: productsName.join('，')
+        })
+        return this.data.baseInfo._id
+      })
+      .then(_id => {
+        this.addViewCount(_id)
+        wx.hideLoading()
+      })
   },
   // TODO 浏览量+1
   addViewAmount() {
@@ -115,7 +181,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.addViewAmount()
   },
 
   /**

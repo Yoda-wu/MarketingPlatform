@@ -2,7 +2,9 @@
 App({
   onLaunch: function () {
     
-    wx.setStorageSync('userInfo', {id: '123456', type: 0, name: '王先生', phone: '12345678901'})
+    // wx.setStorageSync('userInfo', {id: 'abc5', type: 0, name: 'user5', phone: '6357145234'})
+    wx.setStorageSync('userInfo', {id: 'abc12', type: 1, name: 'user12', phone: '25475154844'})
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
     } else {

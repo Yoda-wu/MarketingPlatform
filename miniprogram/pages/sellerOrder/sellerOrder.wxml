@@ -2,16 +2,16 @@
 <view class="container">
   <view class="info-box">
     <!-- 销售商名称 -->
-    <view class="name-box">{{sellerData.company_name}}</view>
+    <view class="name-box">{{baseInfo.company_name}}</view>
 
     <!-- 销售商详情 -->
     <view class="details-box">
-      <view class="details-text">需求产品：{{wantedProductStr}}</view>
-      <view class="details-text">联系人：{{sellerData.name}}</view>
+      <view class="details-text">需求产品：{{productStr}}</view>
+      <view class="details-text">联系人：{{baseInfo.name}}</view>
       <view class="details-text">联系方式：{{maskedPhone}}</view>
-      <view class="details-text">销往地：{{places2sellStr}}</view>
+      <view class="details-text">销往地：{{baseInfo.sale_scope}}</view>
       <view class="details-text">信誉评价：
-                                <view class="credis-box" style="background-color: {{crediscolor}}">{{sellerData.rating}}</view>
+                                <view class="credis-box">{{baseInfo.rating}}</view>
                                 </view>
     </view>
   </view>
@@ -21,22 +21,22 @@
       <!-- 表头 -->
       <view class="items-header">需求详情</view>
       <!-- 需求条目详情 -->
-      <view class="item-card" wx:for="{{sellerData.productDetails}}" wx:key="id">
+      <view class="item-card" wx:for="{{productDetails}}" wx:key="id">
           <van-card
           desc="{{item.description}}"
           centered
           >
             <!-- 需求名 -->
-            <view slot='title' class='item-name'>{{item.name}}</view>
+            <view slot='title' class='item-name'>{{item.product_name}}</view>
             <!-- 收购价格 -->
             <view slot="price" class='price-box'>
               <text class='desc'>收购价格：</text>
-              <text class='price-value'>{{item.expectedPrice}} 元/{{ unit }}</text>
+              <text class='price-value'>{{item.prices}} 元/{{ unit }}</text>
             </view>
             <!-- 需求数量 -->
             <view slot="num" class='need-box'>
               <text class='desc'>需求：</text>
-              <text class='need-value'>{{item.amount}} {{unit}}</text>
+              <text class='need-value'>{{item.capcacity}} {{unit}}</text>
             </view>
             <view slot="footer">
                <!-- 两个按钮 -->
@@ -55,7 +55,7 @@
       </view>
     </view>
 
-    <view class="view-info">浏览量：{{ sellerData.viewCount }}</view>
+    <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
 </view>
 
 <!-- 下单弹窗 -->
@@ -71,9 +71,9 @@
 >
 
   <view style="padding-left: 10rpx;">
-    <view>名称：{{targetOrder.name}}</view>
-    <view>价格：{{targetOrder.expectedPrice}} 元/箱</view>
-    <view>需求：{{targetOrder.amount}} 箱</view>
+    <view>名称：{{targetOrder.product_name}}</view>
+    <view>价格：{{targetOrder.prices}} 元/箱</view>
+    <view>需求：{{targetOrder.capcacity}} 箱</view>
   </view>
 
   <van-cell-group>

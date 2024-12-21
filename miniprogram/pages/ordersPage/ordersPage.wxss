@@ -38,8 +38,9 @@ page {
 
 .item-name {
   font-weight: bold;
+  height: 45rpx;
   margin: 5rpx;
-  font-size: 38rpx;
+  font-size: 35rpx;
 }
 
 .item-detail {
@@ -55,11 +56,21 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-top: 45rpx;
 }
 
 .offer-detail {
   margin: 5rpx;
   font-size: 30rpx;
+}
+
+.offer-header {
+  display: flex;
+  align-content: center;
+}
+.offer-detail .other-type {
+  color: gray;
+  font-size: 28rpx;
 }
 .offer-credit {
   display: inline;
