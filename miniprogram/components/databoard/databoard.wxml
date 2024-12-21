@@ -1,0 +1,14 @@
+<view class="produce-card">
+  <view class="today-date">2024年12月3日</view>
+  <view class="marketing-data-container">
+    <view class="marketing-data-item">
+      <text class="marketing-label">生产数据</text>
+      <text class="marketing-value">{{produceData}}箱</text>
+    </view>
+    <view class="card-divider"></view>
+    <view class="marketing-data-item">
+      <text class="marketing-label">销售数据</text>
+      <text class="marketing-value">{{sellData}}箱</text>
+    </view>
+  </view>
+</view>

@@ -2,16 +2,16 @@
 <view class="container">
   <view class="info-box">
     <!-- 销售商名称 -->
-    <view class="name-box">{{sellerName}}</view>
+    <view class="name-box">{{baseInfo.company_name}}</view>
 
     <!-- 销售商详情 -->
     <view class="details-box">
-      <view class="details-text">需求产品：{{wantedProductStr}}</view>
-      <view class="details-text">联系人：{{contactPerson}}</view>
+      <view class="details-text">需求产品：{{productStr}}</view>
+      <view class="details-text">联系人：{{baseInfo.name}}</view>
       <view class="details-text">联系方式：{{maskedPhone}}</view>
-      <view class="details-text">销往地：{{places2sellStr}}</view>
+      <view class="details-text">销往地：{{baseInfo.sale_scope}}</view>
       <view class="details-text">信誉评价：
-                                <view class="credis-box" style="background-color: {{crediscolor}}">{{credits}}</view>
+                                <view class="credis-box">{{baseInfo.rating}}</view>
                                 </view>
     </view>
   </view>
@@ -27,42 +27,41 @@
           centered
           >
             <!-- 需求名 -->
-            <view slot='title' class='item-name'>{{item.name}}</view>
+            <view slot='title' class='item-name'>{{item.product_name}}</view>
             <!-- 收购价格 -->
-            <view slot="price" style="float: left;">
-              <text style="font-size: 25rpx;">收购价格：</text>
-              <text style="font-size: 32rpx; color: rgb(163, 63, 23);">{{item.expectedPrice}} 元/{{ unit }}</text>
+            <view slot="price" class='price-box'>
+              <text class='desc'>收购价格：</text>
+              <text class='price-value'>{{item.prices}} 元/{{ unit }}</text>
             </view>
             <!-- 需求数量 -->
-            <view slot="num" style="float: right;">
-              <text>需求：</text>
-              <text style="font-size: 32rpx;">{{item.amount}} {{unit}}</text>
+            <view slot="num" class='need-box'>
+              <text class='desc'>需求：</text>
+              <text class='need-value'>{{item.capcacity}} {{unit}}</text>
             </view>
             <view slot="footer">
                <!-- 两个按钮 -->
                <van-button size="mini" type="info" 
                 bind:click="callPhone"
-                custom-style="width: 20rpx; margin-right: 20rpx; color: black; font-size: 20rpx"
-                data-orderindex="{{index}}"
+                custom-class='contact-button'
                 plain round>咨询</van-button>
 
                 <van-button size="mini" type="primary" 
-                custom-style="width: 20rpx; color: black;"
+                custom-class="sell-button"
                 bind:click="takeOrder"
-                data-orderindex="{{index}}"
+                data-order-index="{{index}}"
                 plain round>出售</van-button>
             </view>
           </van-card>
       </view>
     </view>
 
-    <view class="view-info">浏览量：{{ viewAccount }}</view>
+    <view class="view-info">浏览量：{{ baseInfo.view_count }}</view>
 </view>
 
 <!-- 下单弹窗 -->
 <van-dialog
   use-slot
-  width="90%"
+  width="95%"
   title="出售详情"
   showCancelButton
   showConfirmButton
@@ -72,9 +71,9 @@
 >
 
   <view style="padding-left: 10rpx;">
-    <view>名称：{{targetOrder.name}}</view>
-    <view>价格：{{targetOrder.expectedPrice}} 元/箱</view>
-    <view>需求：{{targetOrder.amount}} 箱</view>
+    <view>名称：{{targetOrder.product_name}}</view>
+    <view>价格：{{targetOrder.prices}} 元/箱</view>
+    <view>需求：{{targetOrder.capcacity}} 箱</view>
   </view>
 
   <van-cell-group>
@@ -82,7 +81,6 @@
     <van-field
       model:value="{{orderamount}}"
       placeholder="请输入出售数量（箱）："
-      border="true"
     />
 
   </van-cell-group>
@@ -91,7 +89,7 @@
 <!-- 二次确认订单 -->
 <van-dialog
   use-slot
-  width="650rpx"
+  width="95%"
   title="确定订单"
   show="{{ confirmOrder }}"
   show-cancel-button

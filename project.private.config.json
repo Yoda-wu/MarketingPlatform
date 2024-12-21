@@ -7,6 +7,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "productManagePage",
+          "pathName": "pages/productManagePage/productManagePage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "publishProductPage",
+          "pathName": "pages/publishProductPage/publishProductPage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "ordersPage",
           "pathName": "pages/ordersPage/ordersPage",
           "query": "",

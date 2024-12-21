@@ -16,8 +16,10 @@
 
 /* 合作社/销售商名称box */
 .name-box {
+  height: 42rpx;
   font-size: 40rpx;
   margin: 10rpx;
+  height: 50rpx;
   border: 2rpx black;
   color: black;
   text-align: center;
@@ -64,12 +66,37 @@
   font-weight: bold; 
   font-size: 35rpx;
 }
-
-.my-price-class{
-  color: #000;
-  font: 1em sans-serif;
+/* 价格 */
+.price-box {
+  float: left;
+}
+.price-box .desc {
+  font-size: 25rpx;
+}
+.price-box .price-value {
+  font-size: 32rpx; 
+  color: rgb(163, 63, 23);
 }
 
+/* 需求 */
+.need-box {
+  float: right;
+}
+.need-box .desc {
+  font-size: 25rpx;
+}
+.need-box .need-value {
+  font-size: 32rpx;
+}
+.contact-button {
+  width: 20rpx !important;
+  margin-right: 20rpx !important;
+  color: black !important;
+}
+.sell-button {
+  width: 20rpx !important;
+   color: black !important;
+}
 /* 浏览量 */
 .view-info{
   display: inline;

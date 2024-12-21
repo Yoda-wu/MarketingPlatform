@@ -1,7 +1,9 @@
 <!--pages/manageIndex/manageIndex.wxml-->
 <view class="container">
   <!-- TODO 插入数据面板组件 -->
-  <view class="databoard">数据面板</view>
+  <view class="databoard">
+    <databoard/>
+  </view>
   <!-- 账号管理入口 -->
   <view class="admin-enter-box" bind:tap="openAdminPage">
     <view class="text-box">
@@ -17,10 +19,5 @@
         custom-style='float: right'
       />    
     </view>
-
-
   </view>
-
-
-
 </view>

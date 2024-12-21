@@ -23,7 +23,7 @@
           <van-button 
           color="#5db8ec"
           icon='search' 
-          custom-style="width: 70px; font-size: 10px; height: 50rpx;"
+          custom-class='search-button'
           bind:tap="onSearch">搜索</van-button>
       </view>
     </van-search>
@@ -79,17 +79,8 @@
 </view>
 
 <!-- 移除管理员弹出窗口 -->
-<view wx:if="{{isRemove}}">
-  <van-dialog
-  id='remove-admin'/>
-</view>
+<van-dialog id='remove-admin'/>
 
-<view wx:if="{{isSetAdmin}}">
-  <van-dialog
-    id="set-admin"/>
-</view>
+<van-dialog id="set-admin"/>
 
-<view wx:if="{{isSilent}}">
-  <van-dialog
-    id="set-silent"/>
-</view>
+<van-dialog id="set-silent"/>

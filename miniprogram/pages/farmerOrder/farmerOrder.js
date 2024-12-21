@@ -1,123 +1,180 @@
 // pages/farmerOrder/farmerOrder.js
-Page({
+const db = wx.cloud.database()
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-    farmerInfo: {},
-    farmerName: "xx合作社",
-    products: ['梨', '苹果'],
-    contactPerson: '李先生',
-    phone: '18127125486',
-    baseNum: 10,
-    credits: 4.8,
-    unit: "箱",
-    viewAccount: 1090,
-    productDetails: [
-      { id: 1, name: 'a菇', amount: 10, expectedPrice: 32.7, description: '描述信息1', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
-      { id: 2, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息2', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
-      { id: 3, name: 'c菇', amount: 13, expectedPrice: 12, description: '描述信息3', image: 'https://img.yzcdn.cn/vant/cat.jpeg' },
-    ],
+    unit: '箱',
     showDialog: false,  // 展示下单弹窗
     orderamount: null,  // 下单数量
     targetOrder: null,  // 下单的产品
-    totalcost: null,
+    totalcost: null,  // 总花费
     confirmOrder: false, // 是否已经确定下单
   },
   // 联系商家按钮
   callPhone(event) {
     wx.makePhoneCall({
-      phoneNumber: this.data.phone,
+      phoneNumber: this.data.baseInfo.phone,
     })
   },
-
-  // 点击下单按钮
+  // 重置下单的相关数据
+  resetOrderData() {
+    this.setData({
+      showDialog: false,
+      orderamount: null,
+      targetOrder: null,
+      totalcost: null,
+      confirmOrder: false
+    })
+  },
+  // 点击产品的下单按钮
   takeOrder(event) {
     const { orderindex } = event.target.dataset
     const orderItem = this.data.productDetails[orderindex]
+    console.log(orderItem)
     this.setData({
       showDialog: true,
       targetOrder: orderItem
     })
-    // console.log(orderItem)
   },
-
-  // 确定下单
+  // 输入下单数字后，确定下单
   confirmOrder(event) {
-    const amount = this.data.orderamount
-    if (amount === null) {
+    const amount = Number.parseInt(this.data.orderamount)
+    if(isNaN(amount)) {  // 无效数字
+
       wx.showToast({
         title: '请输入有效数字',
-        icon: "error"
+        icon: "error",
       })
-    } else if (amount > this.data.targetOrder.amount) {
+      this.resetOrderData()
+      return
+    } 
+    if (amount > this.data.targetOrder.capcacity) {
       wx.showToast({
         title: '产品数量不足',
         icon: "error"
       })
-    } else {
-      const totalcost = this.data.orderamount * this.data.targetOrder.expectedPrice
-      this.setData({
-        confirmOrder: true,
-        totalcost: totalcost.toFixed(2)
-      })
+      this.resetOrderData()
+      return
     }
+
+    const totalcost = amount * this.data.targetOrder.prices
     this.setData({
+      orderamount: amount,
+      confirmOrder: true,
+      totalcost: totalcost.toFixed(2),
       showDialog: false,
     })
   },
-
-  // 执行订单
+  // 确如完成，点击确认，二次确认后创建订单
   executeOrder() {
-    this.setData({
-      confirmOrder: false
-    })
-
-    // TODO 修改订单信息
     console.log("执行订单！")
-
-    this.setData({
-      orderamount: null
+    
+    const app = getApp()
+    const userInfo = app.globalData.userInfo;
+    console.log(userInfo)
+    wx.cloud.callFunction({
+      name: 'createOrder',
+      data: {
+        targetOrder: this.data.targetOrder,
+        amount: this.data.orderamount,
+        userInfo: userInfo
+      }
     })
+    .then(res => {
+      console.log(res)
+      wx.showToast({
+        title: '下单成功',
+        icon: 'success'
+      })
+    })
+    .catch(err => { 
+      wx.showToast({
+        title: '下单失败',
+        icon: 'error'
+      })
+    })
+    .finally(
+      this.resetOrderData()
+    )
   },
 
+  // 加载用户基本信息；
+  async loadBaseInfo(_id) {
+    return await db.collection("UserList").where({
+      _id: _id
+    })
+    .limit(1)
+    .get()
+  },
+  // 加载用户发布的信息
+  async loadPublishList(userID) {
+    return await db.collection("PublishList")
+      .where({
+        user_id: userID
+      }).get()
+  },
+  // 浏览量+1
+  async addViewCount(_id) {
+    var _ = db.command
+    return await db.collection("UserList")
+      .doc(_id)
+      .update({
+        data: {
+          view_count: _.inc(1)
+        }
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let productInfo = JSON.parse(options.id)
-    productInfo.description = '描述信息'
-    console.log('id', productInfo)
-    // 隐藏号码
-    const maskedPhone = this.data.phone.slice(0, 3) + '*'.repeat(5) + this.data.phone.slice(8);
+    // const {userID} = options  TODO
+    const _id = "0e839fa467668e2701a7edd23b103254"
+    wx.showLoading({
+      title: '数据加载中',
 
-    // 信誉评价的颜色
-    const goodColor = 'rgb(213, 255, 203)'
-    const badColor = "rgb(248, 220, 143)"
-    var crediscolor = ""
-    if (this.data.credits >= 3.0) {
-      crediscolor = goodColor
-    } else {
-      crediscolor = badColor
-    }
-
-    this.setData({
-      productStr: productInfo.product_name,
-      productDetails: [productInfo],
-      maskedPhone: maskedPhone,
-      crediscolor: crediscolor
     })
-  },
-  // TODO 浏览量+1
-  addViewAmount() {
-    console.log("page is view")
+    this.loadBaseInfo(_id)
+      .then(res => { // 加载基础信息
+        const baseInfo = res.data[0]
+        const phone = baseInfo.phone
+        // 隐藏号码
+        const maskedPhone = phone.slice(0, 3) + '*'.repeat(5) + phone.slice(8)
+        this.setData({
+          baseInfo: baseInfo,
+          maskedPhone: maskedPhone
+        })
+        return this.loadPublishList(baseInfo.userID)
+      })
+      .then(res => {  // 加载产品详情
+        const data = res.data
+        const record = new Set()
+        const productsName = new Array()
+        data.forEach((item) => {
+          if(!record.has(item.product_name)) {
+            record.add(item.product_name)
+            productsName.push(item.product_name)
+          }
+        })
+        this.setData({
+          productDetails: data,
+          productStr: productsName.join('，')
+        })
+        return this.data.baseInfo._id
+      })
+      .then(_id => {  // 浏览量+1
+        this.addViewCount(_id)
+        wx.hideLoading()
+      })
+    // 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.addViewAmount()
   },
 
   /**

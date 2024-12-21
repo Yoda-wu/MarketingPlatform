@@ -1,51 +1,36 @@
 // pages/ordersPage/ordersPage.js
-import Dialog from '@vant/weapp/dialog/dialog';
+import dbBehavior from './db'
 Page({
-
+  behaviors: [dbBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    orders: [
-              {_id: '1', offerName: '销售商1', offerPhone: '12842945822', productName: 'a菇', amount: 10, price: 10.2},
-              {_id: '2', offerName: '销售商1', offerPhone: '12842945822',productName: 'b菇', amount: 8, price: 8.3},
-              {_id: '3', offerName: '销售商2', offerPhone: '12834945865',productName: 'a菇', amount: 7, price: 10.2},
-              {_id: '4', offerName: '销售商1', offerPhone: '12842945822',productName: 'c菇', amount: 20, price: 11.2},
-            ],
-    orderCompleted: [
-      {_id: '1', offerName: '销售商3', offerPhone: '12842945822', productName: 'd菇', credits: 4.6, amount: 10, price: 10.2},
-      {_id: '2', offerName: '销售商4', offerPhone: '12842945823',productName: 'a菇', credits: 4.7,  amount: 8, price: 8.3},
-      {_id: '3', offerName: '销售商3', offerPhone: '12834846754',productName: 'd菇', credits: 4.8,  amount: 7, price: 10.2},
-      {_id: '4', offerName: '销售商5', offerPhone: '12842945824',productName: 'c菇', credits: 4.9,  amount: 20, price: 11.2},
-            ],
-    shownData: null,
     tabindex: 0,
     rateValue: 0,
+    curOrderID: null,
     // 弹窗相关
     isCommentShow: false
   },
   onChangeTabs(event) {
     const {index} = event.detail
-    console.log(index)
-    var showData = null
-    if(index === 0) {
-      showData = this.data.orders
-    } else {
-      showData = this.data.orderCompleted
-    }
     this.setData({
-      shownData: showData,
       tabindex: index
     })
+    this.setShownData();
   },
-  onConcat(event) {
+  onContact(event) {
     const {orderIndex} = event.target.dataset
-    const phone = this.data.shownData[orderIndex].offerPhone
+    const phone = this.data.shownData[orderIndex].otherInfo.phone
     wx.makePhoneCall({
       phoneNumber: phone,
     })
   },
-  onComplete(event) {
+  async onComplete(event) {
+    isFinite
+    const {orderIndex} = event.target.dataset
+    const targetOrder = this.data.shownData[orderIndex]
+    // this.data.ordersCompleted;
     wx.showModal({
       title: '完成订单',
       content: '确认订单已完成？',
@@ -54,45 +39,69 @@ Page({
           this.setData({
             isCommentShow: true
           })
+          this.completeOrder(targetOrder._id)
+          const len = this.data.ordersUnCompleted.length
+          for(var i = orderIndex; i < len - 1; i ++) {
+            this.data.ordersUnCompleted[i] = this.data.ordersUnCompleted[i + 1]
+          }
+          this.data.ordersUnCompleted.length = len - 1
+          console.log(this.data.ordersUnCompleted)
+          this.data.ordersCompleted.push(targetOrder)
+          this.setData({
+            curOrderID: targetOrder._id
+          })
+          this.setShownData();
         }
       },
     })
   },
   
-  onDeletOrder(event) {
-    wx.showModal({
-      title: '删除订单',
-      content: '是否删除订单？',
-      complete: (res) => {
-        if (res.cancel) {
-          
-        }
-    
-        if (res.confirm) {
-          
-        }
+  async onConfirmRating(event) {
+    const rating = this.data.rateValue;
+    const orderID = this.data.curOrderID
+    this.ratingOrder(orderID, rating)
+    for(var i = 0; i < this.data.ordersCompleted.length; i ++) {
+      if(this.data.ordersCompleted[i]._id === orderID) {
+        this.data.ordersCompleted[i].rating = rating
+        break
       }
+    }
+    this.setData({
+      rating: null
     })
-  },
-  onConfirmRating(event) {
-    console.log(this.data.rateValue)
-
   },
   onCancelRating(event) {
     console.log("取消评分！")
+    this.setData({
+      rating: null
+    })
   },
 
   onCancleOrder(event) {
+    // console.log(event)
+    const {orderIndex} = event.target.dataset
     wx.showModal({
       title: '取消订单',
       content: '是否取消订单？',
-      complete: (res) => {
-        if (res.cancel) {
-          
-        }
-    
+      complete: (res) => {  
         if (res.confirm) {
-          
+          this.deleteOrder(orderIndex)
+            .then(res => {
+              console.log(res)
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success'
+              })
+              const len = this.data.ordersUnCompleted.length
+              for(var i = orderIndex; i < len - 1; i ++) {
+                this.data.ordersUnCompleted[i] = this.data.ordersUnCompleted[i + 1]
+              }
+              this.data.ordersUnCompleted.length = len - 1
+              this.setData({
+                ordersUnCompleted: this.data.ordersUnCompleted
+              })
+              this.setShownData()
+            })
         }
       }
     })
@@ -101,9 +110,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const app = getApp();
+    const userInfo = app.globalData.userInfo;
     this.setData({
-      shownData: this.data.orders
+      userInfo: userInfo
     })
+    this.getUserOrders()
   },
 
   /**
@@ -138,7 +150,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    
   },
 
   /**

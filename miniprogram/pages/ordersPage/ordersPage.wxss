@@ -32,32 +32,45 @@ page {
   flex-direction: column;
   justify-content: center;
   width: 30%;
+  font-size: 32rpx;
   margin-left: 10rpx;
 }
 
 .item-name {
   font-weight: bold;
+  height: 45rpx;
   margin: 5rpx;
+  font-size: 35rpx;
 }
 
 .item-detail {
   display: flex;
-  margin: 5rpx;
+  font-size: 32rpx;
 }
 .desc {
   color: gray;
-  font-size: 13px;
+  font-size: 30rpx;
 }
 
 .offer-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-top: 45rpx;
 }
 
 .offer-detail {
   margin: 5rpx;
-  font-size: 15px;
+  font-size: 30rpx;
+}
+
+.offer-header {
+  display: flex;
+  align-content: center;
+}
+.offer-detail .other-type {
+  color: gray;
+  font-size: 28rpx;
 }
 .offer-credit {
   display: inline;
@@ -76,10 +89,10 @@ page {
 }
 
 .oper-button {
-  margin: 10rpx;
   width: 120rpx;
+  margin: 10rpx;
   padding: 10rpx;
-  font-size: 15px;
+  font-size: 26rpx;
   text-align: center;
   border-radius: 8px;
 }

@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "管理主页",
-  "usingComponents": {}
+  "usingComponents": {
+    "databoard": "/components/databoard/databoard"
+  }
 }

@@ -1,0 +1,12 @@
+product_id,picture,product_name,prices,company_name,user_id,capcacity,status,type
+pid1,,mushroom1,100,farmer1,abc1,6,,0
+pid2,,mushroom2,49,farmer1,abc1,78,,0
+pid3,,mushroom3,21,farmer3,abc3,96,,0
+pid4,,mushroom4,85,farmer5,abc5,10,,0
+pid5,,mushroom5,86,farmer4,abc4,9,,0
+pid6,,mushroom6,100,farmer5,abc5,69,,0
+pid7,,mushroom7,98,seller7,abc12,52,,1
+pid8,,mushroom8,23,seller8,abc13,62,,1
+pid9,,mushroom9,36,seller7,abc12,69,,1
+pid10,,mushroom10,100,seller7,abc12,3,,1
+pid11,,mushroom11,13,seller10,abc15,3,,1
